@@ -19,11 +19,16 @@ import {
   IconButton,
   Box,
 } from "@chakra-ui/react";
-import Proposition from "./Proposition";
-import { ChevronDownIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
+
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { ReactSVG } from "react-svg";
+import Proposition from "./Proposition";
+
 import Cart from "../../assets/icons/Cart.svg";
 import User from "../../assets/icons/User.svg";
+import Burger from "../../assets/icons/Burger.svg";
+import Search from "../../assets/icons/Search.svg";
+import SearchLitle from "../../assets/icons/SearchLitle.svg";
 
 const Header = () => {
   const theme = useTheme();
@@ -38,16 +43,63 @@ const Header = () => {
       />
       <Container maxW={theme.breakpoints.xl} pt="24px">
         <Flex alignItems="center" justifyContent="space-between">
-          <Flex>
+          <Flex alignItems="center">
+            <Box
+              display={{ base: "block", xl: "none" }}
+              mr={{ base: "0px", sm: "16px" }}
+            >
+              <Menu>
+                <MenuButton
+                  transition="all 0.2s"
+                  _hover={{
+                    textDecoration: "underline",
+                  }}
+                  _expanded={{
+                    color: theme.colors.black,
+                  }}
+                  border="none"
+                  display={"none"}
+                  aria-label="Options"
+                ></MenuButton>
+                <MenuButton
+                  transition="all 0.2s"
+                  _hover={{
+                    textDecoration: "underline",
+                  }}
+                  _expanded={{
+                    color: theme.colors.black,
+                  }}
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<ReactSVG src={Burger} />}
+                  variant="outline"
+                  border="none"
+                ></MenuButton>
+                <MenuList>
+                  <MenuItem>Shop</MenuItem>
+                  <MenuItem>On Sale</MenuItem>
+                  <MenuItem>New Arrivals</MenuItem>
+                  <MenuItem>Brands</MenuItem>
+                </MenuList>
+              </Menu>
+            </Box>
+
             <Link
               _hover={{ textDecoration: "none", color: theme.colors.greyText }}
             >
-              <Text fontSize="2xl-custom" fontWeight={700}>
+              <Text
+                fontSize={{ base: "2xl-custom", lg: "2xl", md: "lg", sm: "xl" }}
+                fontWeight={700}
+              >
                 SHOP.CO
               </Text>
             </Link>
 
-            <Breadcrumb separator="" display="flex" ml="40px">
+            <Breadcrumb
+              separator=""
+              ml="40px"
+              display={{ base: "none", xl: "block" }}
+            >
               <BreadcrumbItem>
                 <Menu>
                   <MenuButton
@@ -58,10 +110,7 @@ const Header = () => {
                     _expanded={{
                       color: theme.colors.black,
                     }}
-                    as={IconButton}
                     aria-label="Options"
-                    icon={<HamburgerIcon />}
-                    variant="outline"
                   >
                     Shop
                     <ChevronDownIcon />
@@ -85,10 +134,15 @@ const Header = () => {
               </BreadcrumbItem>
             </Breadcrumb>
           </Flex>
-          <InputGroup maxWidth="602px">
-            <InputLeftElement>
+
+          <InputGroup maxWidth="602px" display={{ base: "none", lg: "block" }}>
+            <InputLeftElement
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Button variant="ghost" borderRadius="100%" colorScheme="gray">
-                <SearchIcon color={theme.colors.greyText} />
+                <ReactSVG src={SearchLitle} />
               </Button>
             </InputLeftElement>
             <Input
@@ -99,9 +153,13 @@ const Header = () => {
               color={theme.colors.greyText}
             />
           </InputGroup>
+
           <HStack spacing="16px">
+            <Link display={{ base: "block", lg: "none" }}>
+              <ReactSVG src={Search} />
+            </Link>
             <Link>
-              <ReactSVG src={Cart} style={{ fill: theme.colors.red }} />
+              <ReactSVG src={Cart} />
             </Link>
             <Link>
               <ReactSVG src={User} />

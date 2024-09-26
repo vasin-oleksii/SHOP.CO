@@ -1,4 +1,4 @@
-import { Box, CloseButton, Container, Flex } from "@chakra-ui/react";
+import { Box, CloseButton, Container, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import ButtonWithoutBorder from "../buttons/ButtonWithoutBorder";
 
@@ -18,13 +18,17 @@ const Proposition = ({ title, buttonText, ...props }: PropositionProps) => {
   return (
     <Box padding="10px 0px" {...props} position="relative">
       <Container>
-        <Flex alignItems="center" justifyContent="center">
-          <span>{title}</span>
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          fontSize={{ base: "xs", sm: "sm" }}
+        >
+          <Text>{title}</Text>
           <ButtonWithoutBorder marginLeft="5px">
             {buttonText}
           </ButtonWithoutBorder>
           <CloseButton
-            size="lg"
+            size="md"
             position="absolute"
             onClick={handleClose}
             right="100px"
