@@ -18,6 +18,13 @@ import {
   Button,
   IconButton,
   Box,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Portal,
+  PopoverArrow,
+  PopoverHeader,
+  PopoverCloseButton,
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -155,9 +162,41 @@ const Header = () => {
           </InputGroup>
 
           <HStack spacing="16px">
-            <Link display={{ base: "block", lg: "none" }}>
-              <ReactSVG src={Search} />
-            </Link>
+            <Popover>
+              <PopoverTrigger>
+                <Link display={{ base: "block", lg: "none" }}>
+                  <ReactSVG src={Search} />
+                </Link>
+              </PopoverTrigger>
+              <Portal>
+                <PopoverContent>
+                  <PopoverArrow />
+                  <InputGroup>
+                    <InputLeftElement
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Button
+                        variant="ghost"
+                        borderRadius="100%"
+                        colorScheme="gray"
+                      >
+                        <ReactSVG src={SearchLitle} />
+                      </Button>
+                    </InputLeftElement>
+                    <Input
+                      type="string"
+                      placeholder="Search for products..."
+                      bg={theme.colors.greyLight}
+                      color={theme.colors.greyText}
+                    />
+                  </InputGroup>
+                  <PopoverCloseButton />
+                </PopoverContent>
+              </Portal>
+            </Popover>
+
             <Link>
               <ReactSVG src={Cart} />
             </Link>
