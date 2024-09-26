@@ -1,4 +1,4 @@
-import { Box, Center, CloseButton, Container, Flex } from "@chakra-ui/react";
+import { Box, CloseButton, Container, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import ButtonWithoutBorder from "../buttons/ButtonWithoutBorder";
 
