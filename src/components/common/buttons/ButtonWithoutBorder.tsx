@@ -1,17 +1,21 @@
 import { Link, useTheme } from "@chakra-ui/react";
 
+interface ButtonWithoutBorderProps {
+  children: React.ReactNode;
+  href?: string;
+  [key: string]: any;
+}
+
 const ButtonWithoutBorder = ({
   children,
+  href = "#",
   ...proprs
-}: {
-  children: string;
-  [key: string]: string;
-}) => {
+}: ButtonWithoutBorderProps) => {
   const theme = useTheme();
 
   return (
     <Link
-      href="#"
+      href={href}
       _hover={{ textDecoration: "none", color: theme.colors.greyText }}
       textDecoration="underline"
       fontWeight={500}

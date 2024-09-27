@@ -1,6 +1,6 @@
 import { Box, CloseButton, Container, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import ButtonWithoutBorder from "../buttons/ButtonWithoutBorder";
+import ButtonWithoutBorder from "./../common/buttons/ButtonWithoutBorder";
 
 interface PropositionProps {
   title: string;

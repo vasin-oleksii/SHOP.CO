@@ -36,6 +36,7 @@ import Burger from "../../assets/icons/Burger.svg";
 import Search from "../../assets/icons/Search.svg";
 import SearchLitle from "../../assets/icons/SearchLitle.svg";
 import { useState } from "react";
+import InputIconLeft from "../common/inputs/InputIconLeft";
 
 const Header = () => {
   const [isCrossVisible, setIsCrossVisible] = useState<boolean>(true);
@@ -140,24 +141,15 @@ const Header = () => {
             </Breadcrumb>
           </Flex>
 
-          <InputGroup maxWidth="602px" display={{ base: "none", lg: "block" }}>
-            <InputLeftElement
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Button variant="ghost" borderRadius="100%" colorScheme="gray">
-                <ReactSVG src={SearchLitle} />
-              </Button>
-            </InputLeftElement>
-            <Input
-              type="string"
-              placeholder="Search for products..."
-              bg={theme.colors.greyLight}
-              borderRadius="62px"
-              color={theme.colors.greyText}
-            />
-          </InputGroup>
+          <InputIconLeft
+            maxWidth="602px"
+            display={{ base: "none", lg: "block" }}
+            placeholder="Search for products..."
+            bgInput={theme.colors.greyLight}
+            colorInput={theme.colors.greyText}
+          >
+            <ReactSVG src={SearchLitle} />
+          </InputIconLeft>
 
           <HStack spacing="16px">
             <Popover>
@@ -167,29 +159,12 @@ const Header = () => {
                 </Link>
               </PopoverTrigger>
               <Portal>
-                <PopoverContent>
+                <PopoverContent borderRadius="66px">
                   <PopoverArrow />
-                  <InputGroup>
-                    <InputLeftElement
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Button
-                        variant="ghost"
-                        borderRadius="100%"
-                        colorScheme="gray"
-                      >
-                        <ReactSVG src={SearchLitle} />
-                      </Button>
-                    </InputLeftElement>
-                    <Input
-                      type="string"
-                      placeholder="Search for products..."
-                      bg={theme.colors.greyLight}
-                      color={theme.colors.greyText}
-                    />
-                  </InputGroup>
+
+                  <InputIconLeft>
+                    <ReactSVG src={SearchLitle} />
+                  </InputIconLeft>
                   <PopoverCloseButton size="sm" />
                 </PopoverContent>
               </Portal>
