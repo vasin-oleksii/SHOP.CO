@@ -23,12 +23,10 @@ import {
   PopoverContent,
   Portal,
   PopoverArrow,
-  PopoverHeader,
   PopoverCloseButton,
-  CloseButton,
 } from "@chakra-ui/react";
 
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
 import { ReactSVG } from "react-svg";
 import Proposition from "./Proposition";
 
@@ -77,7 +75,9 @@ const Header = () => {
                   {isCrossVisible ? (
                     <ReactSVG src={Burger} />
                   ) : (
-                    <CloseButton size="sm" />
+                    <Flex>
+                      <CloseIcon width="15px" height="15px" />
+                    </Flex>
                   )}
                 </MenuButton>
                 <MenuList>

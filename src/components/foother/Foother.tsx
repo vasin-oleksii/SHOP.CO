@@ -1,5 +1,5 @@
 const Foother = () => {
-  return <div>Foother</div>;
+  return <div></div>;
 };
 
 export default Foother;
