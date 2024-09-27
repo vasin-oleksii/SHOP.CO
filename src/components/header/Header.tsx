@@ -25,6 +25,7 @@ import {
   PopoverArrow,
   PopoverHeader,
   PopoverCloseButton,
+  CloseButton,
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -36,9 +37,13 @@ import User from "../../assets/icons/User.svg";
 import Burger from "../../assets/icons/Burger.svg";
 import Search from "../../assets/icons/Search.svg";
 import SearchLitle from "../../assets/icons/SearchLitle.svg";
+import { useState } from "react";
 
 const Header = () => {
+  const [isCrossVisible, setIsCrossVisible] = useState<boolean>(true);
   const theme = useTheme();
+
+  const toggleBurger = (): void => setIsCrossVisible((prev) => !prev);
 
   return (
     <Box as="header">
@@ -53,35 +58,28 @@ const Header = () => {
           <Flex alignItems="center">
             <Box
               display={{ base: "block", xl: "none" }}
-              mr={{ base: "0px", sm: "16px" }}
+              mr={{ base: "0px", md: "0px", sm: "16px" }}
             >
               <Menu>
                 <MenuButton
                   transition="all 0.2s"
-                  _hover={{
-                    textDecoration: "underline",
-                  }}
-                  _expanded={{
-                    color: theme.colors.black,
-                  }}
-                  border="none"
-                  display={"none"}
-                  aria-label="Options"
-                ></MenuButton>
-                <MenuButton
-                  transition="all 0.2s"
-                  _hover={{
-                    textDecoration: "underline",
-                  }}
                   _expanded={{
                     color: theme.colors.black,
                   }}
                   as={IconButton}
                   aria-label="Options"
-                  icon={<ReactSVG src={Burger} />}
-                  variant="outline"
+                  variant="link"
                   border="none"
-                ></MenuButton>
+                  background="none"
+                  display="flex"
+                  onClick={toggleBurger}
+                >
+                  {isCrossVisible ? (
+                    <ReactSVG src={Burger} />
+                  ) : (
+                    <CloseButton size="sm" />
+                  )}
+                </MenuButton>
                 <MenuList>
                   <MenuItem>Shop</MenuItem>
                   <MenuItem>On Sale</MenuItem>
@@ -192,7 +190,7 @@ const Header = () => {
                       color={theme.colors.greyText}
                     />
                   </InputGroup>
-                  <PopoverCloseButton />
+                  <PopoverCloseButton size="sm" />
                 </PopoverContent>
               </Portal>
             </Popover>
