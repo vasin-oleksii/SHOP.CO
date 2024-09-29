@@ -7,10 +7,6 @@ import {
   useTheme,
   Text,
   Stack,
-  HStack,
-  Wrap,
-  WrapItem,
-  Center,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
