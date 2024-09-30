@@ -1,18 +1,23 @@
 import { Box, CloseButton, Container, Flex, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import ButtonWithoutBorder from "./../common/buttons/ButtonWithoutBorder";
 
-interface PropositionProps {
+import ButtonWithoutBorder from "./buttons/ButtonWithoutBorder";
+
+interface BannerPropositionHeadProps {
   title: string;
   buttonText: string;
-  [key: string]: string;
+  isVisible: boolean;
+  bg: string;
+  color: string;
+  toggleBanner: any;
 }
 
-const Proposition = ({ title, buttonText, ...props }: PropositionProps) => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const handleClose = () => setIsVisible((prevState) => !prevState);
-
+const BannerPropositionHead = ({
+  title,
+  buttonText,
+  isVisible,
+  toggleBanner,
+  ...props
+}: BannerPropositionHeadProps) => {
   if (!isVisible) return null;
 
   return (
@@ -30,7 +35,7 @@ const Proposition = ({ title, buttonText, ...props }: PropositionProps) => {
           <CloseButton
             size="md"
             position="absolute"
-            onClick={handleClose}
+            onClick={() => toggleBanner()}
             right="100px"
             display={{ base: "none", md: "block" }}
           />
@@ -40,4 +45,4 @@ const Proposition = ({ title, buttonText, ...props }: PropositionProps) => {
   );
 };
 
-export default Proposition;
+export default BannerPropositionHead;

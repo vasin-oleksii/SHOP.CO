@@ -20,11 +20,12 @@ import {
   Portal,
   PopoverArrow,
   PopoverCloseButton,
+  Img,
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
 import { ReactSVG } from "react-svg";
-import Proposition from "./Proposition";
+import BannerPropositionHead from "../common/BannerPropositionHead";
 
 import Cart from "../../assets/icons/Cart.svg";
 import User from "../../assets/icons/User.svg";
@@ -35,18 +36,23 @@ import { useState } from "react";
 import InputIconLeft from "../common/inputs/InputIconLeft";
 
 const Header = () => {
-  const [isCrossVisible, setIsCrossVisible] = useState<boolean>(true);
   const theme = useTheme();
+  const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
+  const [isCrossVisibleBurger, setIsCrossVisibleBurger] =
+    useState<boolean>(true);
 
-  const toggleBurger = (): void => setIsCrossVisible((prev) => !prev);
+  const toggleBurger = (): void => setIsCrossVisibleBurger((prev) => !prev);
+  const toggleBanner = (): void => setIsBannerVisible((prev) => !prev);
 
   return (
     <Box as="header">
-      <Proposition
+      <BannerPropositionHead
         title="Sign up and get 20% off to your first order. "
         buttonText="Sign Up Now"
         bg={theme.colors.black}
         color={theme.colors.white}
+        isVisible={isBannerVisible}
+        toggleBanner={toggleBanner}
       />
       <Container maxW={theme.breakpoints.xl} pt="24px">
         <Flex alignItems="center" justifyContent="space-between">
@@ -69,8 +75,8 @@ const Header = () => {
                   display="flex"
                   onClick={toggleBurger}
                 >
-                  {isCrossVisible ? (
-                    <ReactSVG src={Burger} />
+                  {isCrossVisibleBurger ? (
+                    <Img src={Burger} />
                   ) : (
                     <Flex>
                       <CloseIcon width="15px" height="15px" />
