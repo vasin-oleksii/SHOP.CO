@@ -32,7 +32,11 @@ const Hero = () => {
               <Heading
                 as="h1"
                 fontWeight="700"
-                fontSize={{ base: "3xl", md: "4xl", lg: "4xl", xl: "5xl" }}
+                fontSize={{
+                  base: "3xl",
+                  lg: "4xl-custom",
+                  xl: "5xl",
+                }}
               >
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </Heading>
@@ -41,30 +45,52 @@ const Hero = () => {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </Text>
-              <ButtonRound colorBtn="black" p="16.5px 68.5px">
+              <ButtonRound
+                colorBtn="black"
+                p="16px 68px"
+                width={{ base: "100%", xl: "unset" }}
+              >
                 Shop Now
               </ButtonRound>
             </Stack>
             <Grid
-              mt={{ base: "0px", lg: "48px" }}
-              templateRows="repeat(2, 1fr)"
+              mt={{ base: "15px", xl: "40px" }}
+              templateRows={{ base: "repeat(2, 1fr)", xl: "repeat(1, 1fr)" }}
               templateColumns={{ base: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }}
               gap="0px 32px"
+              alignItems="center"
+              textAlign={{ base: "center", xl: "left" }}
+              width={{ base: "100%", xl: "110%" }}
             >
-              <GridItem>
-                <Heading as="span">200+</Heading>
-                <Text>International Brands</Text>
-              </GridItem>
               <GridItem
-                borderLeft="1px solid gray"
+                pr={{ base: "0", xl: "32px" }}
                 borderRight="1px solid gray"
               >
-                <Heading as="span">200+</Heading>
-                <Text>International Brands</Text>
+                <Heading as="span" fontSize={{ base: "xl", lg: "4xl-custom" }}>
+                  200+
+                </Heading>
+                <Text fontSize="xs">International Brands</Text>
               </GridItem>
-              <GridItem gridColumn={{ base: "1 / span 2", xl: "auto" }}>
-                <Heading as="span">200+</Heading>
-                <Text>International Brands</Text>
+              <GridItem
+                borderRight={{ base: "none", xl: "1px solid gray" }}
+                pr={{ base: "0", xl: "32px" }}
+              >
+                <Heading as="span" fontSize={{ base: "xl", lg: "4xl-custom" }}>
+                  2,000+
+                </Heading>
+                <Text fontSize="xs">High-Quality Products</Text>
+              </GridItem>
+              <GridItem
+                gridColumn={{
+                  base: "1 / span 2",
+                  xl: "auto",
+                }}
+                mt={{ base: "12px", xl: "0" }}
+              >
+                <Heading as="span" fontSize={{ base: "xl", lg: "4xl-custom" }}>
+                  30,000+
+                </Heading>
+                <Text fontSize="xs">Happy Customers</Text>
               </GridItem>
             </Grid>
           </Stack>
