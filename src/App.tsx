@@ -1,12 +1,12 @@
 import Foother from "./components/foother/Foother";
 import Header from "./components/header/Header";
-import Hero from "./components/hero/Hero";
+import Promo from "./components/promo/Promo";
 
 function App() {
   return (
     <>
       <Header />
-      <Hero />
+      <Promo />
       <Foother />
     </>
   );

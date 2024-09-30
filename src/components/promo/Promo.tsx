@@ -16,7 +16,7 @@ import star from "../../assets/icons/Star.svg";
 import { motion } from "framer-motion";
 import ButtonRound from "../common/buttons/ButtonRound";
 
-const Hero = () => {
+const Promo = () => {
   const theme = useTheme();
 
   return (
@@ -48,7 +48,7 @@ const Hero = () => {
               <ButtonRound
                 colorBtn="black"
                 p="16px 68px"
-                width={{ base: "100%", xl: "unset" }}
+                width={{ base: "100%", lg: "unset" }}
               >
                 Shop Now
               </ButtonRound>
@@ -137,4 +137,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Promo;
