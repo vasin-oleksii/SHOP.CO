@@ -10,7 +10,7 @@ interface CardPreviewProps {
 const CardPreview = ({ title, images, price }: CardPreviewProps) => {
   const soldOutLink =
     "https://st2.depositphotos.com/3259079/45453/v/600/depositphotos_454535022-stock-illustration-sorry-temporarily-out-stock-sign.jpg";
-  const randomRating = Math.random() * 5 + 1;
+  const randomRating = Math.floor(Math.random() * 5 + 1);
 
   return (
     <VStack maxW="300px" alignItems="start">

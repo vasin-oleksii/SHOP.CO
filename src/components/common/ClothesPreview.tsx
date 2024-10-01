@@ -1,29 +1,52 @@
 import CardPreview from "./CardPreview";
-import { Box, Grid, Heading, Spinner, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Spinner,
+  useTheme,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 //! import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import ButtonRound from "./buttons/ButtonRound";
 
 const ClothesPreview = () => {
+  const theme = useTheme();
+
   const [newProducts, setNewProducts] = useState([]);
+  const [numberOfProductsUppload, setNumberOfProductsUppload] =
+    useState<number>(4);
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
+
+  const updateNumberOfProductsUpload = (): void => {
+    setNumberOfProductsUppload((prevState) => prevState + 4);
+  };
+
+  const updateProducts = (data: any) => {
+    setNewProducts(data);
+  };
+
+  const fetchData = async () => {
+    setIsLoadingData(true);
+    try {
+      const results = await fetch(
+        `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`
+      );
+      const data = await results.json();
+
+      updateProducts(data);
+      setIsLoadingData(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const numberOfProductsUppload = 8;
-
-    const fetchData = async () => {
-      try {
-        const results = await fetch(
-          `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`
-        );
-        const data = await results.json();
-
-        setNewProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchData();
-  }, []);
+  }, [numberOfProductsUppload]);
 
   const isLoading = newProducts.length === 0;
 
@@ -40,7 +63,14 @@ const ClothesPreview = () => {
         />
       ) : (
         <Box mt={{ base: "32px", lg: "56px" }}>
-          <Grid templateColumns="repeat(4, 1fr)" gap="20px">
+          <Grid
+            templateColumns={{
+              base: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+              lg: "repeat(4, 1fr)",
+            }}
+            gap="20px"
+          >
             {newProducts.map(({ id, title, images, price }) => {
               return (
                 <CardPreview
@@ -52,6 +82,18 @@ const ClothesPreview = () => {
               );
             })}
           </Grid>
+          <Flex justify="center" mt={{ base: "28px", lg: "38px" }}>
+            <ButtonRound
+              colorBtn="white"
+              onClick={updateNumberOfProductsUpload}
+              p="16px 80px"
+              m="0 auto"
+              border={`1px solid ${theme.colors.grey}`}
+              isLoading={isLoadingData}
+            >
+              View All
+            </ButtonRound>
+          </Flex>
         </Box>
       )}
     </VStack>
