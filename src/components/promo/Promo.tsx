@@ -15,6 +15,7 @@ import twoHuman from "../../assets/hero/TwoHuman.png";
 import star from "../../assets/icons/Star.svg";
 import { motion } from "framer-motion";
 import ButtonRound from "../common/buttons/ButtonRound";
+import BannerLogos from "../common/BannerLogos";
 
 const Promo = () => {
   const theme = useTheme();
@@ -22,7 +23,10 @@ const Promo = () => {
   return (
     <Box backgroundColor={theme.colors.grey} mt="24px">
       <Container maxW={theme.breakpoints.xl}>
-        <SimpleGrid columns={{ base: 1, lg: 2 }}>
+        <SimpleGrid
+          columns={{ base: 1, lg: 2 }}
+          justifyItems={{ base: "center", lg: "normal" }}
+        >
           <Stack
             justifyContent="center"
             maxW="505px"
@@ -37,6 +41,7 @@ const Promo = () => {
                   lg: "4xl-custom",
                   xl: "5xl",
                 }}
+                letterSpacing="-1px"
               >
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </Heading>
@@ -133,6 +138,7 @@ const Promo = () => {
           </Box>
         </SimpleGrid>
       </Container>
+      <BannerLogos />
     </Box>
   );
 };
