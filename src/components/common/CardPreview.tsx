@@ -1,12 +1,4 @@
-import {
-  Text,
-  Heading,
-  Image,
-  HStack,
-  VStack,
-  Box,
-  Flex,
-} from "@chakra-ui/react";
+import { Text, Heading, Image, HStack, VStack, Flex } from "@chakra-ui/react";
 import StarRatings from "./StarRatings";
 import DiscountPrice from "./DiscountPrice";
 
@@ -20,6 +12,8 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
   const soldOutLink =
     "https://st2.depositphotos.com/3259079/45453/v/600/depositphotos_454535022-stock-illustration-sorry-temporarily-out-stock-sign.jpg";
   const randomRating = Math.round((Math.random() * 4 + 1) * 2) / 2;
+
+  const giveDiscount = Math.random() > 0.5;
 
   return (
     <VStack maxW="300px" alignItems="start">
@@ -55,7 +49,12 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
         <Text fontSize={{ base: "lg", lg: "xl" }} fontWeight="bold">
           ${price}
         </Text>
-        <DiscountPrice price={price * 1.2} />
+        {giveDiscount && (
+          <DiscountPrice
+            priceNow={price}
+            pricePrev={price * (Math.random() + 1)}
+          />
+        )}
       </Flex>
     </VStack>
   );
