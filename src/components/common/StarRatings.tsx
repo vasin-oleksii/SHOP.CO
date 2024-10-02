@@ -5,7 +5,7 @@ import starHalf from "../../assets/stars/starHalf.svg";
 const StarRatings = ({ rating }: { rating: number }) => {
   const allStart = [];
 
-  for (let i = 0; i < rating; i++) {
+  for (let i = 1; i <= rating; i++) {
     allStart.push(star);
   }
 
