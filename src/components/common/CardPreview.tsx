@@ -26,6 +26,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
               fallbackSrc={soldOutLink}
               boxSize="300px"
               borderRadius="20px"
+              key={i}
             />
           );
       })}
