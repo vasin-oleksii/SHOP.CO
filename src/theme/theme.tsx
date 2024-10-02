@@ -13,6 +13,7 @@ const theme = extendTheme({
     greyText: "#6c6b6b",
     red: "#FF3333",
     redLight: "rgba(255, 51, 51, 0.1)",
+    greyCircle: "#999999",
   },
   fontSizes: {
     xs: "12px",
