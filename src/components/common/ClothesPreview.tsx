@@ -55,6 +55,7 @@ const ClothesPreview = () => {
       <Heading>NEW ARRIVALS</Heading>
       {isLoading ? (
         <Spinner
+          mt="50px"
           thickness="5px"
           speed="0.65s"
           emptyColor="gray.200"
@@ -82,6 +83,7 @@ const ClothesPreview = () => {
               );
             })}
           </Grid>
+
           <Flex justify="center" mt={{ base: "28px", lg: "38px" }}>
             <ButtonRound
               colorBtn="white"
@@ -96,6 +98,7 @@ const ClothesPreview = () => {
           </Flex>
         </Box>
       )}
+      2
     </VStack>
   );
 };
