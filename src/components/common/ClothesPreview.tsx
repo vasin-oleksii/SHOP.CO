@@ -89,7 +89,6 @@ const ClothesPreview = () => {
               colorBtn="white"
               onClick={updateNumberOfProductsUpload}
               p="16px 80px"
-              m="0 auto"
               border={`1px solid ${theme.colors.grey}`}
               isLoading={isLoadingData}
             >

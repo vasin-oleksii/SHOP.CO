@@ -15,7 +15,7 @@ import twoHuman from "../../assets/hero/TwoHuman.png";
 import star from "../../assets/icons/Star.svg";
 import { motion } from "framer-motion";
 import ButtonRound from "../common/buttons/ButtonRound";
-import BannerLogos from "../common/BannerLogos";
+import BannerLogos from "../bannerLogos/BannerLogos";
 
 const Promo = () => {
   const theme = useTheme();
