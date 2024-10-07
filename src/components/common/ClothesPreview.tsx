@@ -1,21 +1,11 @@
 import CardPreview from "./CardPreview";
-import {
-  Box,
-  Flex,
-  Grid,
-  Heading,
-  Spinner,
-  useTheme,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Spinner, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 //! import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import ButtonRound from "./buttons/ButtonRound";
 
 const ClothesPreview = () => {
-  const theme = useTheme();
-
   const [newProducts, setNewProducts] = useState([]);
   const [numberOfProductsUppload, setNumberOfProductsUppload] =
     useState<number>(4);
@@ -89,7 +79,7 @@ const ClothesPreview = () => {
               colorBtn="white"
               onClick={updateNumberOfProductsUpload}
               p="16px 80px"
-              border={`1px solid ${theme.colors.grey}`}
+              border={`1px solid 'grey'`}
               isLoading={isLoadingData}
             >
               View More

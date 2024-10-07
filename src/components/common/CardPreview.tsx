@@ -6,7 +6,6 @@ import {
   VStack,
   Flex,
   Box,
-  useTheme,
 } from "@chakra-ui/react";
 import StarRatings from "./StarRatings";
 import DiscountPrice from "./DiscountPrice";
@@ -19,19 +18,25 @@ import { Pagination } from "swiper/modules";
 
 interface CardPreviewProps {
   title: string;
-  images: [key: string];
+  images: string[];
   price: number;
 }
 
 const CardPreview = ({ title, images, price }: CardPreviewProps) => {
-  const theme = useTheme();
-
   const soldOutLink =
     "https://st2.depositphotos.com/3259079/45453/v/600/depositphotos_454535022-stock-illustration-sorry-temporarily-out-stock-sign.jpg";
 
   const randomRating = Math.round((Math.random() * 4 + 1) * 2) / 2;
 
   const giveDiscount = Math.random() > 0.5;
+
+  const settingStylesSwiper = {
+    "--swiper-pagination-color": "white",
+    "--swiper-pagination-bullet-inactive-color": "greyCircle",
+    "--swiper-pagination-bullet-inactive-opacity": "1",
+    "--swiper-pagination-bullet-size": "10px",
+    "--swiper-pagination-bullet-horizontal-gap": "6px",
+  };
 
   return (
     <VStack maxW="300px" alignItems="start">
@@ -41,16 +46,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
           modules={[Pagination]}
           spaceBetween={50}
           slidesPerView={1}
-          style={
-            {
-              "--swiper-pagination-color": theme.colors.white,
-              "--swiper-pagination-bullet-inactive-color":
-                theme.colors.greyCircle,
-              "--swiper-pagination-bullet-inactive-opacity": "1",
-              "--swiper-pagination-bullet-size": "10px",
-              "--swiper-pagination-bullet-horizontal-gap": "6px",
-            } as React.CSSProperties
-          }
+          style={settingStylesSwiper as React.CSSProperties}
         >
           {images.map((img, i) => {
             img = img.replace(/[\[\]"]/g, "");

@@ -1,4 +1,4 @@
-import { Link, LinkProps, useTheme } from "@chakra-ui/react";
+import { Link, LinkProps } from "@chakra-ui/react";
 
 interface ButtonWithoutBorderProps extends LinkProps {
   children: React.ReactNode;
@@ -10,12 +10,10 @@ const LinkWithoutBorder = ({
   href = "#",
   ...props
 }: ButtonWithoutBorderProps) => {
-  const theme = useTheme();
-
   return (
     <Link
       href={href}
-      _hover={{ textDecoration: "none", color: theme.colors.greyText }}
+      _hover={{ textDecoration: "none", color: "greyText" }}
       textDecoration="underline"
       fontWeight={500}
       {...props}

@@ -1,4 +1,4 @@
-import { Button, Box, useTheme, ButtonProps } from "@chakra-ui/react";
+import { Button, Box, ButtonProps } from "@chakra-ui/react";
 
 interface ButtonRoundProps extends ButtonProps {
   children: React.ReactNode;
@@ -6,18 +6,17 @@ interface ButtonRoundProps extends ButtonProps {
 }
 
 const ButtonRound = ({ children, colorBtn, ...proprs }: ButtonRoundProps) => {
-  const theme = useTheme();
   let colorBg = "";
   let colorText = "";
 
   switch (colorBtn) {
     case "black":
-      colorBg = theme.colors.black;
-      colorText = theme.colors.white;
+      colorBg = "black";
+      colorText = "white";
       break;
     case "white":
-      colorBg = theme.colors.white;
-      colorText = theme.colors.black;
+      colorBg = "white";
+      colorText = "black";
       break;
   }
 

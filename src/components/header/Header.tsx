@@ -1,7 +1,6 @@
 import {
   Container,
   Flex,
-  useTheme,
   Text,
   MenuButton,
   Menu,
@@ -36,7 +35,6 @@ import { useState } from "react";
 import InputIconLeft from "../common/inputs/InputIconLeft";
 
 const Header = () => {
-  const theme = useTheme();
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const [isCrossVisibleBurger, setIsCrossVisibleBurger] =
     useState<boolean>(true);
@@ -49,12 +47,12 @@ const Header = () => {
       <BannerPropositionHead
         title="Sign up and get 20% off to your first order. "
         buttonText="Sign Up Now"
-        bg={theme.colors.black}
-        color={theme.colors.white}
+        bg="black"
+        color="white"
         isVisible={isBannerVisible}
         toggleBanner={toggleBanner}
       />
-      <Container maxW={theme.breakpoints.xl} pt="24px">
+      <Container maxW="container.xl" pt="24px">
         <Flex alignItems="center" justifyContent="space-between">
           <Flex alignItems="center">
             <Box
@@ -65,7 +63,7 @@ const Header = () => {
                 <MenuButton
                   transition="all 0.2s"
                   _expanded={{
-                    color: theme.colors.black,
+                    color: "black",
                   }}
                   as={IconButton}
                   aria-label="Options"
@@ -92,9 +90,7 @@ const Header = () => {
               </Menu>
             </Box>
 
-            <Link
-              _hover={{ textDecoration: "none", color: theme.colors.greyText }}
-            >
+            <Link _hover={{ textDecoration: "none", color: "greyText" }}>
               <Text
                 fontSize={{ base: "2xl-custom", lg: "2xl", md: "lg", sm: "xl" }}
                 fontWeight={700}
@@ -116,7 +112,7 @@ const Header = () => {
                       textDecoration: "underline",
                     }}
                     _expanded={{
-                      color: theme.colors.black,
+                      color: "black",
                     }}
                     aria-label="Options"
                   >
@@ -147,8 +143,8 @@ const Header = () => {
             maxWidth="602px"
             display={{ base: "none", lg: "block" }}
             placeholder="Search for products..."
-            bgInput={theme.colors.greyLight}
-            colorInput={theme.colors.greyText}
+            bgInput={"greyLight"}
+            colorInput={"greyText"}
           >
             <ReactSVG src={SearchLitle} />
           </InputIconLeft>

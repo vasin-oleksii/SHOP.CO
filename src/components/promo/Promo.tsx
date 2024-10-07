@@ -4,7 +4,6 @@ import {
   Heading,
   Img,
   SimpleGrid,
-  useTheme,
   Text,
   Stack,
   Grid,
@@ -18,11 +17,9 @@ import ButtonRound from "../common/buttons/ButtonRound";
 import BannerLogos from "../bannerLogos/BannerLogos";
 
 const Promo = () => {
-  const theme = useTheme();
-
   return (
-    <Box backgroundColor={theme.colors.grey} mt="24px">
-      <Container maxW={theme.breakpoints.xl}>
+    <Box backgroundColor="grey" mt="24px">
+      <Container maxW="container.xl">
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
           justifyItems={{ base: "center", lg: "normal" }}

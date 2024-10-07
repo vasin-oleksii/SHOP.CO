@@ -1,4 +1,4 @@
-import { Badge, HStack, Text, useTheme } from "@chakra-ui/react";
+import { Badge, HStack, Text } from "@chakra-ui/react";
 
 interface DiscountPriceProps {
   priceNow: number;
@@ -6,7 +6,6 @@ interface DiscountPriceProps {
 }
 
 const DiscountPrice = ({ priceNow, pricePrev }: DiscountPriceProps) => {
-  const theme = useTheme();
   const procentOfDiscount = ((priceNow - pricePrev) / pricePrev) * 100;
 
   return (
@@ -15,7 +14,7 @@ const DiscountPrice = ({ priceNow, pricePrev }: DiscountPriceProps) => {
         fontSize={{ base: "lg", lg: "xl" }}
         textDecoration="line-through"
         fontWeight="bold"
-        color={theme.colors.greyText}
+        color={"greyText"}
       >
         {pricePrev.toFixed(0)}
       </Text>
