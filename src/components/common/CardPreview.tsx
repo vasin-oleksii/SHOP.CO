@@ -32,7 +32,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
 
   const settingStylesSwiper = {
     "--swiper-pagination-color": "white",
-    "--swiper-pagination-bullet-inactive-color": "greyCircle",
+    "--swiper-pagination-bullet-inactive-color": "grey",
     "--swiper-pagination-bullet-inactive-opacity": "1",
     "--swiper-pagination-bullet-size": "10px",
     "--swiper-pagination-bullet-horizontal-gap": "6px",
