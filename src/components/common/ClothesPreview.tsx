@@ -1,9 +1,10 @@
+import "swiper/css";
 import CardPreview from "./CardPreview";
 import { Box, Flex, Grid, Heading, Spinner, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-//! import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import ButtonRound from "./buttons/ButtonRound";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const ClothesPreview = () => {
   const [newProducts, setNewProducts] = useState([]);
@@ -55,6 +56,7 @@ const ClothesPreview = () => {
       ) : (
         <Box mt={{ base: "32px", lg: "56px" }}>
           <Grid
+            display={{ base: "none", md: "grid" }}
             templateColumns={{
               base: "repeat(2, 1fr)",
               lg: "repeat(3, 1fr)",
@@ -73,6 +75,23 @@ const ClothesPreview = () => {
               );
             })}
           </Grid>
+
+          <Flex
+            display={{ base: "flex", md: "none" }}
+            pl="16px"
+            maxW="100vw"
+            overflow="hidden"
+          >
+            <Swiper slidesPerView={1.5}>
+              {newProducts.map(({ id, title, images, price }) => {
+                return (
+                  <SwiperSlide key={id}>
+                    <CardPreview title={title} images={images} price={price} />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </Flex>
 
           <Flex justify="center" mt={{ base: "28px", lg: "38px" }}>
             <ButtonRound

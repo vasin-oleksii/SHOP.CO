@@ -27,12 +27,13 @@ const theme = extendTheme({
     "4xl": "48px",
     "5xl": "64px",
   },
-  breakpoints: {
-    sm: "30em",
-    md: "48em",
-    lg: "62em",
-    xl: "80em",
-  },
 });
 
 export default theme;
+
+// {
+//   "sm": "480px",
+//   "md": "768px",
+//   "lg": "992px",
+//   "xl": "1280px"
+// }

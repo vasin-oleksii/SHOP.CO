@@ -4,13 +4,11 @@ import ClothesPreview from "../common/ClothesPreview";
 const Catalogs = () => {
   return (
     <Box mt="73px">
-      <Container maxW="container.xl">
-        <VStack>
-          <Box>
-            <ClothesPreview />
-          </Box>
-        </VStack>
-      </Container>
+      <VStack>
+        <Box>
+          <ClothesPreview />
+        </Box>
+      </VStack>
     </Box>
   );
 };

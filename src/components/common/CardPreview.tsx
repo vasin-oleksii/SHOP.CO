@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import { useRef } from "react";
 
 interface CardPreviewProps {
   title: string;
@@ -23,6 +24,8 @@ interface CardPreviewProps {
 }
 
 const CardPreview = ({ title, images, price }: CardPreviewProps) => {
+  const swiperRef = useRef<any>(null);
+
   const soldOutLink =
     "https://st2.depositphotos.com/3259079/45453/v/600/depositphotos_454535022-stock-illustration-sorry-temporarily-out-stock-sign.jpg";
 
@@ -38,25 +41,38 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
     "--swiper-pagination-bullet-horizontal-gap": "6px",
   };
 
+  const onClickChangeSlides = () => {
+    const lastSlide = swiperRef.current.slides.length - 1;
+    const activeSlide = swiperRef.current.activeIndex;
+    const initialSlide = 0;
+
+    if (activeSlide === lastSlide) {
+      swiperRef.current.slideTo(initialSlide);
+    } else {
+      swiperRef.current?.slideNext();
+    }
+  };
+
   return (
-    <VStack maxW="300px" alignItems="start">
-      <Box maxW="300px">
+    <VStack overflow="hidden" alignItems="start">
+      <Box maxW={{ base: "200px", md: "300px" }}>
         <Swiper
           pagination={{ dynamicBullets: true }}
           modules={[Pagination]}
           spaceBetween={50}
           slidesPerView={1}
           style={settingStylesSwiper as React.CSSProperties}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
           {images.map((img, i) => {
             img = img.replace(/[\[\]"]/g, "");
 
             return (
-              <SwiperSlide key={i}>
+              <SwiperSlide key={i} onClick={onClickChangeSlides}>
                 <Image
                   src={img}
                   fallbackSrc={soldOutLink}
-                  boxSize="300px"
+                  boxSize={{ base: "200px", md: "300px" }}
                   borderRadius="20px"
                 />
               </SwiperSlide>
@@ -69,7 +85,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
         fontSize={{ base: "md", lg: "lg" }}
         pt="18px"
         noOfLines={1}
-        maxW="300px"
+        maxW={{ base: "200px", md: "300px" }}
         textOverflow="ellipsis"
       >
         {title}
