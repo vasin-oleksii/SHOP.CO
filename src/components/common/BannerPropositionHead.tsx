@@ -1,6 +1,6 @@
 import { Box, CloseButton, Container, Flex, Text } from "@chakra-ui/react";
 
-import ButtonWithoutBorder from "./buttons/ButtonWithoutBorder";
+import LinkWithoutBorder from "./links/LinkWithoutBorder";
 
 interface BannerPropositionHeadProps {
   title: string;
@@ -29,9 +29,7 @@ const BannerPropositionHead = ({
           fontSize={{ base: "xs", sm: "sm" }}
         >
           <Text>{title}</Text>
-          <ButtonWithoutBorder marginLeft="5px">
-            {buttonText}
-          </ButtonWithoutBorder>
+          <LinkWithoutBorder marginLeft="5px">{buttonText}</LinkWithoutBorder>
           <CloseButton
             size="md"
             position="absolute"

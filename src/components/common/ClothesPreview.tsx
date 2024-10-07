@@ -92,7 +92,7 @@ const ClothesPreview = () => {
               border={`1px solid ${theme.colors.grey}`}
               isLoading={isLoadingData}
             >
-              View All
+              View More
             </ButtonRound>
           </Flex>
         </Box>

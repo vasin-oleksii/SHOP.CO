@@ -1,13 +1,18 @@
-import { Button, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputProps,
+} from "@chakra-ui/react";
 
-interface InputIconLeftProps {
+interface InputIconLeftProps extends InputProps {
   maxWidth?: string;
   display?: string | { base?: string; md?: string; lg?: string };
   placeholder?: string;
   children?: any;
   bgInput?: string;
   colorInput?: string;
-  [key: string]: any;
 }
 
 const InputIconLeft = ({
