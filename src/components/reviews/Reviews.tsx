@@ -13,8 +13,8 @@ const Reviews = () => {
         <Heading>OUR HAPPY CUSTOMERS</Heading>
         <Box>
           <Swiper>
-            {data.map(({ name, rating, review }) => (
-              <SwiperSlide>
+            {data.map(({ name, rating, review }, i) => (
+              <SwiperSlide key={i}>
                 <Box>{rating}</Box>
                 <Box>{name}</Box>
                 <Box>{review}</Box>

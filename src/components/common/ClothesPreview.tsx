@@ -13,47 +13,16 @@ interface ClothesPreviewProps {
 }
 
 const ClothesPreview = ({ title }: ClothesPreviewProps) => {
-  const [newProducts, setNewProducts] = useState([]);
-  const [prevStateOfProducts, setPrevStateOfProducts] = useState([]);
-
-  const [numberOfProductsUppload, setNumberOfProductsUppload] =
+  const [numberOfProductsUpload, setNumberOfProductsUpload] =
     useState<number>(4);
-  const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
-  const updateNumberOfProductsUpload = (): void => {
-    setNumberOfProductsUppload((prevState) => prevState + 4);
-  };
-
-  const updateProducts = (data: any) => {
-    setNewProducts(data);
-  };
-
-  const fetchData = async () => {
-    setIsLoadingData(true);
-    try {
-      setPrevStateOfProducts(newProducts);
-
-      const results = await fetch(
-        `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`
-      );
-      const data = await results.json();
-
-      updateProducts(data);
-      setIsLoadingData(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const { data } = useFetch({
-    url: `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`,
+  const { data, isLoading } = useFetch({
+    url: `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUpload}`,
   });
 
-  console.log(data);
-
-  useEffect(() => {
-    fetchData();
-  }, [numberOfProductsUppload]);
+  const updateNumberOfProductsUpload = (): void => {
+    setNumberOfProductsUpload((prevState) => prevState + 4);
+  };
 
   return (
     <VStack justify="center">
@@ -68,7 +37,7 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
           }}
           gap="20px"
         >
-          {newProducts.map(({ id, title, images, price }) => {
+          {data.map(({ id, title, images, price }) => {
             return (
               <CardPreview
                 title={title}
@@ -79,8 +48,12 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
             );
           })}
           <SkeletonOnFetch
-            numOfSkeletons={newProducts.length - prevStateOfProducts.length}
-            isLoading={isLoadingData}
+            numOfSkeletons={
+              data.length < numberOfProductsUpload
+                ? numberOfProductsUpload - data.length
+                : 0
+            }
+            isLoading={isLoading}
           />
         </Grid>
 
@@ -91,7 +64,7 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
           overflow="hidden"
         >
           <Swiper slidesPerView={1.5}>
-            {newProducts.map(({ id, title, images, price }) => {
+            {data.map(({ id, title, images, price }) => {
               return (
                 <SwiperSlide key={id}>
                   <CardPreview title={title} images={images} price={price} />
@@ -107,7 +80,7 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
             onClick={updateNumberOfProductsUpload}
             p="16px 80px"
             border={`1px solid 'grey'`}
-            isLoading={isLoadingData}
+            isLoading={isLoading}
           >
             View More
           </ButtonRound>
