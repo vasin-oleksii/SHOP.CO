@@ -44,6 +44,8 @@ const Categories = () => {
               backgroundPosition="35% 35%"
               backgroundRepeat="no-repeat"
               backgroundSize={{ base: "cover", lg: "auto" }}
+              transition="all 0.2s"
+              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}
@@ -61,6 +63,8 @@ const Categories = () => {
               backgroundRepeat="no-repeat"
               backgroundPosition="left 26%"
               backgroundSize="cover"
+              transition="all 0.2s"
+              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}
@@ -78,6 +82,8 @@ const Categories = () => {
               backgroundRepeat="no-repeat"
               backgroundPosition="left 65%"
               backgroundSize="cover"
+              transition="all 0.2s"
+              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}
@@ -94,6 +100,8 @@ const Categories = () => {
               backgroundRepeat="no-repeat"
               backgroundPosition="left 65%"
               backgroundSize="cover"
+              transition="all 0.2s"
+              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}
