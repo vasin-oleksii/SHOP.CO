@@ -1,7 +1,7 @@
 import "swiper/css";
 import CardPreview from "./CardPreview";
-import { Box, Flex, Grid, Heading, VStack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Flex, Grid, Heading, Link, Show, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 import ButtonRound from "./buttons/ButtonRound";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,18 +10,26 @@ import useFetch from "../shared/hooks/useFetch";
 
 interface ClothesPreviewProps {
   title: string;
+  url: string;
+  uploadMore?: number;
 }
 
-const ClothesPreview = ({ title }: ClothesPreviewProps) => {
+const ClothesPreview = ({
+  title,
+  url,
+  uploadMore = 0,
+}: ClothesPreviewProps) => {
   const [numberOfProductsUpload, setNumberOfProductsUpload] =
-    useState<number>(4);
+    useState<number>(uploadMore);
+
+  const isProductShowComponent = numberOfProductsUpload === 0;
 
   const { data, isLoading } = useFetch({
-    url: `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUpload}`,
+    url: `${url}${isProductShowComponent ? "" : numberOfProductsUpload}`,
   });
 
   const updateNumberOfProductsUpload = (): void => {
-    setNumberOfProductsUpload((prevState) => prevState + 4);
+    setNumberOfProductsUpload((prevState) => prevState + uploadMore);
   };
 
   return (
@@ -37,7 +45,7 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
           }}
           gap="20px"
         >
-          {data.map(({ id, title, images, price }) => {
+          {data.map(({ id, title, images, price }, i) => {
             return (
               <CardPreview
                 title={title}
@@ -82,7 +90,7 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
             border={`1px solid 'grey'`}
             isLoading={isLoading}
           >
-            View More
+            {isProductShowComponent ? <Link>Look more</Link> : "View More"}
           </ButtonRound>
         </Flex>
       </Box>
