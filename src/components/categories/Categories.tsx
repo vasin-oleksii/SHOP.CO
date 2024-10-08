@@ -64,7 +64,7 @@ const Categories = () => {
               backgroundPosition="left 26%"
               backgroundSize="cover"
               transition="all 0.2s"
-              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
+              _hover={{ transform: "scale(1.03)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}
@@ -83,7 +83,7 @@ const Categories = () => {
               backgroundPosition="left 65%"
               backgroundSize="cover"
               transition="all 0.2s"
-              _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
+              _hover={{ transform: "scale(1.03)", transition: "all 0.2s" }}
             >
               <Text
                 fontSize={{ base: "xl", lg: "3xl" }}

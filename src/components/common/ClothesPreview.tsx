@@ -6,6 +6,7 @@ import ButtonRound from "./buttons/ButtonRound";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SkeletonOnFetch from "./skelets/SkeletonOnFetch";
+import useFetch from "../shared/hooks/useFetch";
 
 interface ClothesPreviewProps {
   title: string;
@@ -43,6 +44,12 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
       console.error(error);
     }
   };
+
+  const { data } = useFetch({
+    url: `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`,
+  });
+
+  console.log(data);
 
   useEffect(() => {
     fetchData();

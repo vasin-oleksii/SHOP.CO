@@ -3,6 +3,7 @@ import Categories from "./components/categories/Categories";
 import Foother from "./components/foother/Foother";
 import Header from "./components/header/Header";
 import Promo from "./components/promo/Promo";
+import Reviews from "./components/reviews/Reviews";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Promo />
       <Catalogs />
       <Categories />
+      <Reviews />
       <Foother />
     </>
   );
