@@ -91,7 +91,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
         {title}
       </Heading>
       <HStack>
-        <StarRatings rating={randomRating} />
+        <StarRatings rating={randomRating} ratingMax={5} />
       </HStack>
       <Flex alignItems="center">
         <Text fontSize={{ base: "lg", lg: "xl" }} fontWeight="bold">

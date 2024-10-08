@@ -1,6 +1,6 @@
 import "swiper/css";
 import CardPreview from "./CardPreview";
-import { Box, Flex, Grid, Heading, Link, Show, VStack } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Link, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import ButtonRound from "./buttons/ButtonRound";
 
@@ -45,7 +45,7 @@ const ClothesPreview = ({
           }}
           gap="20px"
         >
-          {data.map(({ id, title, images, price }, i) => {
+          {data.map(({ id, title, images, price }) => {
             return (
               <CardPreview
                 title={title}

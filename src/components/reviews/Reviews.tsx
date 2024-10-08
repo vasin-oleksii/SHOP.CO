@@ -1,6 +1,7 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import useFetch from "../shared/hooks/useFetch";
 import { Swiper, SwiperSlide } from "swiper/react";
+import StarRatings from "../common/StarRatings";
 
 const Reviews = () => {
   const { data } = useFetch({
@@ -15,8 +16,8 @@ const Reviews = () => {
           <Swiper>
             {data.map(({ name, rating, review }, i) => (
               <SwiperSlide key={i}>
-                <Box>{rating}</Box>
-                <Box>{name}</Box>
+                <StarRatings rating={rating} />
+                {/* <Text fontSize={{ base: "md", lg: "lg" }}>{name}</Text> */}
                 <Box>{review}</Box>
               </SwiperSlide>
             ))}

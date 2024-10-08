@@ -2,7 +2,13 @@ import { Text, Flex, Img } from "@chakra-ui/react";
 import star from "../../assets/stars/star.svg";
 import starHalf from "../../assets/stars/starHalf.svg";
 
-const StarRatings = ({ rating }: { rating: number }) => {
+const StarRatings = ({
+  rating,
+  ratingMax,
+}: {
+  rating: number;
+  ratingMax?: number;
+}) => {
   const allStart = [];
 
   for (let i = 1; i <= rating; i++) {
@@ -17,7 +23,11 @@ const StarRatings = ({ rating }: { rating: number }) => {
       {allStart.map((star, i) => (
         <Img src={star} alt="star" key={i} />
       ))}
-      <Text ml="13px">{rating.toFixed(1)} / 5</Text>
+      {ratingMax && (
+        <Text ml="13px">
+          {rating.toFixed(1)} / {ratingMax}
+        </Text>
+      )}
     </Flex>
   );
 };
