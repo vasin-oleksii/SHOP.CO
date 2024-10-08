@@ -1,13 +1,20 @@
 import "swiper/css";
 import CardPreview from "./CardPreview";
-import { Box, Flex, Grid, Heading, Spinner, VStack } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ButtonRound from "./buttons/ButtonRound";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import SkeletonOnFetch from "./skelets/SkeletonOnFetch";
 
-const ClothesPreview = () => {
+interface ClothesPreviewProps {
+  title: string;
+}
+
+const ClothesPreview = ({ title }: ClothesPreviewProps) => {
   const [newProducts, setNewProducts] = useState([]);
+  const [prevStateOfProducts, setPrevStateOfProducts] = useState([]);
+
   const [numberOfProductsUppload, setNumberOfProductsUppload] =
     useState<number>(4);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
@@ -23,6 +30,8 @@ const ClothesPreview = () => {
   const fetchData = async () => {
     setIsLoadingData(true);
     try {
+      setPrevStateOfProducts(newProducts);
+
       const results = await fetch(
         `https://api.escuelajs.co/api/v1/products?offset=0&limit=${numberOfProductsUppload}`
       );
@@ -38,75 +47,67 @@ const ClothesPreview = () => {
   useEffect(() => {
     fetchData();
   }, [numberOfProductsUppload]);
-
-  const isLoading = newProducts.length === 0;
+  console.log("prevStateOfProducts", prevStateOfProducts.length);
+  console.log("newProducts", newProducts.length);
 
   return (
     <VStack justify="center">
-      <Heading>NEW ARRIVALS</Heading>
-      {isLoading ? (
-        <Spinner
-          mt="50px"
-          thickness="5px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="black"
-          size="xl"
-        />
-      ) : (
-        <Box mt={{ base: "32px", lg: "56px" }}>
-          <Grid
-            display={{ base: "none", md: "grid" }}
-            templateColumns={{
-              base: "repeat(2, 1fr)",
-              lg: "repeat(3, 1fr)",
-              xl: "repeat(4, 1fr)",
-            }}
-            gap="20px"
-          >
+      <Heading>{title}</Heading>
+      <Box mt={{ base: "32px", lg: "56px" }}>
+        <Grid
+          display={{ base: "none", md: "grid" }}
+          templateColumns={{
+            base: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+            xl: "repeat(4, 1fr)",
+          }}
+          gap="20px"
+        >
+          {newProducts.map(({ id, title, images, price }) => {
+            return (
+              <CardPreview
+                title={title}
+                images={images}
+                price={price}
+                key={id}
+              />
+            );
+          })}
+          <SkeletonOnFetch
+            numOfSkeletons={newProducts.length - prevStateOfProducts.length}
+            isLoading={isLoadingData}
+          />
+        </Grid>
+
+        <Flex
+          display={{ base: "flex", md: "none" }}
+          pl="16px"
+          maxW="100vw"
+          overflow="hidden"
+        >
+          <Swiper slidesPerView={1.5}>
             {newProducts.map(({ id, title, images, price }) => {
               return (
-                <CardPreview
-                  title={title}
-                  images={images}
-                  price={price}
-                  key={id}
-                />
+                <SwiperSlide key={id}>
+                  <CardPreview title={title} images={images} price={price} />
+                </SwiperSlide>
               );
             })}
-          </Grid>
+          </Swiper>
+        </Flex>
 
-          <Flex
-            display={{ base: "flex", md: "none" }}
-            pl="16px"
-            maxW="100vw"
-            overflow="hidden"
+        <Flex justify="center" mt={{ base: "28px", lg: "38px" }}>
+          <ButtonRound
+            colorBtn="white"
+            onClick={updateNumberOfProductsUpload}
+            p="16px 80px"
+            border={`1px solid 'grey'`}
+            isLoading={isLoadingData}
           >
-            <Swiper slidesPerView={1.5}>
-              {newProducts.map(({ id, title, images, price }) => {
-                return (
-                  <SwiperSlide key={id}>
-                    <CardPreview title={title} images={images} price={price} />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </Flex>
-
-          <Flex justify="center" mt={{ base: "28px", lg: "38px" }}>
-            <ButtonRound
-              colorBtn="white"
-              onClick={updateNumberOfProductsUpload}
-              p="16px 80px"
-              border={`1px solid 'grey'`}
-              isLoading={isLoadingData}
-            >
-              View More
-            </ButtonRound>
-          </Flex>
-        </Box>
-      )}
-      2
+            View More
+          </ButtonRound>
+        </Flex>
+      </Box>
     </VStack>
   );
 };
