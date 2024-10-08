@@ -26,8 +26,8 @@ interface CardPreviewProps {
 const CardPreview = ({ title, images, price }: CardPreviewProps) => {
   const swiperRef = useRef<any>(null);
 
-  const soldOutLink =
-    "https://st2.depositphotos.com/3259079/45453/v/600/depositphotos_454535022-stock-illustration-sorry-temporarily-out-stock-sign.jpg";
+  const fallbackLink =
+    "https://st3.depositphotos.com/3326513/19442/v/450/depositphotos_194428038-stock-illustration-black-linear-photo-camera-logo.jpg";
 
   const randomRating = Math.round((Math.random() * 4 + 1) * 2) / 2;
 
@@ -71,7 +71,7 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
               <SwiperSlide key={i} onClick={onClickChangeSlides}>
                 <Image
                   src={img}
-                  fallbackSrc={soldOutLink}
+                  fallbackSrc={fallbackLink}
                   boxSize={{ base: "200px", md: "300px" }}
                   borderRadius="20px"
                 />
