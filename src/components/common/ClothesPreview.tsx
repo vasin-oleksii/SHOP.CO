@@ -47,8 +47,6 @@ const ClothesPreview = ({ title }: ClothesPreviewProps) => {
   useEffect(() => {
     fetchData();
   }, [numberOfProductsUppload]);
-  console.log("prevStateOfProducts", prevStateOfProducts.length);
-  console.log("newProducts", newProducts.length);
 
   return (
     <VStack justify="center">
