@@ -47,7 +47,7 @@ const ReviewsSlider = ({ data }: any) => {
         </Flex>
       </Container>
       <Swiper
-        slidesPerView={3.3}
+        slidesPerView={3.45}
         centeredSlides={true}
         spaceBetween={20}
         initialSlide={2}

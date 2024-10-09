@@ -19,10 +19,10 @@ const Reviews = () => {
         <ReviewsSlider data={data} />
       </Box>
       <Box mt={{ base: "24px", lg: "40px" }}>
-        <HStack maxW="container.xl">
+        <HStack maxW="container.xl" justifyContent="end" spacing="150px">
           <SkeletonOnFetch
             isLoading={isLoading}
-            numOfSkeletons={4}
+            numOfSkeletons={3}
             skeletItem={<ReviewSkeleton />}
           />
         </HStack>
