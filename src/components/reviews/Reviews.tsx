@@ -1,10 +1,12 @@
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import useFetch from "../shared/hooks/useFetch";
-import { Swiper, SwiperSlide } from "swiper/react";
-import StarRatings from "../common/StarRatings";
+import { Box, Container, Heading, HStack } from "@chakra-ui/react";
+
+import SkeletonOnFetch from "../common/skelets/SkeletonOnFetch";
+import ReviewSkeleton from "../common/skelets/ReviewSkeleton";
+import ReviewsSlider from "./ReviewsSlider";
 
 const Reviews = () => {
-  const { data } = useFetch({
+  const { data, isLoading } = useFetch({
     url: "https://67051c76031fd46a830eaefe.mockapi.io/api/v1/reviews",
   });
 
@@ -12,18 +14,19 @@ const Reviews = () => {
     <Box mt={{ base: "50px", lg: "80px" }}>
       <Container maxW="container.xl">
         <Heading>OUR HAPPY CUSTOMERS</Heading>
-        <Box>
-          <Swiper>
-            {data.map(({ name, rating, review }, i) => (
-              <SwiperSlide key={i}>
-                <StarRatings rating={rating} />
-                {/* <Text fontSize={{ base: "md", lg: "lg" }}>{name}</Text> */}
-                <Box>{review}</Box>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Box>
       </Container>
+      <Box mt={{ base: "-4px", lg: "-10px" }}>
+        <ReviewsSlider data={data} />
+      </Box>
+      <Box mt={{ base: "24px", lg: "40px" }}>
+        <HStack maxW="container.xl">
+          <SkeletonOnFetch
+            isLoading={isLoading}
+            numOfSkeletons={4}
+            skeletItem={<ReviewSkeleton />}
+          />
+        </HStack>
+      </Box>
     </Box>
   );
 };

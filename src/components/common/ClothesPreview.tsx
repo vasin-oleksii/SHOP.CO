@@ -7,6 +7,7 @@ import ButtonRound from "./buttons/ButtonRound";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SkeletonOnFetch from "./skelets/SkeletonOnFetch";
 import useFetch from "../shared/hooks/useFetch";
+import CardPreviewSkelet from "./skelets/CardPreviewSkelet";
 
 interface ClothesPreviewProps {
   title: string;
@@ -62,6 +63,7 @@ const ClothesPreview = ({
                 : 0
             }
             isLoading={isLoading}
+            skeletItem={<CardPreviewSkelet />}
           />
         </Grid>
 
