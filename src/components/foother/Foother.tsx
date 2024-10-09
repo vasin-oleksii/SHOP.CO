@@ -1,4 +1,4 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import FootherBanner from "./FootherBanner";
 
 const Foother = () => {
