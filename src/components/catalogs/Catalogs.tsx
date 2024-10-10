@@ -18,7 +18,7 @@ const Catalogs = () => {
         <Box mt={{ base: "40px", lg: "64px" }}>
           <ClothesPreview
             title="top selling"
-            url="https://api.escuelajs.co/api/v1/products/?price_min=10&price_max=20"
+            url="https://api.escuelajs.co/api/v1/products?offset=0&limit=4"
           />
         </Box>
       </VStack>

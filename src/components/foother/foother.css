@@ -1,0 +1,5 @@
+.icons:hover svg path {
+  cursor: pointer;
+  transition: all 0.2s;
+  fill: white;
+}

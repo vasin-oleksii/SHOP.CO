@@ -1,5 +1,6 @@
 import { EmailIcon } from "@chakra-ui/icons";
 import {
+  BoxProps,
   Flex,
   FormControl,
   Heading,
@@ -9,9 +10,14 @@ import {
 } from "@chakra-ui/react";
 import ButtonRound from "../common/buttons/ButtonRound";
 
-const FootherBanner = ({ title }: { title: string }) => {
+interface FootherBannerProps extends BoxProps {
+  title: string;
+}
+
+const FootherBanner = ({ title, ...props }: FootherBannerProps) => {
   return (
     <Flex
+      {...props}
       background="black"
       borderRadius="20px"
       p={{ base: "32px 24px", lg: "41px 64px" }}
