@@ -131,7 +131,7 @@ const Foother = () => {
             >
               <Box>
                 <Text color="greyText">
-                  Shop.co © 2000-2023, All Rights Reserved
+                  Shop.co © 2000-{new Date().getFullYear()}, All Rights Reserved
                 </Text>
               </Box>
               <HStack mt={{ base: "19px", md: "0" }}>
