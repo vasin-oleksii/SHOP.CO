@@ -1,14 +1,14 @@
-import Foother from "./components/foother/Foother";
 import Header from "./components/header/Header";
-// import CategoryPage from "./pages/caregory/CategoryPage";
-import HomePage from "./pages/home/HomePage";
+import Foother from "./components/foother/Foother";
+
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
 
 function App() {
   return (
     <>
       <Header />
-      <HomePage />
-      {/* <CategoryPage /> */}
+      <RouterProvider router={router} />
       <Foother />
     </>
   );

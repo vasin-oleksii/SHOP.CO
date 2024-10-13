@@ -31,8 +31,8 @@ import User from "../../assets/icons/User.svg";
 import Burger from "../../assets/icons/Burger.svg";
 import Search from "../../assets/icons/Search.svg";
 import SearchLitle from "../../assets/icons/SearchLitle.svg";
-import { useState } from "react";
 import InputIconLeft from "../common/inputs/InputIconLeft";
+import { useState } from "react";
 
 const Header = () => {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -90,7 +90,10 @@ const Header = () => {
               </Menu>
             </Box>
 
-            <Link _hover={{ textDecoration: "none", color: "greyText" }}>
+            <Link
+              _hover={{ textDecoration: "none", color: "greyText" }}
+              href="/"
+            >
               <Text
                 fontSize={{ base: "2xl-custom", lg: "2xl", md: "lg", sm: "xl" }}
                 fontWeight={700}
@@ -128,13 +131,13 @@ const Header = () => {
                 </Menu>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink>On Sale</BreadcrumbLink>
+                <BreadcrumbLink href="/category">On Sale</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink>New Arrivals</BreadcrumbLink>
+                <BreadcrumbLink href="/category">New Arrivals</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink>Brands</BreadcrumbLink>
+                <BreadcrumbLink href="/category">Brands</BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Flex>

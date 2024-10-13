@@ -67,9 +67,15 @@ const Filters = () => {
             templateColumns="repeat(auto-fill, minmax(40px, 50px))"
             width="100%"
             alignContent="center"
+            justifyContent="center"
+            alignItems="center"
           >
             {[1, 2, 3, 4, 5, 6, 7, 8].map((color, i) => {
-              return <GridItem key={i}>{color}</GridItem>;
+              return (
+                <GridItem key={i} textAlign="center">
+                  {color}
+                </GridItem>
+              );
             })}
           </Grid>
         </VStack>
