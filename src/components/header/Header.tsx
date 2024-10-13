@@ -32,7 +32,9 @@ import Burger from "../../assets/icons/Burger.svg";
 import Search from "../../assets/icons/Search.svg";
 import SearchLitle from "../../assets/icons/SearchLitle.svg";
 import InputIconLeft from "../common/inputs/InputIconLeft";
+
 import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Header = () => {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -89,18 +91,21 @@ const Header = () => {
                 </MenuList>
               </Menu>
             </Box>
-
-            <Link
-              _hover={{ textDecoration: "none", color: "greyText" }}
-              href="/"
-            >
-              <Text
-                fontSize={{ base: "2xl-custom", lg: "2xl", md: "lg", sm: "xl" }}
-                fontWeight={700}
-              >
-                SHOP.CO
-              </Text>
-            </Link>
+            <Box _hover={{ textDecoration: "none", color: "greyText" }}>
+              <RouterLink to="/">
+                <Text
+                  fontSize={{
+                    base: "2xl-custom",
+                    lg: "2xl",
+                    md: "lg",
+                    sm: "xl",
+                  }}
+                  fontWeight={700}
+                >
+                  SHOP.CO
+                </Text>
+              </RouterLink>
+            </Box>
 
             <Breadcrumb
               separator=""
@@ -131,13 +136,13 @@ const Header = () => {
                 </Menu>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/category">On Sale</BreadcrumbLink>
+                <RouterLink to="/category">On Sale</RouterLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/category">New Arrivals</BreadcrumbLink>
+                <RouterLink to="/category">New Arrivals</RouterLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/category">Brands</BreadcrumbLink>
+                <RouterLink to="/category">Brands</RouterLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Flex>

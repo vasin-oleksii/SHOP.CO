@@ -1,6 +1,6 @@
 import "swiper/css";
 import CardPreview from "./CardPreview";
-import { Box, Flex, Grid, Heading, Link, VStack } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import ButtonRound from "./buttons/ButtonRound";
 
@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SkeletonOnFetch from "./skelets/SkeletonOnFetch";
 import useFetch from "../shared/hooks/useFetch";
 import CardPreviewSkelet from "./skelets/CardPreviewSkelet";
+
+import { Link } from "react-router-dom";
 
 interface ClothesPreviewProps {
   title: string;
@@ -48,12 +50,13 @@ const ClothesPreview = ({
         >
           {data.map(({ id, title, images, price }) => {
             return (
-              <CardPreview
-                title={title}
-                images={images}
-                price={price}
+              <Link
+                to={`/product/${id}`}
                 key={id}
-              />
+                state={{ title, images, price }}
+              >
+                <CardPreview title={title} images={images} price={price} />
+              </Link>
             );
           })}
           <SkeletonOnFetch
@@ -77,7 +80,9 @@ const ClothesPreview = ({
             {data.map(({ id, title, images, price }) => {
               return (
                 <SwiperSlide key={id}>
-                  <CardPreview title={title} images={images} price={price} />
+                  <Link to={`/product/${id}`}>
+                    <CardPreview title={title} images={images} price={price} />
+                  </Link>
                 </SwiperSlide>
               );
             })}
@@ -92,7 +97,11 @@ const ClothesPreview = ({
             border={`1px solid 'grey'`}
             isLoading={isLoading}
           >
-            {isProductShowComponent ? <Link>Look more</Link> : "View More"}
+            {isProductShowComponent ? (
+              <Link to="category">Look more</Link>
+            ) : (
+              "View More"
+            )}
           </ButtonRound>
         </Flex>
       </Box>
