@@ -21,17 +21,21 @@ interface CardPreviewProps {
   title: string;
   images: string[];
   price: number;
+  old_price?: number;
+  rating: number;
 }
 
-const CardPreview = ({ title, images, price }: CardPreviewProps) => {
+const CardPreview = ({
+  title,
+  images,
+  price,
+  old_price,
+  rating,
+}: CardPreviewProps) => {
   const swiperRef = useRef<any>(null);
 
   const fallbackLink =
     "https://st3.depositphotos.com/3326513/19442/v/450/depositphotos_194428038-stock-illustration-black-linear-photo-camera-logo.jpg";
-
-  const randomRating = Math.round((Math.random() * 4 + 1) * 2) / 2;
-
-  const giveDiscount = Math.random() > 0.5;
 
   const settingStylesSwiper = {
     "--swiper-pagination-color": "white",
@@ -47,9 +51,9 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
     const initialSlide = 0;
 
     if (activeSlide === lastSlide) {
-      swiperRef.current.slideTo(initialSlide);
+      setTimeout(() => swiperRef.current.slideTo(initialSlide), 500);
     } else {
-      swiperRef.current?.slideNext();
+      setTimeout(() => swiperRef.current?.slideNext(), 500);
     }
   };
 
@@ -65,10 +69,10 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
           {images.map((img, i) => {
-            img = img.replace(/[\[\]"]/g, "");
+            // img = img.replace(/[\[\]"]/g, "");
 
             return (
-              <SwiperSlide key={i} onClick={onClickChangeSlides}>
+              <SwiperSlide key={i} onMouseEnter={onClickChangeSlides}>
                 <Image
                   src={img}
                   fallbackSrc={fallbackLink}
@@ -91,18 +95,13 @@ const CardPreview = ({ title, images, price }: CardPreviewProps) => {
         {title}
       </Heading>
       <HStack>
-        <StarRatings rating={randomRating} ratingMax={5} />
+        <StarRatings rating={rating} ratingMax={5} />
       </HStack>
       <Flex alignItems="center">
         <Text fontSize={{ base: "lg", lg: "xl" }} fontWeight="bold">
           ${price}
         </Text>
-        {giveDiscount && (
-          <DiscountPrice
-            priceNow={price}
-            pricePrev={price * (Math.random() + 1)}
-          />
-        )}
+        {old_price && <DiscountPrice priceNow={price} pricePrev={old_price} />}
       </Flex>
     </VStack>
   );

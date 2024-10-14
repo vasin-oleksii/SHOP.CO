@@ -11,24 +11,24 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import StarRatings from "./StarRatings";
-import DiscountPrice from "./DiscountPrice";
+import StarRatings from "../../components/common/StarRatings";
+import DiscountPrice from "../../components/common/DiscountPrice";
 
-import "swiper/css";
-import Header from "../header/Header";
-import Foother from "../foother/Foother";
 import { useState } from "react";
 
 interface ProductState {
   title: string;
   images: string[];
   price: number;
+  old_price?: number | undefined;
+  rating: number;
+  description: string;
 }
 
-const ProductInfo = () => {
-  //   const { id } = useParams();
+const ProductPage = () => {
   const location = useLocation();
-  const { title, images, price }: ProductState = location.state || {};
+  const { title, images, price, old_price, rating, description }: ProductState =
+    location.state || {};
 
   const [showImage, setShowImage] = useState<number>(0);
 
@@ -38,34 +38,45 @@ const ProductInfo = () => {
 
   return (
     <>
-      <Header />
       <Box>
         <Container maxW="container.xl">
           <Divider mt={{ base: "20px", xl: "24px" }} />
           <Box mt={{ base: "20px", xl: "24px" }}>крошки</Box>
-          <Grid templateColumns="repeat(2, 1fr)">
+          <Grid templateColumns=" 50% 50%">
             <Flex width="100%" flexDir="row">
               <VStack>
                 {images.map((img, i) => {
-                  img = img.replace(/[\[\]"]/g, "");
-
                   return (
-                    <Img
-                      src={img}
-                      borderRadius="20px"
-                      boxSize="150px"
-                      onClick={() => handleShowImage(i)}
-                    />
+                    <Box
+                      key={i}
+                      border={i === showImage ? "4px solid #FFC0CB" : ""}
+                      cursor="pointer"
+                      borderRadius="25px"
+                      width="150px"
+                      height="100%"
+                    >
+                      <Img
+                        src={img}
+                        borderRadius="20px"
+                        objectFit="cover"
+                        height="100%"
+                        onClick={() => handleShowImage(i)}
+                      />
+                    </Box>
                   );
                 })}
               </VStack>
               <Box ml={{ base: "", lg: "14px" }}>
                 {images.map((img, i) => {
-                  img = img.replace(/[\[\]"]/g, "");
-
                   if (i === showImage) {
                     return (
-                      <Img src={img} borderRadius="20px" boxSize="465px" />
+                      <Img
+                        src={img}
+                        borderRadius="20px"
+                        objectFit="cover"
+                        maxW="100%"
+                        height="100%"
+                      />
                     );
                   }
                 })}
@@ -74,29 +85,25 @@ const ProductInfo = () => {
             <Flex flexDirection="column" ml={{ base: "0", lg: "39px" }}>
               <Heading>{title}</Heading>
               <Box mt={{ base: "26px", lg: "16px" }}>
-                <StarRatings rating={3} />
+                <StarRatings rating={rating} />
               </Box>
 
               <HStack mt={{ base: "12px", lg: "14px" }}>
                 <Text fontSize={{ base: "lg", lg: "xl" }} fontWeight="bold">
                   ${price}
                 </Text>
-                <DiscountPrice priceNow={price} pricePrev={price + 10} />
+                {old_price && (
+                  <DiscountPrice priceNow={price} pricePrev={old_price} />
+                )}
               </HStack>
-              <Text mt="24px">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Sapiente, ullam neque enim vel corrupti pariatur consequuntur
-                itaque voluptates rerum, ipsum natus deserunt eligendi ducimus,
-                voluptatibus eos eaque at? Incidunt, impedit.
-              </Text>
+              <Text mt="24px">{description}</Text>
               <Divider mt={{ base: "20px", xl: "24px" }} />
             </Flex>
           </Grid>
         </Container>
       </Box>
-      <Foother />
     </>
   );
 };
 
-export default ProductInfo;
+export default ProductPage;

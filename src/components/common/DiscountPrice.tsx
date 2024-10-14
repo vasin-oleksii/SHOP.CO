@@ -18,6 +18,7 @@ const DiscountPrice = ({ priceNow, pricePrev }: DiscountPriceProps) => {
       >
         {pricePrev.toFixed(0)}
       </Text>
+
       <Badge
         borderRadius="62px"
         p="6px 15px"

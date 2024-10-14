@@ -34,11 +34,7 @@ const StarRatings = ({
           }
         />
       ))}
-      {ratingMax && (
-        <Text ml="13px">
-          {rating.toFixed(1)} / {ratingMax}
-        </Text>
-      )}
+      {ratingMax && <Text ml="13px">{`${rating} / ${ratingMax} `}</Text>}
     </Flex>
   );
 };

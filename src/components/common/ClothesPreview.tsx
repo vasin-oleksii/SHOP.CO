@@ -48,17 +48,32 @@ const ClothesPreview = ({
           }}
           gap="20px"
         >
-          {data.map(({ id, title, images, price }) => {
-            return (
-              <Link
-                to={`/product/${id}`}
-                key={id}
-                state={{ title, images, price }}
-              >
-                <CardPreview title={title} images={images} price={price} />
-              </Link>
-            );
-          })}
+          {data.map(
+            ({ id, title, images, price, old_price, rating, description }) => {
+              return (
+                <Link
+                  to={`/product/${id}`}
+                  key={id}
+                  state={{
+                    title,
+                    images,
+                    price,
+                    old_price,
+                    rating,
+                    description,
+                  }}
+                >
+                  <CardPreview
+                    title={title}
+                    images={images}
+                    price={price}
+                    old_price={old_price}
+                    rating={rating}
+                  />
+                </Link>
+              );
+            }
+          )}
           <SkeletonOnFetch
             numOfSkeletons={
               data.length < numberOfProductsUpload
@@ -77,15 +92,42 @@ const ClothesPreview = ({
           overflow="hidden"
         >
           <Swiper slidesPerView={1.5}>
-            {data.map(({ id, title, images, price }) => {
-              return (
-                <SwiperSlide key={id}>
-                  <Link to={`/product/${id}`}>
-                    <CardPreview title={title} images={images} price={price} />
-                  </Link>
-                </SwiperSlide>
-              );
-            })}
+            {data.map(
+              ({
+                id,
+                title,
+                images,
+                price,
+                old_price,
+                rating,
+                description,
+              }) => {
+                return (
+                  <SwiperSlide key={id}>
+                    <Link
+                      to={`/product/${id}`}
+                      key={id}
+                      state={{
+                        title,
+                        images,
+                        price,
+                        old_price,
+                        rating,
+                        description,
+                      }}
+                    >
+                      <CardPreview
+                        title={title}
+                        images={images}
+                        price={price}
+                        old_price={old_price}
+                        rating={rating}
+                      />
+                    </Link>
+                  </SwiperSlide>
+                );
+              }
+            )}
           </Swiper>
         </Flex>
 
