@@ -49,9 +49,9 @@ const ProductPage = () => {
                   return (
                     <Box
                       key={i}
-                      border={i === showImage ? "4px solid #FFC0CB" : ""}
+                      border={i === showImage ? "2px solid black" : ""}
                       cursor="pointer"
-                      borderRadius="25px"
+                      borderRadius="22px"
                       width="150px"
                       height="100%"
                     >
