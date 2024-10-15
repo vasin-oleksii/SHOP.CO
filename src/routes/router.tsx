@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  Outlet,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, useLocation } from "react-router-dom";
 import HomePage from "../pages/home/HomePage";
 import CategoryPage from "../pages/caregory/CategoryPage";
 import NotFoundPage from "../pages/nonFound/notFound";
@@ -51,6 +46,7 @@ export const router = createBrowserRouter([
       {
         path: "/category",
         element: <CategoryPage />,
+        children: [{ path: "?page=:id", element: <CategoryPage /> }],
       },
       {
         path: "/product/:id",

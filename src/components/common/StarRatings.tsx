@@ -34,7 +34,14 @@ const StarRatings = ({
           }
         />
       ))}
-      {ratingMax && <Text ml="13px">{`${rating} / ${ratingMax} `}</Text>}
+      {ratingMax && (
+        <Text ml="13px">
+          <Text as={"span"} fontWeight={500}>
+            {rating}
+          </Text>
+          {` / ${ratingMax} `}
+        </Text>
+      )}
     </Flex>
   );
 };

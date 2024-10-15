@@ -69,8 +69,6 @@ const CardPreview = ({
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
           {images.map((img, i) => {
-            // img = img.replace(/[\[\]"]/g, "");
-
             return (
               <SwiperSlide key={i} onMouseEnter={onClickChangeSlides}>
                 <Image

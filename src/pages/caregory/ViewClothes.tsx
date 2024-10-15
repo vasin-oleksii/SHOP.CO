@@ -9,8 +9,50 @@ import {
   Button,
 } from "@chakra-ui/react";
 import CardPreview from "../../components/common/CardPreview";
+import { useCategoryState } from "../../store/store";
+
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import Pagination from "./Pagination";
+
+const ITEMS_PER_PAGE = 9;
 
 const ViewClothes = () => {
+  const { data, dataPerPage, isLoading, fetchDataPerPage, fetchData } =
+    useCategoryState();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(searchParams.get("page")) || 1
+  );
+
+  const numberOfLastPage = Math.ceil(data.length / ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    fetchData();
+    setSearchParams;
+  }, []);
+
+  useEffect(() => {
+    fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
+  }, [currentPage]);
+
+  const handleNext = () => {
+    if (currentPage < numberOfLastPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const onPageChange = (numOfPage: number) => {
+    setCurrentPage(numOfPage);
+  };
+
   return (
     <Box width="100%" ml="20px">
       <Flex
@@ -20,7 +62,7 @@ const ViewClothes = () => {
         flexDirection="column"
       >
         <Flex align="end" justify="space-between" width="100%">
-          <Heading>Casual</Heading>
+          <Heading>Casual {isLoading ? "Loading..." : ""}</Heading>
           <Flex align="center" justify="center">
             <Text>Showing 1-10 of 100 Products</Text>
             <Flex ml="12px">
@@ -43,28 +85,46 @@ const ViewClothes = () => {
           width="100%"
           mt={{ base: "35px", lg: "25px" }}
         >
-          {Array.from({ length: 9 }, (v, i) => (
-            <GridItem key={i}>
-              <CardPreview
-                title={v + ""}
-                images={[
-                  "https://images.all-free-download.com/images/thumbjpg/orange_crush_514795.jpg",
-                  "https://images.all-free-download.com/images/thumbjpg/orange_crush_514795.jpg",
-                ]}
-                price={i}
-              />
-            </GridItem>
-          ))}
+          {dataPerPage.map(
+            (
+              { title, images, price, old_price, rating, description, id },
+              i
+            ) => (
+              <Link
+                to={`/product/${id}`}
+                key={id}
+                state={{
+                  title,
+                  images,
+                  price,
+                  old_price,
+                  rating,
+                  description,
+                }}
+              >
+                <GridItem key={i}>
+                  <CardPreview
+                    title={title}
+                    images={images}
+                    price={price}
+                    old_price={old_price}
+                    rating={rating}
+                  />
+                </GridItem>
+              </Link>
+            )
+          )}
         </Grid>
         <Divider mt="34px" />
         <Flex width="100%" justify="space-between" align="center" mt="20px">
-          <Button>Prev</Button>
-          <Flex>
-            <Box>1</Box>
-            <Box>1</Box>
-            <Box>3</Box>
-          </Flex>
-          <Button>Next</Button>
+          <Button onClick={handlePrev}>Prev</Button>
+          <Pagination
+            currentPage={currentPage}
+            numberOfLastPage={numberOfLastPage}
+            onPageChange={onPageChange}
+          />
+
+          <Button onClick={handleNext}>Next</Button>
         </Flex>
       </Flex>
     </Box>
