@@ -37,6 +37,11 @@ const ViewClothes = () => {
     fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
   }, [currentPage]);
 
+  // Update URL searchParams whenever the page changes
+  useEffect(() => {
+    setSearchParams({ page: String(currentPage) });
+  }, [currentPage, setSearchParams]);
+
   const handleNext = () => {
     if (currentPage < numberOfLastPage) {
       setCurrentPage(currentPage + 1);
