@@ -29,18 +29,13 @@ const ViewClothes = () => {
   const numberOfLastPage = Math.ceil(data.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
-    fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
     fetchData();
+    setSearchParams;
   }, []);
 
   useEffect(() => {
     fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
   }, [currentPage]);
-
-  // Update URL searchParams whenever the page changes
-  useEffect(() => {
-    setSearchParams({ page: String(currentPage) });
-  }, [currentPage, setSearchParams]);
 
   const handleNext = () => {
     if (currentPage < numberOfLastPage) {

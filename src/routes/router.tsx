@@ -46,8 +46,12 @@ export const router = createBrowserRouter([
       {
         path: "/category",
         element: <CategoryPage />,
-        children: [{ path: "?page=:id", element: <CategoryPage /> }],
       },
+      // {
+      //   path: "/category",
+      //   element: <CategoryPage />,
+      //   children: [{ path: "?page=:id", element: <CategoryPage /> }],
+      // },
       {
         path: "/product/:id",
         element: <ProductPage />,
