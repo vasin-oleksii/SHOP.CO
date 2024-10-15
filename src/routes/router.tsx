@@ -44,16 +44,15 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/category",
+        path: "category",
         element: <CategoryPage />,
       },
-      // {
-      //   path: "/category",
-      //   element: <CategoryPage />,
-      //   children: [{ path: "?page=:id", element: <CategoryPage /> }],
-      // },
       {
-        path: "/product/:id",
+        path: "category/:page",
+        element: <CategoryPage />,
+      },
+      {
+        path: "product/:id",
         element: <ProductPage />,
       },
     ],
