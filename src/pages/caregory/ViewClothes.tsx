@@ -29,8 +29,8 @@ const ViewClothes = () => {
   const numberOfLastPage = Math.ceil(data.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
+    fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
     fetchData();
-    setSearchParams;
   }, []);
 
   useEffect(() => {
