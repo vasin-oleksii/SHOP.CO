@@ -21,7 +21,7 @@ import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet
 const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
 
 const ViewClothes = () => {
-  const { dataAll, dataPerPage, isLoading, fetchDataPerPage } =
+  const { dataAll, dataPerPage, isLoading, fetchDataPerPage, parametrs } =
     useCategoryState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(
@@ -37,7 +37,11 @@ const ViewClothes = () => {
   }, [currentPage, numberOfLastPage]);
 
   useEffect(() => {
-    fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
+    if (parametrs[0]?.length > 0 && parametrs[1]?.length > 0) {
+      fetchDataPerPage(ITEMS_PER_PAGE, currentPage, parametrs[0], parametrs[1]);
+    } else {
+      fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
+    }
   }, [currentPage]);
 
   const handleNext = () => {

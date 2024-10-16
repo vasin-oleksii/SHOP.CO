@@ -15,6 +15,7 @@ interface CategoryState {
   dataPerPage: Product[];
   dataAll: Product[];
   isLoading: boolean;
+  parametrs: string[];
   fetchDataPerPage: (
     limit?: number,
     page?: number,
@@ -27,6 +28,7 @@ export const useCategoryState = create<CategoryState>((set) => ({
   dataPerPage: [],
   dataAll: [],
   isLoading: false,
+  parametrs: [],
   fetchDataPerPage: async (
     limit = 0,
     page = 1,
@@ -43,7 +45,9 @@ export const useCategoryState = create<CategoryState>((set) => ({
       const fetchDataPerPage = await fetch(
         `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?${searchInCategory}page=${page}&limit=${limit}`
       );
-
+      console.log(
+        `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?${searchInCategory}page=${page}&limit=${limit}`
+      );
       const fetchDataAll = await fetch(
         `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?${searchInCategory}`
       );
@@ -55,6 +59,7 @@ export const useCategoryState = create<CategoryState>((set) => ({
         dataPerPage: dataPerPage,
         isLoading: false,
         dataAll: dataAll,
+        parametrs: [categoryOfSearch, valueOfSearch],
       });
     } catch (e) {
       console.error(e);

@@ -20,11 +20,12 @@ const Reviews = () => {
       </Box>
       <Box mt={{ base: "24px", lg: "40px" }}>
         <HStack maxW="container.xl" justifyContent="end" spacing="150px">
-          <SkeletonOnFetch
-            isLoading={isLoading}
-            numOfSkeletons={3}
-            skeletItem={<ReviewSkeleton />}
-          />
+          {isLoading && (
+            <SkeletonOnFetch
+              numOfSkeletons={3}
+              skeletItem={<ReviewSkeleton />}
+            />
+          )}
         </HStack>
       </Box>
     </Box>

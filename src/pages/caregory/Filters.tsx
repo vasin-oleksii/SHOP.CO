@@ -17,28 +17,9 @@ import {
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useCategoryState } from "../../store/store";
-import { useEffect, useState } from "react";
 
 const Filters = () => {
-  // const {
-  //   data,
-  //   dataPerPage,
-  //   isLoading,
-  //   fetchDataPerPage,
-  //   fetchData,
-  //   searchData,
-  // } = useCategoryState();
-
-  // const handleSearchData = (
-  //   categoryOfSeacrh: string,
-  //   valueOfSearch: string
-  // ) => {
-  //   searchData(categoryOfSeacrh, valueOfSearch);
-  // };
-
-  // useEffect(() => {
-  //   fetchDataPerPage(9, 1);
-  // }, []);
+  const { fetchDataPerPage } = useCategoryState();
 
   return (
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
@@ -53,14 +34,7 @@ const Filters = () => {
         flexDirection="column"
       >
         <Flex align="center" justify="space-between" width="100%">
-          <Heading
-            fontSize={{ base: "", lg: "lg" }}
-            // onClick={() => {
-            //   handleSearchData("title", "Red");
-            // }}
-          >
-            Filters
-          </Heading>
+          <Heading fontSize={{ base: "", lg: "lg" }}>Filters</Heading>
           <Box>
             <ChevronRightIcon />
           </Box>
@@ -130,9 +104,17 @@ const Filters = () => {
             justifyContent="center"
             alignItems="center"
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((color, i) => {
+            {["black", "red", "Navy", 4, 5, 6, 7, 8].map((color, i) => {
               return (
-                <GridItem key={i} textAlign="center">
+                <GridItem
+                  key={i}
+                  textAlign="center"
+                  background={`${color}`}
+                  height="37px"
+                  width="37px"
+                  borderRadius="100%"
+                  onClick={() => fetchDataPerPage(9, 1, "color", `${color}`)}
+                >
                   {color}
                 </GridItem>
               );
