@@ -14,6 +14,7 @@ import { useCategoryState } from "../../store/store";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -64,7 +65,10 @@ const ViewClothes = () => {
         <Flex align="end" justify="space-between" width="100%">
           <Heading>Casual {isLoading ? "Loading..." : ""}</Heading>
           <Flex align="center" justify="center">
-            <Text>Showing 1-10 of 100 Products</Text>
+            <Text>
+              Showing {currentPage * ITEMS_PER_PAGE - 9}-
+              {currentPage * ITEMS_PER_PAGE} of {data.length} Products
+            </Text>
             <Flex ml="12px">
               Sort by:
               <Flex
@@ -117,14 +121,30 @@ const ViewClothes = () => {
         </Grid>
         <Divider mt="34px" />
         <Flex width="100%" justify="space-between" align="center" mt="20px">
-          <Button onClick={handlePrev}>Prev</Button>
+          <Button
+            onClick={handlePrev}
+            border="1px solid rgba(0, 0, 0, 0.1)"
+            background="white"
+            _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
+            _active={{ background: "greyLight" }}
+          >
+            <ArrowBackIcon mr="10px" /> Prev
+          </Button>
           <Pagination
             currentPage={currentPage}
             numberOfLastPage={numberOfLastPage}
             onPageChange={onPageChange}
           />
 
-          <Button onClick={handleNext}>Next</Button>
+          <Button
+            onClick={handleNext}
+            border="1px solid rgba(0, 0, 0, 0.1)"
+            background="white"
+            _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
+            _active={{ background: "greyLight" }}
+          >
+            Next <ArrowForwardIcon ml="10px" />
+          </Button>
         </Flex>
       </Flex>
     </Box>
