@@ -59,7 +59,7 @@ const CardPreview = ({
 
   return (
     <VStack overflow="hidden" alignItems="start">
-      <Box maxW={{ base: "200px", md: "300px" }}>
+      <Box maxW={{ base: "100%", md: "300px" }}>
         <Swiper
           pagination={{ dynamicBullets: true }}
           modules={[Pagination]}
@@ -74,8 +74,10 @@ const CardPreview = ({
                 <Image
                   src={img}
                   fallbackSrc={fallbackLink}
-                  boxSize={{ base: "200px", md: "300px" }}
                   borderRadius="20px"
+                  objectFit="contain"
+                  w="100%"
+                  h="100%"
                 />
               </SwiperSlide>
             );

@@ -16,7 +16,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
 
 const ViewClothes = () => {
   const { data, dataPerPage, isLoading, fetchDataPerPage, fetchData } =
@@ -55,7 +55,7 @@ const ViewClothes = () => {
   };
 
   return (
-    <Box width="100%" ml="20px">
+    <Box width="100%" ml={{ base: "", lg: "20px" }}>
       <Flex
         justify="space-between"
         align="center"
@@ -65,11 +65,18 @@ const ViewClothes = () => {
         <Flex align="end" justify="space-between" width="100%">
           <Heading>Casual {isLoading ? "Loading..." : ""}</Heading>
           <Flex align="center" justify="center">
-            <Text>
-              Showing {currentPage * ITEMS_PER_PAGE - 9}-
-              {currentPage * ITEMS_PER_PAGE} of {data.length} Products
+            <Text fontSize={{ base: "md", sm: "sm" }}>
+              Showing{" "}
+              {currentPage * ITEMS_PER_PAGE - 9 === 0
+                ? 1
+                : currentPage * ITEMS_PER_PAGE - 9}
+              -{currentPage * ITEMS_PER_PAGE} of {data.length} Products
             </Text>
-            <Flex ml="12px">
+            <Flex
+              ml="12px"
+              display={{ base: "none", md: "flex" }}
+              fontSize={{ base: "xs", md: "sm" }}
+            >
               Sort by:
               <Flex
                 flexDirection="row"
@@ -81,13 +88,22 @@ const ViewClothes = () => {
                 Most Popular<Box>Icon</Box>
               </Flex>
             </Flex>
+            <Flex ml="12px" display={{ base: "flex", md: "none" }}>
+              <ArrowBackIcon />
+            </Flex>
           </Flex>
         </Flex>
         <Grid
-          templateColumns="repeat(auto-fit, minmax(270px, 1fr))"
-          gap="20px"
+          templateColumns={{
+            base: "repeat(2, minmax(1px, 270px))",
+            md: "repeat(auto-fit, minmax(290px, 1fr))",
+          }}
+          gap={{ base: "14px", md: "20px" }}
           width="100%"
           mt={{ base: "35px", lg: "25px" }}
+          justifyContent="center"
+          alignItems="center"
+          mx="auto"
         >
           {dataPerPage.map(
             (
@@ -106,7 +122,12 @@ const ViewClothes = () => {
                   description,
                 }}
               >
-                <GridItem key={i}>
+                <GridItem
+                  key={i}
+                  justifyContent="center"
+                  alignItems="center"
+                  display="flex"
+                >
                   <CardPreview
                     title={title}
                     images={images}
@@ -127,6 +148,9 @@ const ViewClothes = () => {
             background="white"
             _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
             _active={{ background: "greyLight" }}
+            fontSize={{ base: "xs", md: "sm" }}
+            p={{ base: "8px 12px", sm: "8px 14px" }}
+            opacity={currentPage === 1 ? ".3" : "1"}
           >
             <ArrowBackIcon mr="10px" /> Prev
           </Button>
@@ -142,6 +166,9 @@ const ViewClothes = () => {
             background="white"
             _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
             _active={{ background: "greyLight" }}
+            fontSize={{ base: "xs", md: "sm" }}
+            p={{ base: "8px 12px", sm: "8px 14px" }}
+            opacity={numberOfLastPage === currentPage ? ".3" : "1"}
           >
             Next <ArrowForwardIcon ml="10px" />
           </Button>

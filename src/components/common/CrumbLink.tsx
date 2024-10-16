@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 
 const CrumbLink = ({ pathname }: { pathname: string }) => {
   const arrPatname = pathname.split("/");
+  const arrWithWordsToUpperCase = arrPatname.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
 
   return (
     <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
-      {arrPatname.map((link, i) => {
+      {arrWithWordsToUpperCase.map((link, i) => {
         switch (link) {
           case "product":
             link = "Category";

@@ -1,16 +1,24 @@
-import { Box, Container, Divider, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 import Filters from "./Filters";
 import ViewClothes from "./ViewClothes";
+import DividerCustom from "../../components/common/divider/DividerCustom";
+import CrumbLink from "../../components/common/CrumbLink";
+import { useLocation } from "react-router-dom";
 
 const CategoryPage = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <Box>
         <Container maxW="container.xl">
-          <Divider mt={{ base: "20px", xl: "24px" }} />
-          <Box mt={{ base: "20px", xl: "24px" }}>крошки</Box>
-          <Flex flexDirection="row">
+          <DividerCustom />
+
+          <Box mt={{ base: "20px", sm: "24px" }}>
+            <CrumbLink pathname={pathname} />
+          </Box>
+          <Flex flexDirection="row" w="100%" mt={{ base: "17px", sm: "27px" }}>
             <Filters />
             <ViewClothes />
           </Flex>

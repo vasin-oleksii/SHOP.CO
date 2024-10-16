@@ -14,11 +14,15 @@ import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
 
 const Filters = () => {
   return (
-    <Flex>
+    <Flex display={{ base: "none", lg: "flex" }} h="100%">
       <Flex
         className="Filter"
         p={"20px 24px 66px 24px"}
         w="295px"
+        borderColor="greyLight"
+        borderStyle="solid"
+        borderWidth="1px"
+        borderRadius="20px"
         flexDirection="column"
       >
         <Flex align="center" justify="space-between" width="100%">
