@@ -12,37 +12,50 @@ interface Product {
 }
 
 interface CategoryState {
-  data: Product[];
   dataPerPage: Product[];
+  dataAll: Product[];
   isLoading: boolean;
-  fetchDataPerPage: (limit?: number, page?: number) => Promise<void>;
-  fetchData: () => Promise<void>;
+  fetchDataPerPage: (
+    limit?: number,
+    page?: number,
+    categoryOfSearch?: string,
+    valueOfSearch?: string
+  ) => Promise<void>;
 }
 
 export const useCategoryState = create<CategoryState>((set) => ({
-  data: [],
   dataPerPage: [],
+  dataAll: [],
   isLoading: false,
-  fetchDataPerPage: async (limit = 9, page = 1) => {
+  fetchDataPerPage: async (
+    limit = 0,
+    page = 1,
+    categoryOfSearch = "",
+    valueOfSearch = ""
+  ) => {
     set({ isLoading: true });
+    const searchInCategory =
+      categoryOfSearch && valueOfSearch
+        ? `${categoryOfSearch}=${valueOfSearch}&`
+        : "";
+
     try {
-      const resoult = await fetch(
-        `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?page=${page}&limit=${limit}`
+      const fetchDataPerPage = await fetch(
+        `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?${searchInCategory}page=${page}&limit=${limit}`
       );
-      set({ dataPerPage: await resoult.json(), isLoading: false });
-    } catch (e) {
-      22;
-      console.error(e);
-      set({ isLoading: false });
-    }
-  },
-  fetchData: async () => {
-    set({ isLoading: true });
-    try {
-      const resoult = await fetch(
-        `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products`
+
+      const fetchDataAll = await fetch(
+        `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?${searchInCategory}`
       );
-      set({ data: await resoult.json(), isLoading: false });
+
+      const dataAll = await fetchDataAll.json();
+      const dataPerPage = await fetchDataPerPage.json();
+
+      set({
+        dataPerPage: dataPerPage,
+        isLoading: false,
+        dataAll: dataAll,
+      });
     } catch (e) {
       console.error(e);
       set({ isLoading: false });

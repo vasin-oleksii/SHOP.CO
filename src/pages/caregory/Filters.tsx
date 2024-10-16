@@ -8,11 +8,38 @@ import {
   GridItem,
   Box,
   Divider,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
 } from "@chakra-ui/react";
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import { useCategoryState } from "../../store/store";
+import { useEffect, useState } from "react";
 
 const Filters = () => {
+  // const {
+  //   data,
+  //   dataPerPage,
+  //   isLoading,
+  //   fetchDataPerPage,
+  //   fetchData,
+  //   searchData,
+  // } = useCategoryState();
+
+  // const handleSearchData = (
+  //   categoryOfSeacrh: string,
+  //   valueOfSearch: string
+  // ) => {
+  //   searchData(categoryOfSeacrh, valueOfSearch);
+  // };
+
+  // useEffect(() => {
+  //   fetchDataPerPage(9, 1);
+  // }, []);
+
   return (
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
       <Flex
@@ -26,8 +53,17 @@ const Filters = () => {
         flexDirection="column"
       >
         <Flex align="center" justify="space-between" width="100%">
-          <Heading fontSize={{ base: "", lg: "lg" }}>Filters</Heading>
-          <Box>Icon</Box>
+          <Heading
+            fontSize={{ base: "", lg: "lg" }}
+            // onClick={() => {
+            //   handleSearchData("title", "Red");
+            // }}
+          >
+            Filters
+          </Heading>
+          <Box>
+            <ChevronRightIcon />
+          </Box>
         </Flex>
 
         <Divider m="24px 0px" />
@@ -40,7 +76,9 @@ const Filters = () => {
                   <Link>
                     <Text>{title}</Text>
                   </Link>
-                  <Box>Icon</Box>
+                  <Box>
+                    <ChevronRightIcon />
+                  </Box>
                 </Flex>
               );
             }
@@ -52,10 +90,26 @@ const Filters = () => {
         <VStack>
           <Flex align="center" justify="space-between" width="100%">
             <Heading fontSize={{ base: "", lg: "lg" }}>Price</Heading>
-            <Box>Icon</Box>
+            <Box>
+              <ChevronRightIcon />
+            </Box>
           </Flex>
 
-          <Box mt="20px"> $50 - 259$</Box>
+          <Box mt="20px" width="100%">
+            <RangeSlider
+              defaultValue={[50, 250]}
+              min={0}
+              max={300}
+              step={10}
+              borderRadius="20px"
+            >
+              <RangeSliderTrack bg="grey" height="6px">
+                <RangeSliderFilledTrack bg="black" />
+              </RangeSliderTrack>
+              <RangeSliderThumb boxSize={6} index={0} bg="black" />
+              <RangeSliderThumb boxSize={6} index={1} bg="black" />
+            </RangeSlider>
+          </Box>
         </VStack>
 
         <Divider m="24px 0px" />
@@ -63,7 +117,9 @@ const Filters = () => {
         <VStack>
           <Flex align="center" justify="space-between" width="100%">
             <Heading fontSize={{ base: "", lg: "lg" }}>Colors</Heading>
-            <Box>Icon</Box>
+            <Box>
+              <ChevronRightIcon />
+            </Box>
           </Flex>
 
           <Grid
@@ -89,7 +145,9 @@ const Filters = () => {
         <VStack>
           <Flex align="center" justify="space-between" width="100%">
             <Heading fontSize={{ base: "", lg: "lg" }}>Size</Heading>
-            <Box>Icon</Box>
+            <Box>
+              <ChevronRightIcon />
+            </Box>
           </Flex>
 
           <Grid
@@ -113,7 +171,9 @@ const Filters = () => {
         <Box>
           <Flex align="center" justify="space-between" width="100%">
             <Heading fontSize={{ base: "", lg: "lg" }}>Dress Style</Heading>
-            <Box>Icon</Box>
+            <Box>
+              <ChevronRightIcon />
+            </Box>
           </Flex>
 
           <VStack mt="20px">
@@ -123,7 +183,9 @@ const Filters = () => {
                   <Link>
                     <Text>{title}</Text>
                   </Link>
-                  <Box>Icon</Box>
+                  <Box>
+                    <ChevronRightIcon />
+                  </Box>
                 </Flex>
               );
             })}

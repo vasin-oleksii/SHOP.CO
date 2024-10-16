@@ -15,24 +15,26 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import SkeletonOnFetch from "../../components/common/skelets/SkeletonOnFetch";
+import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet";
 
 const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
 
 const ViewClothes = () => {
-  const { data, dataPerPage, isLoading, fetchDataPerPage, fetchData } =
+  const { dataAll, dataPerPage, isLoading, fetchDataPerPage } =
     useCategoryState();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [currentPage, setCurrentPage] = useState<number>(
     Number(searchParams.get("page")) || 1
   );
-
-  const numberOfLastPage = Math.ceil(data.length / ITEMS_PER_PAGE);
+  const numberOfLastPage = Math.ceil(dataAll.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
-    fetchData();
-    setSearchParams;
-  }, []);
+    if (currentPage > numberOfLastPage) {
+      setSearchParams({ page: `1` });
+      setCurrentPage(1);
+    }
+  }, [currentPage, numberOfLastPage]);
 
   useEffect(() => {
     fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
@@ -63,14 +65,11 @@ const ViewClothes = () => {
         flexDirection="column"
       >
         <Flex align="end" justify="space-between" width="100%">
-          <Heading>Casual {isLoading ? "Loading..." : ""}</Heading>
+          <Heading>Casual</Heading>
           <Flex align="center" justify="center">
             <Text fontSize={{ base: "md", sm: "sm" }}>
-              Showing{" "}
-              {currentPage * ITEMS_PER_PAGE - 9 === 0
-                ? 1
-                : currentPage * ITEMS_PER_PAGE - 9}
-              -{currentPage * ITEMS_PER_PAGE} of {data.length} Products
+              Showing {currentPage * ITEMS_PER_PAGE - 9}-
+              {currentPage * ITEMS_PER_PAGE} of {dataAll.length} Products
             </Text>
             <Flex
               ml="12px"
@@ -105,38 +104,45 @@ const ViewClothes = () => {
           alignItems="center"
           mx="auto"
         >
-          {dataPerPage.map(
-            (
-              { title, images, price, old_price, rating, description, id },
-              i
-            ) => (
-              <Link
-                to={`/product/${id}`}
-                key={id}
-                state={{
-                  title,
-                  images,
-                  price,
-                  old_price,
-                  rating,
-                  description,
-                }}
-              >
-                <GridItem
-                  key={i}
-                  justifyContent="center"
-                  alignItems="center"
-                  display="flex"
+          {isLoading ? (
+            <SkeletonOnFetch
+              numOfSkeletons={ITEMS_PER_PAGE}
+              skeletItem={<CardPreviewSkelet />}
+            />
+          ) : (
+            dataPerPage.map(
+              (
+                { title, images, price, old_price, rating, description, id },
+                i
+              ) => (
+                <Link
+                  to={`/product/${id}`}
+                  key={id}
+                  state={{
+                    title,
+                    images,
+                    price,
+                    old_price,
+                    rating,
+                    description,
+                  }}
                 >
-                  <CardPreview
-                    title={title}
-                    images={images}
-                    price={price}
-                    old_price={old_price}
-                    rating={rating}
-                  />
-                </GridItem>
-              </Link>
+                  <GridItem
+                    key={i}
+                    justifyContent="center"
+                    alignItems="center"
+                    display="flex"
+                  >
+                    <CardPreview
+                      title={title}
+                      images={images}
+                      price={price}
+                      old_price={old_price}
+                      rating={rating}
+                    />
+                  </GridItem>
+                </Link>
+              )
             )
           )}
         </Grid>
@@ -151,6 +157,7 @@ const ViewClothes = () => {
             fontSize={{ base: "xs", md: "sm" }}
             p={{ base: "8px 12px", sm: "8px 14px" }}
             opacity={currentPage === 1 ? ".3" : "1"}
+            isLoading={isLoading}
           >
             <ArrowBackIcon mr="10px" /> Prev
           </Button>
@@ -169,6 +176,7 @@ const ViewClothes = () => {
             fontSize={{ base: "xs", md: "sm" }}
             p={{ base: "8px 12px", sm: "8px 14px" }}
             opacity={numberOfLastPage === currentPage ? ".3" : "1"}
+            isLoading={isLoading}
           >
             Next <ArrowForwardIcon ml="10px" />
           </Button>

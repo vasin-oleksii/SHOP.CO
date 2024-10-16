@@ -48,41 +48,51 @@ const ClothesPreview = ({
           }}
           gap="20px"
         >
-          {data.map(
-            ({ id, title, images, price, old_price, rating, description }) => {
-              return (
-                <Link
-                  to={`/product/${id}`}
-                  key={id}
-                  state={{
-                    title,
-                    images,
-                    price,
-                    old_price,
-                    rating,
-                    description,
-                  }}
-                >
-                  <CardPreview
-                    title={title}
-                    images={images}
-                    price={price}
-                    old_price={old_price}
-                    rating={rating}
-                  />
-                </Link>
-              );
-            }
+          {!isLoading &&
+            data.map(
+              ({
+                id,
+                title,
+                images,
+                price,
+                old_price,
+                rating,
+                description,
+              }) => {
+                return (
+                  <Link
+                    to={`/product/${id}`}
+                    key={id}
+                    state={{
+                      title,
+                      images,
+                      price,
+                      old_price,
+                      rating,
+                      description,
+                    }}
+                  >
+                    <CardPreview
+                      title={title}
+                      images={images}
+                      price={price}
+                      old_price={old_price}
+                      rating={rating}
+                    />
+                  </Link>
+                );
+              }
+            )}
+          {isLoading && (
+            <SkeletonOnFetch
+              numOfSkeletons={
+                data.length < numberOfProductsUpload
+                  ? numberOfProductsUpload - data.length
+                  : 0
+              }
+              skeletItem={<CardPreviewSkelet />}
+            />
           )}
-          <SkeletonOnFetch
-            numOfSkeletons={
-              data.length < numberOfProductsUpload
-                ? numberOfProductsUpload - data.length
-                : 0
-            }
-            isLoading={isLoading}
-            skeletItem={<CardPreviewSkelet />}
-          />
         </Grid>
 
         <Flex
