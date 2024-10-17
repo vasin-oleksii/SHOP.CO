@@ -59,7 +59,14 @@ const Filters = () => {
   };
 
   const clearData = () => {
-    setDataForSubmit({});
+    setDataForSubmit({
+      category: "",
+      color: "",
+      size: "",
+      style: "",
+      title: "",
+      price: "",
+    });
     changeParametrsOfSearch({});
   };
 
