@@ -17,7 +17,7 @@ import {
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
 import { CheckCircleIcon, CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useCategoryState } from "../../store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import settings from "../../assets/icons/settings.svg";
 
@@ -31,7 +31,11 @@ const Filters = () => {
     price: "",
   });
 
-  const { changeParametrsOfSearch } = useCategoryState();
+  const { changeParametrsOfSearch, parametrsOfSearch } = useCategoryState();
+
+  useEffect(() => {
+    setDataForSubmit(parametrsOfSearch);
+  }, [parametrsOfSearch]);
 
   const handleDataForSubmit = ({
     key,
@@ -135,6 +139,7 @@ const Filters = () => {
               max={300}
               step={10}
               borderRadius="20px"
+              onChange={(e) => console.log("ggg")}
             >
               <RangeSliderTrack bg="grey" height="6px">
                 <RangeSliderFilledTrack bg="black" />
