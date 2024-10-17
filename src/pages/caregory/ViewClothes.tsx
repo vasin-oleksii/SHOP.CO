@@ -17,7 +17,7 @@ import Pagination from "./Pagination";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import SkeletonOnFetch from "../../components/common/skelets/SkeletonOnFetch";
 import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet";
-import ErrorMessage from "./errorMessage";
+import ErrorMessage from "./ErrorMessage";
 
 const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
 
