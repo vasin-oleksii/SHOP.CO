@@ -58,6 +58,11 @@ const Filters = () => {
     }
   };
 
+  const clearData = () => {
+    setDataForSubmit({});
+    changeParametrsOfSearch({});
+  };
+
   return (
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
       <Flex
@@ -317,6 +322,14 @@ const Filters = () => {
         >
           Apply Filter
         </ButtonRoundProps>
+        <Text
+          align="center"
+          color="greyText"
+          cursor="pointer"
+          onClick={() => clearData()}
+        >
+          Reset
+        </Text>
       </Flex>
     </Flex>
   );

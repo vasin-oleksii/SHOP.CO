@@ -41,25 +41,24 @@ const ViewClothes = () => {
   const numberOfLastPage = Math.ceil(dataAll.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
-    changeParametrsOfSearch({
-      color: searchParams.get("color"),
-      category: searchParams.get("category"),
-      size: searchParams.get("size"),
-      style: searchParams.get("style"),
-      title: searchParams.get("title"),
-      // price: searchParams.get("price"),
-    });
+    const keys = ["color", "category", "size", "style", "title"] as const;
 
-    //! setSearchParams(parametrsOfSearch);
+    const searchParamsValues = keys.reduce((params, key) => {
+      params[key] = searchParams.get(key);
+      return params;
+    }, {} as Record<(typeof keys)[number], string | null>);
+
+    changeParametrsOfSearch(searchParamsValues);
   }, []);
+
+  const { color, size, style, category } = parametrsOfSearch;
 
   const objectOfSearch = {
     page: `${currentPage}`,
-    [parametrsOfSearch.color && "color"]: parametrsOfSearch.color || "",
-    [parametrsOfSearch.size && "size"]: parametrsOfSearch.size || "",
-    [parametrsOfSearch.style && "style"]: parametrsOfSearch.style || "",
-    [parametrsOfSearch.category && "category"]:
-      parametrsOfSearch.category || "",
+    ...(color && { color }),
+    ...(size && { size }),
+    ...(style && { style }),
+    ...(category && { category }),
   };
 
   useEffect(() => {
