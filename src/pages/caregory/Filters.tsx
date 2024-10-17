@@ -144,7 +144,6 @@ const Filters = () => {
               max={300}
               step={10}
               borderRadius="20px"
-              onChange={(e) => console.log("ggg")}
             >
               <RangeSliderTrack bg="grey" height="6px">
                 <RangeSliderFilledTrack bg="black" />
