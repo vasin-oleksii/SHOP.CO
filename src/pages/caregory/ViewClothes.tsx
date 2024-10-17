@@ -57,6 +57,9 @@ const ViewClothes = () => {
     page: `${currentPage}`,
     [parametrsOfSearch.color && "color"]: parametrsOfSearch.color || "",
     [parametrsOfSearch.size && "size"]: parametrsOfSearch.size || "",
+    [parametrsOfSearch.style && "style"]: parametrsOfSearch.style || "",
+    [parametrsOfSearch.category && "category"]:
+      parametrsOfSearch.category || "",
   };
 
   useEffect(() => {

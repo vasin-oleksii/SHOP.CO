@@ -2,7 +2,6 @@ import {
   Flex,
   Heading,
   Text,
-  Link,
   VStack,
   Grid,
   GridItem,
@@ -12,12 +11,15 @@ import {
   RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
+  Button,
 } from "@chakra-ui/react";
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
-import { CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useCategoryState } from "../../store/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ReactSVG } from "react-svg";
+import settings from "../../assets/icons/settings.svg";
 
 const Filters = () => {
   const [dataForSubmit, setDataForSubmit] = useState({
@@ -31,9 +33,26 @@ const Filters = () => {
 
   const { changeParametrsOfSearch } = useCategoryState();
 
-  useEffect(() => {
-    changeParametrsOfSearch(dataForSubmit);
-  }, [dataForSubmit]);
+  const handleDataForSubmit = ({
+    key,
+    value,
+  }: {
+    key: keyof typeof dataForSubmit;
+    value: string;
+  }) => {
+    if (value.toLowerCase() === dataForSubmit[key]) {
+      setDataForSubmit((prevState) => {
+        return { ...prevState, [key]: `` };
+      });
+    } else {
+      setDataForSubmit((prevState) => {
+        return {
+          ...prevState,
+          [key]: `${value.toLowerCase()}`,
+        };
+      });
+    }
+  };
 
   return (
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
@@ -50,25 +69,53 @@ const Filters = () => {
         <Flex align="center" justify="space-between" width="100%">
           <Heading fontSize={{ base: "", lg: "lg" }}>Filters</Heading>
           <Box>
-            <ChevronRightIcon />
+            <ReactSVG src={settings} />
           </Box>
         </Flex>
 
         <Divider m="24px 0px" />
 
         <VStack>
-          {["T-shirts", "Hoodie", "Shorts"].map((title, i) => {
-            return (
-              <Flex justify="space-between" align="center" w="100%" key={i}>
-                <Link>
-                  <Text>{title}</Text>
-                </Link>
-                <Box>
-                  <ChevronRightIcon />
-                </Box>
-              </Flex>
-            );
-          })}
+          {["T-shirts", "Hoodie", "Shorts", "Blazers", "Dresses", "Suits"].map(
+            (category, i) => {
+              return (
+                <Flex
+                  justify="space-between"
+                  align="center"
+                  w="100%"
+                  key={i}
+                  cursor="pointer"
+                  onClick={() =>
+                    handleDataForSubmit({ key: "category", value: category })
+                  }
+                >
+                  <Text
+                    fontSize="md"
+                    fontWeight={
+                      category.toLowerCase() === dataForSubmit.category
+                        ? 700
+                        : ""
+                    }
+                    color={
+                      category.toLowerCase() === dataForSubmit.category
+                        ? "black"
+                        : "greyText"
+                    }
+                  >
+                    {category}
+                  </Text>
+
+                  <Box>
+                    {category.toLowerCase() === dataForSubmit.category ? (
+                      <CheckCircleIcon />
+                    ) : (
+                      <ChevronRightIcon />
+                    )}
+                  </Box>
+                </Flex>
+              );
+            }
+          )}
         </VStack>
 
         <Divider m="24px 0px" />
@@ -127,6 +174,8 @@ const Filters = () => {
               "grey",
               "gray",
             ].map((color, i) => {
+              const isActiveElement = color === dataForSubmit.color;
+
               return (
                 <GridItem
                   key={i}
@@ -139,16 +188,21 @@ const Filters = () => {
                   borderStyle="solid"
                   borderColor="rgba(0, 0, 0, 0.1)"
                   onClick={() =>
-                    setDataForSubmit((prevState) => {
-                      return { ...prevState, color: `${color}` };
-                    })
+                    handleDataForSubmit({ key: "color", value: color })
                   }
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
+                  cursor="pointer"
                 >
-                  {color === dataForSubmit.color ? (
-                    <CheckIcon color={color === "white" ? "black" : "white"} />
+                  {isActiveElement ? (
+                    <CheckIcon
+                      color={
+                        color === "white" || color === "grey"
+                          ? "black"
+                          : "white"
+                      }
+                    />
                   ) : (
                     ""
                   )}
@@ -168,30 +222,38 @@ const Filters = () => {
             </Box>
           </Flex>
 
-          <Grid
+          <Flex
             mt="20px"
-            templateColumns="repeat(2, minmax(10px, 80px))"
             width="100%"
             alignContent="center"
+            flexWrap="wrap"
+            gap="8px"
           >
             {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
               (size, i) => {
                 return (
-                  <Box
+                  <Button
                     key={i}
-                    width="72px"
+                    fontSize="sm"
+                    p="10px 20px"
+                    background="greyLight"
                     onClick={() =>
-                      setDataForSubmit((prevState) => {
-                        return { ...prevState, size: `${size}` };
-                      })
+                      handleDataForSubmit({ key: "size", value: size })
                     }
+                    display="inline-block"
+                    borderRadius="62px"
+                    color="greyText"
+                    isActive={size.toLowerCase() === dataForSubmit.size}
+                    _hover={{ color: "white", background: "greyText" }}
+                    _active={{ color: "white", background: "black" }}
+                    fontWeight="500"
                   >
                     {size}
-                  </Box>
+                  </Button>
                 );
               }
             )}
-          </Grid>
+          </Flex>
         </VStack>
 
         <Divider m="24px 0px" />
@@ -205,14 +267,35 @@ const Filters = () => {
           </Flex>
 
           <VStack mt="20px">
-            {["Casual"].map((title, i) => {
+            {["Casual", "Formal", "Party"].map((style, i) => {
+              const isActiveElement =
+                style.toLowerCase() === dataForSubmit.style;
+
               return (
-                <Flex justify="space-between" align="center" w="100%" key={i}>
-                  <Link>
-                    <Text>{title}</Text>
-                  </Link>
+                <Flex
+                  justify="space-between"
+                  align="center"
+                  w="100%"
+                  key={i}
+                  onClick={() =>
+                    handleDataForSubmit({ key: "style", value: style })
+                  }
+                  cursor="pointer"
+                >
+                  <Text
+                    fontSize="md"
+                    fontWeight={isActiveElement ? 700 : ""}
+                    color={isActiveElement ? "black" : "greyText"}
+                  >
+                    {style}
+                  </Text>
+
                   <Box>
-                    <ChevronRightIcon />
+                    {isActiveElement ? (
+                      <CheckCircleIcon />
+                    ) : (
+                      <ChevronRightIcon />
+                    )}
                   </Box>
                 </Flex>
               );
@@ -220,7 +303,13 @@ const Filters = () => {
           </VStack>
         </Box>
 
-        <ButtonRoundProps colorBtn="black" mt="24px" width="100%" p="0px 16px">
+        <ButtonRoundProps
+          colorBtn="black"
+          mt="24px"
+          width="100%"
+          p="0px 16px"
+          onClick={() => changeParametrsOfSearch(dataForSubmit)}
+        >
           Apply Filter
         </ButtonRoundProps>
       </Flex>
