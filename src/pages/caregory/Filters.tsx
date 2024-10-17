@@ -15,11 +15,25 @@ import {
 } from "@chakra-ui/react";
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useCategoryState } from "../../store/store";
+import { useEffect, useState } from "react";
 
 const Filters = () => {
-  const { fetchDataPerPage } = useCategoryState();
+  const [dataForSubmit, setDataForSubmit] = useState({
+    category: "",
+    color: "",
+    size: "",
+    style: "",
+    title: "",
+    price: "",
+  });
+
+  const { changeParametrsOfSearch } = useCategoryState();
+
+  useEffect(() => {
+    changeParametrsOfSearch(dataForSubmit);
+  }, [dataForSubmit]);
 
   return (
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
@@ -43,20 +57,18 @@ const Filters = () => {
         <Divider m="24px 0px" />
 
         <VStack>
-          {["T-shirts", "Shorts", "Shirts", "Hoodie", "Jeans"].map(
-            (title, i) => {
-              return (
-                <Flex justify="space-between" align="center" w="100%" key={i}>
-                  <Link>
-                    <Text>{title}</Text>
-                  </Link>
-                  <Box>
-                    <ChevronRightIcon />
-                  </Box>
-                </Flex>
-              );
-            }
-          )}
+          {["T-shirts", "Hoodie", "Shorts"].map((title, i) => {
+            return (
+              <Flex justify="space-between" align="center" w="100%" key={i}>
+                <Link>
+                  <Text>{title}</Text>
+                </Link>
+                <Box>
+                  <ChevronRightIcon />
+                </Box>
+              </Flex>
+            );
+          })}
         </VStack>
 
         <Divider m="24px 0px" />
@@ -100,11 +112,21 @@ const Filters = () => {
             mt="20px"
             templateColumns="repeat(auto-fill, minmax(40px, 50px))"
             width="100%"
+            gap="15px"
             alignContent="center"
             justifyContent="center"
             alignItems="center"
           >
-            {["black", "red", "Navy", 4, 5, 6, 7, 8].map((color, i) => {
+            {[
+              "white",
+              "pink",
+              "black",
+              "red",
+              "navy",
+              "green",
+              "grey",
+              "gray",
+            ].map((color, i) => {
               return (
                 <GridItem
                   key={i}
@@ -113,9 +135,23 @@ const Filters = () => {
                   height="37px"
                   width="37px"
                   borderRadius="100%"
-                  onClick={() => fetchDataPerPage(9, 1, "color", `${color}`)}
+                  borderWidth="1px"
+                  borderStyle="solid"
+                  borderColor="rgba(0, 0, 0, 0.1)"
+                  onClick={() =>
+                    setDataForSubmit((prevState) => {
+                      return { ...prevState, color: `${color}` };
+                    })
+                  }
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
-                  {color}
+                  {color === dataForSubmit.color ? (
+                    <CheckIcon color={color === "white" ? "black" : "white"} />
+                  ) : (
+                    ""
+                  )}
                 </GridItem>
               );
             })}
@@ -138,13 +174,23 @@ const Filters = () => {
             width="100%"
             alignContent="center"
           >
-            {[1, 2, 3, 4, 5, 6, 7].map((size, i) => {
-              return (
-                <Box key={i} width="72px">
-                  {size}
-                </Box>
-              );
-            })}
+            {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
+              (size, i) => {
+                return (
+                  <Box
+                    key={i}
+                    width="72px"
+                    onClick={() =>
+                      setDataForSubmit((prevState) => {
+                        return { ...prevState, size: `${size}` };
+                      })
+                    }
+                  >
+                    {size}
+                  </Box>
+                );
+              }
+            )}
           </Grid>
         </VStack>
 
@@ -159,7 +205,7 @@ const Filters = () => {
           </Flex>
 
           <VStack mt="20px">
-            {["Casual", "Formal", "Party", "Gym"].map((title, i) => {
+            {["Casual"].map((title, i) => {
               return (
                 <Flex justify="space-between" align="center" w="100%" key={i}>
                   <Link>

@@ -17,32 +17,64 @@ import Pagination from "./Pagination";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import SkeletonOnFetch from "../../components/common/skelets/SkeletonOnFetch";
 import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet";
+import ErrorMessage from "./errorMessage";
 
 const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
 
 const ViewClothes = () => {
-  const { dataAll, dataPerPage, isLoading, fetchDataPerPage, parametrs } =
-    useCategoryState();
+  const {
+    dataAll,
+    dataPerPage,
+    isLoading,
+    fetchDataPerPage,
+    parametrsOfSearch,
+    changeParametrsOfSearch,
+  } = useCategoryState();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(
     Number(searchParams.get("page")) || 1
   );
+
+  const showError =
+    typeof dataAll === "string" && typeof dataPerPage === "string";
+
   const numberOfLastPage = Math.ceil(dataAll.length / ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    changeParametrsOfSearch({
+      color: searchParams.get("color"),
+      category: searchParams.get("category"),
+      size: searchParams.get("size"),
+      style: searchParams.get("style"),
+      title: searchParams.get("title"),
+      // price: searchParams.get("price"),
+    });
+
+    //! setSearchParams(parametrsOfSearch);
+  }, []);
+
+  const objectOfSearch = {
+    page: `${currentPage}`,
+    [parametrsOfSearch.color && "color"]: parametrsOfSearch.color || "",
+    [parametrsOfSearch.size && "size"]: parametrsOfSearch.size || "",
+  };
 
   useEffect(() => {
     if (currentPage > numberOfLastPage) {
       setSearchParams({ page: `1` });
       setCurrentPage(1);
+    } else {
+      setSearchParams(objectOfSearch);
     }
   }, [currentPage, numberOfLastPage]);
 
   useEffect(() => {
-    if (parametrs[0]?.length > 0 && parametrs[1]?.length > 0) {
-      fetchDataPerPage(ITEMS_PER_PAGE, currentPage, parametrs[0], parametrs[1]);
-    } else {
-      fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
-    }
-  }, [currentPage]);
+    fetchDataPerPage(ITEMS_PER_PAGE, currentPage);
+  }, [currentPage, parametrsOfSearch]);
+
+  useEffect(() => {
+    setSearchParams(objectOfSearch);
+  }, [parametrsOfSearch]);
 
   const handleNext = () => {
     if (currentPage < numberOfLastPage) {
@@ -73,7 +105,8 @@ const ViewClothes = () => {
           <Flex align="center" justify="center">
             <Text fontSize={{ base: "md", sm: "sm" }}>
               Showing {currentPage * ITEMS_PER_PAGE - 9}-
-              {currentPage * ITEMS_PER_PAGE} of {dataAll.length} Products
+              {showError ? 0 : currentPage * ITEMS_PER_PAGE} of{" "}
+              {showError ? 0 : dataAll.length} Products
             </Text>
             <Flex
               ml="12px"
@@ -108,7 +141,9 @@ const ViewClothes = () => {
           alignItems="center"
           mx="auto"
         >
-          {isLoading ? (
+          {showError ? (
+            <ErrorMessage name="No clothing meets the requirements" />
+          ) : isLoading ? (
             <SkeletonOnFetch
               numOfSkeletons={ITEMS_PER_PAGE}
               skeletItem={<CardPreviewSkelet />}
