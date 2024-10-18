@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import settings from "../../assets/icons/settings.svg";
 import ButtonFilter from "../../components/common/buttons/ButtonFilter";
-import GroupInputs from "./GroupInputs";
 
 const Filters = () => {
   const [dataForSubmit, setDataForSubmit] = useState({
