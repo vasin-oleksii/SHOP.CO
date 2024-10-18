@@ -18,7 +18,7 @@ const GroupInputs = ({ children, title }: GroupInputsProps) => {
         width="100%"
         onClick={() => setIsShow((prevState) => !prevState)}
       >
-        <Heading fontSize={{ base: "", lg: "lg" }}>Dress Style</Heading>
+        <Heading fontSize={{ base: "", lg: "lg" }}>{title}</Heading>
         <Box>
           <ChevronRightIcon />
         </Box>
