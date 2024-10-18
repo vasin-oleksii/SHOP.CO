@@ -11,7 +11,6 @@ import {
   RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
-  Button,
 } from "@chakra-ui/react";
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
@@ -20,6 +19,8 @@ import { useCategoryState } from "../../store/store";
 import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import settings from "../../assets/icons/settings.svg";
+import ButtonFilter from "../../components/common/buttons/ButtonFilter";
+import GroupInputs from "./GroupInputs";
 
 const Filters = () => {
   const [dataForSubmit, setDataForSubmit] = useState({
@@ -31,6 +32,23 @@ const Filters = () => {
     price: "",
   });
 
+  const [isShow, setIsShow] = useState({
+    filter: true,
+    price: false,
+    colors: false,
+    size: false,
+    style: false,
+  });
+
+  const toggleIsShow = (
+    key: "filter" | "price" | "colors" | "size" | "style"
+  ): void => {
+    setIsShow((prev) => {
+      return { ...prev, [key]: !prev[key] };
+    });
+  };
+
+  console.log(isShow);
   const { changeParametrsOfSearch, parametrsOfSearch } = useCategoryState();
 
   useEffect(() => {
@@ -74,7 +92,7 @@ const Filters = () => {
     <Flex display={{ base: "none", lg: "flex" }} h="100%">
       <Flex
         className="Filter"
-        p={"20px 24px 66px 24px"}
+        p={isShow ? "20px 24px" : "20px 24px 66px 24px"}
         w="295px"
         borderColor="greyLight"
         borderStyle="solid"
@@ -84,258 +102,294 @@ const Filters = () => {
       >
         <Flex align="center" justify="space-between" width="100%">
           <Heading fontSize={{ base: "", lg: "lg" }}>Filters</Heading>
-          <Box>
+          <Box
+            onClick={() => toggleIsShow("filter")}
+            cursor="pointer"
+            p="4px"
+            transition="all 0.2s"
+            _hover={{
+              background: "grey",
+              borderRadius: "3px",
+              transition: "all 0.2s ",
+            }}
+          >
             <ReactSVG src={settings} />
           </Box>
         </Flex>
 
         <Divider m="24px 0px" />
 
-        <VStack>
-          {["T-shirts", "Hoodie", "Shorts", "Blazers", "Dresses", "Suits"].map(
-            (category, i) => {
-              return (
-                <Flex
-                  justify="space-between"
-                  align="center"
-                  w="100%"
-                  key={i}
-                  cursor="pointer"
-                  onClick={() =>
-                    handleDataForSubmit({ key: "category", value: category })
-                  }
-                >
-                  <Text
-                    fontSize="md"
-                    fontWeight={
-                      category.toLowerCase() === dataForSubmit.category
-                        ? 700
-                        : ""
-                    }
-                    color={
-                      category.toLowerCase() === dataForSubmit.category
-                        ? "black"
-                        : "greyText"
-                    }
-                  >
-                    {category}
-                  </Text>
-
-                  <Box>
-                    {category.toLowerCase() === dataForSubmit.category ? (
-                      <CheckCircleIcon />
-                    ) : (
-                      <ChevronRightIcon />
-                    )}
-                  </Box>
-                </Flex>
-              );
-            }
-          )}
-        </VStack>
-
-        <Divider m="24px 0px" />
-
-        <VStack>
-          <Flex align="center" justify="space-between" width="100%">
-            <Heading fontSize={{ base: "", lg: "lg" }}>Price</Heading>
-            <Box>
-              <ChevronRightIcon />
-            </Box>
-          </Flex>
-
-          <Box mt="20px" width="100%">
-            <RangeSlider
-              defaultValue={[50, 250]}
-              min={0}
-              max={300}
-              step={10}
-              borderRadius="20px"
-            >
-              <RangeSliderTrack bg="grey" height="6px">
-                <RangeSliderFilledTrack bg="black" />
-              </RangeSliderTrack>
-              <RangeSliderThumb boxSize={6} index={0} bg="black" />
-              <RangeSliderThumb boxSize={6} index={1} bg="black" />
-            </RangeSlider>
-          </Box>
-        </VStack>
-
-        <Divider m="24px 0px" />
-
-        <VStack>
-          <Flex align="center" justify="space-between" width="100%">
-            <Heading fontSize={{ base: "", lg: "lg" }}>Colors</Heading>
-            <Box>
-              <ChevronRightIcon />
-            </Box>
-          </Flex>
-
-          <Grid
-            mt="20px"
-            templateColumns="repeat(auto-fill, minmax(40px, 50px))"
-            width="100%"
-            gap="15px"
-            alignContent="center"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {[
-              "white",
-              "pink",
-              "black",
-              "red",
-              "navy",
-              "green",
-              "grey",
-              "gray",
-            ].map((color, i) => {
-              const isActiveElement = color === dataForSubmit.color;
-
-              return (
-                <GridItem
-                  key={i}
-                  textAlign="center"
-                  background={`${color}`}
-                  height="37px"
-                  width="37px"
-                  borderRadius="100%"
-                  borderWidth="1px"
-                  borderStyle="solid"
-                  borderColor="rgba(0, 0, 0, 0.1)"
-                  onClick={() =>
-                    handleDataForSubmit({ key: "color", value: color })
-                  }
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  cursor="pointer"
-                >
-                  {isActiveElement ? (
-                    <CheckIcon
-                      color={
-                        color === "white" || color === "grey"
-                          ? "black"
-                          : "white"
-                      }
-                    />
-                  ) : (
-                    ""
-                  )}
-                </GridItem>
-              );
-            })}
-          </Grid>
-        </VStack>
-
-        <Divider m="24px 0px" />
-
-        <VStack>
-          <Flex align="center" justify="space-between" width="100%">
-            <Heading fontSize={{ base: "", lg: "lg" }}>Size</Heading>
-            <Box>
-              <ChevronRightIcon />
-            </Box>
-          </Flex>
-
-          <Flex
-            mt="20px"
-            width="100%"
-            alignContent="center"
-            flexWrap="wrap"
-            gap="8px"
-          >
-            {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
-              (size, i) => {
+        {isShow.filter ? (
+          <>
+            <VStack>
+              {[
+                "T-shirts",
+                "Hoodie",
+                "Shorts",
+                "Blazers",
+                "Dresses",
+                "Suits",
+              ].map((category, i) => {
                 return (
-                  <Button
+                  <Flex
+                    justify="space-between"
+                    align="center"
+                    w="100%"
                     key={i}
-                    fontSize="sm"
-                    p="10px 20px"
-                    background="greyLight"
+                    cursor="pointer"
                     onClick={() =>
-                      handleDataForSubmit({ key: "size", value: size })
+                      handleDataForSubmit({ key: "category", value: category })
                     }
-                    display="inline-block"
-                    borderRadius="62px"
-                    color="greyText"
-                    isActive={size.toLowerCase() === dataForSubmit.size}
-                    _hover={{ color: "white", background: "greyText" }}
-                    _active={{ color: "white", background: "black" }}
-                    fontWeight="500"
                   >
-                    {size}
-                  </Button>
+                    <Text
+                      fontSize="md"
+                      fontWeight={
+                        category.toLowerCase() === dataForSubmit.category
+                          ? 700
+                          : ""
+                      }
+                      color={
+                        category.toLowerCase() === dataForSubmit.category
+                          ? "black"
+                          : "greyText"
+                      }
+                    >
+                      {category}
+                    </Text>
+
+                    <Box>
+                      {category.toLowerCase() === dataForSubmit.category ? (
+                        <CheckCircleIcon />
+                      ) : (
+                        <ChevronRightIcon />
+                      )}
+                    </Box>
+                  </Flex>
                 );
-              }
-            )}
-          </Flex>
-        </VStack>
+              })}
+            </VStack>
 
-        <Divider m="24px 0px" />
+            <Divider m="24px 0px" />
 
-        <Box>
-          <Flex align="center" justify="space-between" width="100%">
-            <Heading fontSize={{ base: "", lg: "lg" }}>Dress Style</Heading>
-            <Box>
-              <ChevronRightIcon />
-            </Box>
-          </Flex>
-
-          <VStack mt="20px">
-            {["Casual", "Formal", "Party"].map((style, i) => {
-              const isActiveElement =
-                style.toLowerCase() === dataForSubmit.style;
-
-              return (
-                <Flex
-                  justify="space-between"
-                  align="center"
-                  w="100%"
-                  key={i}
-                  onClick={() =>
-                    handleDataForSubmit({ key: "style", value: style })
-                  }
-                  cursor="pointer"
-                >
-                  <Text
-                    fontSize="md"
-                    fontWeight={isActiveElement ? 700 : ""}
-                    color={isActiveElement ? "black" : "greyText"}
+            <VStack>
+              <Flex
+                align="center"
+                justify="space-between"
+                width="100%"
+                onClick={() => toggleIsShow("price")}
+              >
+                <Heading fontSize={{ base: "", lg: "lg" }}>Price</Heading>
+                <Box>
+                  <ChevronRightIcon />
+                </Box>
+              </Flex>
+              {isShow.price && (
+                <Box mt="20px" width="100%">
+                  <RangeSlider
+                    defaultValue={[50, 250]}
+                    min={0}
+                    max={300}
+                    step={10}
+                    borderRadius="20px"
                   >
-                    {style}
-                  </Text>
+                    <RangeSliderTrack bg="grey" height="6px">
+                      <RangeSliderFilledTrack bg="black" />
+                    </RangeSliderTrack>
+                    <RangeSliderThumb boxSize={6} index={0} bg="black" />
+                    <RangeSliderThumb boxSize={6} index={1} bg="black" />
+                  </RangeSlider>
+                </Box>
+              )}
+            </VStack>
 
-                  <Box>
-                    {isActiveElement ? (
-                      <CheckCircleIcon />
-                    ) : (
-                      <ChevronRightIcon />
-                    )}
-                  </Box>
+            <Divider m="24px 0px" />
+
+            <VStack>
+              <Flex
+                align="center"
+                justify="space-between"
+                width="100%"
+                onClick={() => toggleIsShow("colors")}
+              >
+                <Heading fontSize={{ base: "", lg: "lg" }}>Colors</Heading>
+                <Box>
+                  <ChevronRightIcon />
+                </Box>
+              </Flex>
+              {isShow.colors && (
+                <Grid
+                  mt="20px"
+                  templateColumns="repeat(auto-fill, minmax(40px, 50px))"
+                  width="100%"
+                  gap="15px"
+                  alignContent="center"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  {[
+                    "white",
+                    "pink",
+                    "black",
+                    "red",
+                    "navy",
+                    "green",
+                    "grey",
+                    "gray",
+                  ].map((color, i) => {
+                    const isActiveElement = color === dataForSubmit.color;
+
+                    return (
+                      <GridItem
+                        key={i}
+                        textAlign="center"
+                        background={`${color}`}
+                        height="37px"
+                        width="37px"
+                        borderRadius="100%"
+                        borderWidth="1px"
+                        borderStyle="solid"
+                        borderColor="rgba(0, 0, 0, 0.1)"
+                        onClick={() =>
+                          handleDataForSubmit({ key: "color", value: color })
+                        }
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        cursor="pointer"
+                      >
+                        {isActiveElement ? (
+                          <CheckIcon
+                            color={
+                              color === "white" || color === "grey"
+                                ? "black"
+                                : "white"
+                            }
+                          />
+                        ) : (
+                          ""
+                        )}
+                      </GridItem>
+                    );
+                  })}
+                </Grid>
+              )}
+            </VStack>
+
+            <Divider m="24px 0px" />
+
+            <VStack>
+              <Flex
+                align="center"
+                justify="space-between"
+                width="100%"
+                onClick={() => toggleIsShow("size")}
+              >
+                <Heading fontSize={{ base: "", lg: "lg" }}>Size</Heading>
+                <Box>
+                  <ChevronRightIcon />
+                </Box>
+              </Flex>
+
+              {isShow.size && (
+                <Flex
+                  mt="20px"
+                  width="100%"
+                  alignContent="center"
+                  flexWrap="wrap"
+                  gap="8px"
+                >
+                  {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
+                    (size, i) => {
+                      return (
+                        <ButtonFilter
+                          onClick={() =>
+                            handleDataForSubmit({ key: "size", value: size })
+                          }
+                          key={i}
+                          text={size}
+                        />
+                      );
+                    }
+                  )}
                 </Flex>
-              );
-            })}
-          </VStack>
-        </Box>
+              )}
+            </VStack>
 
-        <ButtonRoundProps
-          colorBtn="black"
-          mt="24px"
-          width="100%"
-          p="0px 16px"
-          onClick={() => changeParametrsOfSearch(dataForSubmit)}
-        >
-          Apply Filter
-        </ButtonRoundProps>
-        <Text
-          align="center"
-          color="greyText"
-          cursor="pointer"
-          onClick={() => clearData()}
-        >
-          Reset
-        </Text>
+            <Divider m="24px 0px" />
+
+            <Box>
+              <Flex
+                align="center"
+                justify="space-between"
+                width="100%"
+                onClick={() => toggleIsShow("style")}
+              >
+                <Heading fontSize={{ base: "", lg: "lg" }}>Dress Style</Heading>
+                <Box>
+                  <ChevronRightIcon />
+                </Box>
+              </Flex>
+
+              {isShow.style && (
+                <VStack mt="20px">
+                  {["Casual", "Formal", "Party"].map((style, i) => {
+                    const isActiveElement =
+                      style.toLowerCase() === dataForSubmit.style;
+
+                    return (
+                      <Flex
+                        justify="space-between"
+                        align="center"
+                        w="100%"
+                        key={i}
+                        onClick={() =>
+                          handleDataForSubmit({ key: "style", value: style })
+                        }
+                        cursor="pointer"
+                      >
+                        <Text
+                          fontSize="md"
+                          fontWeight={isActiveElement ? 700 : ""}
+                          color={isActiveElement ? "black" : "greyText"}
+                        >
+                          {style}
+                        </Text>
+
+                        <Box>
+                          {isActiveElement ? (
+                            <CheckCircleIcon />
+                          ) : (
+                            <ChevronRightIcon />
+                          )}
+                        </Box>
+                      </Flex>
+                    );
+                  })}
+                </VStack>
+              )}
+            </Box>
+
+            <Divider m="24px 0px" />
+
+            <ButtonRoundProps
+              colorBtn="black"
+              mt="24px"
+              width="100%"
+              p="0px 16px"
+              onClick={() => changeParametrsOfSearch(dataForSubmit)}
+            >
+              Apply Filter
+            </ButtonRoundProps>
+            <Text
+              align="center"
+              color="greyText"
+              cursor="pointer"
+              onClick={() => clearData()}
+            >
+              Reset
+            </Text>
+          </>
+        ) : null}
       </Flex>
     </Flex>
   );

@@ -15,6 +15,7 @@ import DiscountPrice from "../../components/common/DiscountPrice";
 import { useState } from "react";
 import CrumbLink from "../../components/common/CrumbLink";
 import DividerCustom from "../../components/common/divider/DividerCustom";
+import ButtonFilter from "../../components/common/buttons/ButtonFilter";
 
 interface ProductState {
   title: string;
@@ -141,10 +142,10 @@ const ProductPage = () => {
               <Box mt="24px">
                 <Text>Choose Size</Text>
                 <HStack mt="16px">
-                  <Box>C1</Box>
-                  <Box>C2</Box>
-                  <Box>C1</Box>
-                  <Box>C2</Box>
+                  <ButtonFilter isBig={true} text="Small" />
+                  <ButtonFilter isBig={true} text="Medium" />
+                  <ButtonFilter isBig={true} text="Large" />
+                  <ButtonFilter isBig={true} text="X-Large" />
                 </HStack>
               </Box>
 
