@@ -47,7 +47,6 @@ const FilterSheets = () => {
     });
   };
 
-  console.log(isShow);
   const { changeParametrsOfSearch, parametrsOfSearch } = useCategoryState();
 
   useEffect(() => {
@@ -299,6 +298,9 @@ const FilterSheets = () => {
                 >
                   {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
                     (size, i) => {
+                      const isActive =
+                        size.toLowerCase() === dataForSubmit.size;
+
                       return (
                         <ButtonFilter
                           onClick={() =>
@@ -306,6 +308,7 @@ const FilterSheets = () => {
                           }
                           key={i}
                           text={size}
+                          isActive={isActive}
                         />
                       );
                     }

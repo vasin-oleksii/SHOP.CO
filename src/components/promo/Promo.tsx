@@ -15,6 +15,7 @@ import star from "../../assets/icons/Star.svg";
 import { motion } from "framer-motion";
 import ButtonRound from "../common/buttons/ButtonRound";
 import BannerLogos from "../bannerLogos/BannerLogos";
+import { Link } from "react-router-dom";
 
 const Promo = () => {
   return (
@@ -47,13 +48,15 @@ const Promo = () => {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </Text>
-              <ButtonRound
-                colorBtn="black"
-                p="16px 68px"
-                width={{ base: "100%", lg: "unset" }}
-              >
-                Shop Now
-              </ButtonRound>
+              <Link to={"/category?page=1"}>
+                <ButtonRound
+                  colorBtn="black"
+                  p="16px 68px"
+                  width={{ base: "100%", lg: "unset" }}
+                >
+                  Shop Now
+                </ButtonRound>
+              </Link>
             </Stack>
             <Grid
               mt={{ base: "15px", xl: "40px" }}

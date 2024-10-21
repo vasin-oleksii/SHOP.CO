@@ -5,7 +5,7 @@ interface ButtonFilter extends ButtonProps {
   text: string;
 }
 
-const ButtonFilter = ({ isBig, text }: ButtonFilter) => {
+const ButtonFilter = ({ isBig, text, onClick, isActive }: ButtonFilter) => {
   return (
     <Button
       p="10px 20px"
@@ -17,6 +17,8 @@ const ButtonFilter = ({ isBig, text }: ButtonFilter) => {
       _active={{ color: "white", background: "black" }}
       fontWeight="500"
       fontSize={isBig ? { base: "sm", md: "md" } : { base: "sm" }}
+      onClick={onClick}
+      isActive={isActive}
     >
       {text}
     </Button>

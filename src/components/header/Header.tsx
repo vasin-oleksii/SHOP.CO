@@ -135,13 +135,13 @@ const Header = () => {
                 </Menu>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <RouterLink to="/category">On Sale</RouterLink>
+                <RouterLink to="/category?page=1">On Sale</RouterLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <RouterLink to="/category">New Arrivals</RouterLink>
+                <RouterLink to="/category?page=1">New Arrivals</RouterLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <RouterLink to="/category">Brands</RouterLink>
+                <RouterLink to="/category?page=1">Brands</RouterLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Flex>
