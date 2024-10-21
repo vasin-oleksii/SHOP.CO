@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import CardPreview from "../../components/common/CardPreview";
-import { useCategoryState } from "../../store/store";
+import { useCategoryState } from "../../store/useCategoryState";
 
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";

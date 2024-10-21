@@ -15,13 +15,13 @@ import {
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
 import { CheckCircleIcon, CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { useCategoryState } from "../../store/store";
+import { useCategoryState } from "../../store/useCategoryState";
 import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
 import settings from "../../assets/icons/settings.svg";
 import ButtonFilter from "../../components/common/buttons/ButtonFilter";
 
-const Filters = () => {
+const FilterSheets = () => {
   const [dataForSubmit, setDataForSubmit] = useState({
     category: "",
     color: "",
@@ -394,4 +394,4 @@ const Filters = () => {
   );
 };
 
-export default Filters;
+export default FilterSheets;

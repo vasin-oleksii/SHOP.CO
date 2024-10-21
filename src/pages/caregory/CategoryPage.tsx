@@ -1,6 +1,6 @@
 import { Box, Container, Flex } from "@chakra-ui/react";
 
-import Filters from "./Filters";
+import FilterSheets from "./FilterSheets";
 import ViewClothes from "./ViewClothes";
 import DividerCustom from "../../components/common/divider/DividerCustom";
 import CrumbLink from "../../components/common/CrumbLink";
@@ -19,7 +19,7 @@ const CategoryPage = () => {
             <CrumbLink pathname={pathname} />
           </Box>
           <Flex flexDirection="row" w="100%" mt={{ base: "17px", sm: "27px" }}>
-            <Filters />
+            <FilterSheets />
             <ViewClothes />
           </Flex>
         </Container>
