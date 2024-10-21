@@ -1,20 +1,24 @@
 interface SkeletonOnFetchProps {
   numOfSkeletons: number;
   skeletItem: React.ReactNode;
+  isLoading?: boolean;
 }
 
 const SkeletonOnFetch = ({
   numOfSkeletons,
   skeletItem,
+  isLoading = true,
 }: SkeletonOnFetchProps) => {
-  numOfSkeletons === 0 ? (numOfSkeletons = 4) : numOfSkeletons;
+  if (isLoading) {
+    numOfSkeletons === 0 ? (numOfSkeletons = 4) : numOfSkeletons;
 
-  const skeletons = [];
+    const skeletons = [];
 
-  for (let i = 0; i < numOfSkeletons; i++) {
-    skeletons.push(<div key={i}>{skeletItem}</div>);
+    for (let i = 0; i < numOfSkeletons; i++) {
+      skeletons.push(<div key={i}>{skeletItem}</div>);
+    }
+    return skeletons;
   }
-  return skeletons;
 };
 
 export default SkeletonOnFetch;
