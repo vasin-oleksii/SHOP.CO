@@ -7,14 +7,14 @@ import {
   GridItem,
   Box,
   Divider,
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 
 import ButtonRoundProps from "../../components/common/buttons/ButtonRound";
-import { CheckCircleIcon, CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, CheckIcon, SmallAddIcon } from "@chakra-ui/icons";
 import { useCategoryState } from "../../store/useCategoryState";
 import { useEffect, useState } from "react";
 import { ReactSVG } from "react-svg";
@@ -147,7 +147,7 @@ const FilterSheets = () => {
                       {category.toLowerCase() === dataForSubmit.category ? (
                         <CheckCircleIcon />
                       ) : (
-                        <ChevronRightIcon />
+                        <SmallAddIcon color="greyText" />
                       )}
                     </Box>
                   </Flex>
@@ -157,27 +157,26 @@ const FilterSheets = () => {
 
             <Divider m="24px 0px" />
 
-            <GroupInputs title="Price">
+            <GroupInputs title="Price" category="price">
               <Box mt="20px" width="100%">
-                <RangeSlider
-                  defaultValue={[50, 250]}
+                <Slider
+                  defaultValue={50}
                   min={0}
                   max={300}
                   step={10}
                   borderRadius="20px"
                 >
-                  <RangeSliderTrack bg="grey" height="6px">
-                    <RangeSliderFilledTrack bg="black" />
-                  </RangeSliderTrack>
-                  <RangeSliderThumb boxSize={6} index={0} bg="black" />
-                  <RangeSliderThumb boxSize={6} index={1} bg="black" />
-                </RangeSlider>
+                  <SliderTrack bg="red.100">
+                    <SliderFilledTrack bg="black" />
+                  </SliderTrack>
+                  <SliderThumb boxSize={6} bg="black" />
+                </Slider>
               </Box>
             </GroupInputs>
 
             <Divider m="24px 0px" />
 
-            <GroupInputs title="Colors">
+            <GroupInputs title="Colors" category="color">
               <Grid
                 mt="20px"
                 templateColumns="repeat(auto-fill, minmax(40px, 50px))"
@@ -237,7 +236,7 @@ const FilterSheets = () => {
 
             <Divider m="24px 0px" />
 
-            <GroupInputs title="Size">
+            <GroupInputs title="Size" category="size">
               <Flex
                 mt="20px"
                 width="100%"
@@ -266,7 +265,7 @@ const FilterSheets = () => {
 
             <Divider m="24px 0px" />
 
-            <GroupInputs title="Dress Style">
+            <GroupInputs title="Dress Style" category="style">
               <VStack mt="20px">
                 {["Casual", "Formal", "Party"].map((style, i) => {
                   const isActiveElement =
@@ -295,7 +294,7 @@ const FilterSheets = () => {
                         {isActiveElement ? (
                           <CheckCircleIcon />
                         ) : (
-                          <ChevronRightIcon />
+                          <SmallAddIcon color="greyText" />
                         )}
                       </Box>
                     </Flex>
