@@ -3,7 +3,6 @@ import {
   Divider,
   Flex,
   Heading,
-  Text,
   Grid,
   GridItem,
   Button,
@@ -18,8 +17,8 @@ import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import SkeletonOnFetch from "../../components/common/skelets/SkeletonOnFetch";
 import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet";
 import ErrorMessage from "./ErrorMessage";
-
-const ITEMS_PER_PAGE = window.innerWidth > 961 ? 9 : 6;
+import HeadViewClothes from "./HeadViewClothes";
+import { ITEMS_PER_PAGE } from "../../constants/Filtes";
 
 const ViewClothes = () => {
   const {
@@ -34,7 +33,6 @@ const ViewClothes = () => {
   const [currentPage, setCurrentPage] = useState<number>(
     Number(searchParams.get("page")) || 1
   );
-
   const showError =
     typeof dataAll === "string" && typeof dataPerPage === "string";
 
@@ -104,32 +102,11 @@ const ViewClothes = () => {
       >
         <Flex align="end" justify="space-between" width="100%">
           <Heading>Casual</Heading>
-          <Flex align="center" justify="center">
-            <Text fontSize={{ base: "md", sm: "sm" }}>
-              Showing {currentPage * ITEMS_PER_PAGE - 9}-
-              {showError ? 0 : currentPage * ITEMS_PER_PAGE} of{" "}
-              {showError ? 0 : dataAll.length} Products
-            </Text>
-            <Flex
-              ml="12px"
-              display={{ base: "none", md: "flex" }}
-              fontSize={{ base: "xs", md: "sm" }}
-            >
-              Sort by:
-              <Flex
-                flexDirection="row"
-                align="center"
-                justify="center"
-                fontWeight="bold"
-                ml="6px"
-              >
-                Most Popular<Box>Icon</Box>
-              </Flex>
-            </Flex>
-            <Flex ml="12px" display={{ base: "flex", md: "none" }}>
-              <ArrowBackIcon />
-            </Flex>
-          </Flex>
+          <HeadViewClothes
+            currentPage={currentPage}
+            showError={showError}
+            dataLength={dataAll.length}
+          />
         </Flex>
         <Grid
           templateColumns={{
@@ -151,40 +128,21 @@ const ViewClothes = () => {
               skeletItem={<CardPreviewSkelet />}
             />
           ) : (
-            dataPerPage.map(
-              (
-                { title, images, price, old_price, rating, description, id },
-                i
-              ) => (
-                <Link
-                  to={`/product/${id}`}
-                  key={id}
-                  state={{
-                    title,
-                    images,
-                    price,
-                    old_price,
-                    rating,
-                    description,
-                  }}
-                >
+            dataPerPage.map((state, i) => {
+              const { id, ...rest } = state;
+              return (
+                <Link to={`/product/${id}`} key={id} state={{ ...rest }}>
                   <GridItem
                     key={i}
                     justifyContent="center"
                     alignItems="center"
                     display="flex"
                   >
-                    <CardPreview
-                      title={title}
-                      images={images}
-                      price={price}
-                      old_price={old_price}
-                      rating={rating}
-                    />
+                    <CardPreview {...rest} />
                   </GridItem>
                 </Link>
-              )
-            )
+              );
+            })
           )}
         </Grid>
         <Divider mt="34px" />
