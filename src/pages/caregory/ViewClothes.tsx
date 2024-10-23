@@ -21,6 +21,7 @@ const ViewClothes = () => {
     parametrsOfSearch,
     changeParametrsOfSearch,
   } = useCategoryState();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(
     Number(searchParams.get("page")) || 1
@@ -39,7 +40,7 @@ const ViewClothes = () => {
     changeParametrsOfSearch(searchParamsValues);
   }, []);
 
-  const { color, size, style, category, price } = parametrsOfSearch;
+  const { color, size, style, category, price, title } = parametrsOfSearch;
   const objectOfSearch = {
     page: `${currentPage}`,
     ...(color && { color }),
@@ -47,6 +48,7 @@ const ViewClothes = () => {
     ...(style && { style }),
     ...(category && { category }),
     ...(price && { price }),
+    ...(title && { title }),
   };
 
   useEffect(() => {

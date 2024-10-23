@@ -34,11 +34,15 @@ import InputIconLeft from "../common/inputs/InputIconLeft";
 
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useCategoryState } from "../../store/useCategoryState";
 
 const Header = () => {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const [isCrossVisibleBurger, setIsCrossVisibleBurger] =
     useState<boolean>(true);
+
+  const [searchValueInput, setSearchValueInput] = useState("");
+  const { changeParametrsOfSearch } = useCategoryState();
 
   const toggleBurger = (): void => setIsCrossVisibleBurger((prev) => !prev);
   const toggleBanner = (): void => setIsBannerVisible((prev) => !prev);
@@ -152,8 +156,17 @@ const Header = () => {
             placeholder="Search for products..."
             bgInput={"greyLight"}
             colorInput={"greyText"}
+            value={searchValueInput}
+            onChange={(e) => {
+              setSearchValueInput(e.target.value);
+            }}
           >
-            <ReactSVG src={SearchLitle} />
+            <ReactSVG
+              src={SearchLitle}
+              onClick={() =>
+                changeParametrsOfSearch({ title: searchValueInput })
+              }
+            />
           </InputIconLeft>
 
           <HStack spacing="16px">

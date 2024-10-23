@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
+import { keys } from "../constants/useCategoryState";
 
 interface Product {
   id: string;
@@ -12,7 +13,7 @@ interface Product {
   category_id: string;
 }
 
-interface ParametrsOfSearch {
+export interface ParametrsOfSearch {
   category: string;
   color: string;
   size: string;
@@ -62,29 +63,16 @@ export const useCategoryState = create<CategoryState>()(
     fetchDataPerPage: async (limit = 0, page = 1) => {
       set({ isLoading: true });
 
-      // ? `${categoryOfSearch}=${valueOfSearch}&`
       const { parametrsOfSearch } = get();
 
       const urlParams = new URLSearchParams();
 
-      if (parametrsOfSearch.category) {
-        urlParams.append("category", parametrsOfSearch.category);
-      }
-      if (parametrsOfSearch.color) {
-        urlParams.append("color", parametrsOfSearch.color);
-      }
-      if (parametrsOfSearch.size) {
-        urlParams.append("size", parametrsOfSearch.size);
-      }
-      if (parametrsOfSearch.style) {
-        urlParams.append("style", parametrsOfSearch.style);
-      }
-      if (parametrsOfSearch.title) {
-        urlParams.append("title", parametrsOfSearch.title);
-      }
-      if (parametrsOfSearch.price) {
-        urlParams.append("price", parametrsOfSearch.price);
-      }
+      keys.forEach((key) => {
+        const value = parametrsOfSearch[key];
+        if (value) {
+          urlParams.append(key, value);
+        }
+      });
 
       const baseUrl = `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?`;
       const fullUrlSearch = `${baseUrl}${urlParams.toString() + "&"}`;

@@ -92,7 +92,6 @@ const FilterSheets = () => {
         <Flex align="center" justify="space-between" width="100%">
           <Heading fontSize={"lg"}>Filters</Heading>
           <Box
-            onMouseEnter={() => setIsShowFilter((prevState) => !prevState)}
             onClick={() => setIsShowFilter((prevState) => !prevState)}
             cursor="pointer"
             p="4px"
