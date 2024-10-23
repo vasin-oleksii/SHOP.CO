@@ -105,7 +105,9 @@ const FilterSheets = () => {
       <Flex
         display={showFilter ? "flex" : { base: "none", lg: "flex" }}
         h={
-          showFilter ? { base: "29%", sm: "30%", md: "35%" } : { base: "100%" }
+          showFilter
+            ? { base: "840px", sm: "850px", md: "900px" }
+            : { base: "100%" }
         }
         position={showFilter ? "absolute" : "relative"}
         ml={showFilter ? { base: "-9px", sm: "0px" } : { base: "0px" }}
