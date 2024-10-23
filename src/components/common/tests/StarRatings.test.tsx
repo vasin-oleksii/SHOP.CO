@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import StarRatings from "./StarRatings";
+import StarRatings from "../StarRatings";
 import star from "../../assets/stars/star.svg";
 import starHalf from "../../assets/stars/starHalf.svg";
 
