@@ -1,19 +1,10 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Grid,
-  GridItem,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Grid, GridItem } from "@chakra-ui/react";
 import CardPreview from "../../components/common/CardPreview";
 import { useCategoryState } from "../../store/useCategoryState";
 
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import SkeletonOnFetch from "../../components/common/skelets/SkeletonOnFetch";
 import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet";
 import ErrorMessage from "./ErrorMessage";
@@ -49,7 +40,6 @@ const ViewClothes = () => {
   }, []);
 
   const { color, size, style, category, price } = parametrsOfSearch;
-
   const objectOfSearch = {
     page: `${currentPage}`,
     ...(color && { color }),
@@ -75,18 +65,6 @@ const ViewClothes = () => {
   useEffect(() => {
     setSearchParams(objectOfSearch);
   }, [parametrsOfSearch]);
-
-  const handleNext = () => {
-    if (currentPage < numberOfLastPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   const onPageChange = (numOfPage: number) => {
     setCurrentPage(numOfPage);
@@ -147,38 +125,12 @@ const ViewClothes = () => {
         </Grid>
         <Divider mt="34px" />
         <Flex width="100%" justify="space-between" align="center" mt="20px">
-          <Button
-            onClick={handlePrev}
-            border="1px solid rgba(0, 0, 0, 0.1)"
-            background="white"
-            _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
-            _active={{ background: "greyLight" }}
-            fontSize={{ base: "xs", md: "sm" }}
-            p={{ base: "8px 12px", sm: "8px 14px" }}
-            opacity={currentPage === 1 ? ".3" : "1"}
-            isLoading={isLoading}
-          >
-            <ArrowBackIcon mr="10px" /> Prev
-          </Button>
           <Pagination
             currentPage={currentPage}
             numberOfLastPage={numberOfLastPage}
             onPageChange={onPageChange}
-          />
-
-          <Button
-            onClick={handleNext}
-            border="1px solid rgba(0, 0, 0, 0.1)"
-            background="white"
-            _hover={{ border: "1px solid rgba(0, 0, 0, 0.5)" }}
-            _active={{ background: "greyLight" }}
-            fontSize={{ base: "xs", md: "sm" }}
-            p={{ base: "8px 12px", sm: "8px 14px" }}
-            opacity={numberOfLastPage === currentPage ? ".3" : "1"}
             isLoading={isLoading}
-          >
-            Next <ArrowForwardIcon ml="10px" />
-          </Button>
+          />
         </Flex>
       </Flex>
     </Box>
