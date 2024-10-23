@@ -62,13 +62,13 @@ const ViewClothes = () => {
   };
 
   useEffect(() => {
-    if (currentPage > numberOfLastPage) {
+    if (currentPage > numberOfLastPage && numberOfLastPage !== 0) {
       setSearchParams({ page: `1` });
       setCurrentPage(1);
     } else {
       setSearchParams(objectOfSearch);
     }
-  }, [currentPage, numberOfLastPage]);
+  }, [numberOfLastPage, dataAll]);
 
   useEffect(() => {
     fetchDataPerPage(ITEMS_PER_PAGE, currentPage);

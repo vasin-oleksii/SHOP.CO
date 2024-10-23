@@ -58,7 +58,6 @@ export const useCategoryState = create<CategoryState>()(
       style: "",
       title: "",
       price: "",
-      page: "",
     },
     fetchDataPerPage: async (limit = 0, page = 1) => {
       set({ isLoading: true });
