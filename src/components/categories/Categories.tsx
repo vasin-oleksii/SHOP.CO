@@ -12,6 +12,7 @@ import photo1 from "../../assets/categories/photo1.jpg";
 import photo2 from "../../assets/categories/photo2.jpg";
 import photo3 from "../../assets/categories/photo3.jpg";
 import photo4 from "../../assets/categories/photo4.jpg";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   return (
@@ -47,14 +48,18 @@ const Categories = () => {
               transition="all 0.2s"
               _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
-              <Text
-                fontSize={{ base: "xl", lg: "3xl" }}
-                fontWeight="700"
-                mt={{ base: "18px", lg: "28px" }}
-                ml={{ base: "24px", lg: "36px" }}
-              >
-                Casual
-              </Text>
+              <Link to={"/category?page=1&color=red"}>
+                <Box w="100%" h="100%">
+                  <Text
+                    fontSize={{ base: "xl", lg: "3xl" }}
+                    fontWeight="700"
+                    mt={{ base: "18px", lg: "28px" }}
+                    ml={{ base: "24px", lg: "36px" }}
+                  >
+                    Casual
+                  </Text>
+                </Box>
+              </Link>
             </GridItem>
             <GridItem
               colSpan={{ base: 0, lg: 2 }}
@@ -66,14 +71,18 @@ const Categories = () => {
               transition="all 0.2s"
               _hover={{ transform: "scale(1.03)", transition: "all 0.2s" }}
             >
-              <Text
-                fontSize={{ base: "xl", lg: "3xl" }}
-                fontWeight="700"
-                mt={{ base: "18px", lg: "28px" }}
-                ml={{ base: "24px", lg: "36px" }}
-              >
-                Formal
-              </Text>
+              <Link to={"/category?page=1&color=black"}>
+                <Box w="100%" h="100%">
+                  <Text
+                    fontSize={{ base: "xl", lg: "3xl" }}
+                    fontWeight="700"
+                    mt={{ base: "18px", lg: "28px" }}
+                    ml={{ base: "24px", lg: "36px" }}
+                  >
+                    Formal
+                  </Text>
+                </Box>
+              </Link>
             </GridItem>
             <GridItem
               colSpan={{ base: 0, lg: 2 }}
@@ -85,14 +94,18 @@ const Categories = () => {
               transition="all 0.2s"
               _hover={{ transform: "scale(1.03)", transition: "all 0.2s" }}
             >
-              <Text
-                fontSize={{ base: "xl", lg: "3xl" }}
-                fontWeight="700"
-                mt={{ base: "18px", lg: "28px" }}
-                ml={{ base: "24px", lg: "36px" }}
-              >
-                Party
-              </Text>
+              <Link to={"/category?page=1&style=formal"}>
+                <Box w="100%" h="100%">
+                  <Text
+                    fontSize={{ base: "xl", lg: "3xl" }}
+                    fontWeight="700"
+                    mt={{ base: "18px", lg: "28px" }}
+                    ml={{ base: "24px", lg: "36px" }}
+                  >
+                    Party
+                  </Text>
+                </Box>
+              </Link>
             </GridItem>
             <GridItem
               backgroundImage={photo4}
@@ -103,14 +116,18 @@ const Categories = () => {
               transition="all 0.2s"
               _hover={{ transform: "scale(1.05)", transition: "all 0.2s" }}
             >
-              <Text
-                fontSize={{ base: "xl", lg: "3xl" }}
-                fontWeight="700"
-                mt={{ base: "18px", lg: "28px" }}
-                ml={{ base: "24px", lg: "36px" }}
-              >
-                Gym
-              </Text>
+              <Link to={"/category?page=1&style=party"}>
+                <Box w="100%" h="100%">
+                  <Text
+                    fontSize={{ base: "xl", lg: "3xl" }}
+                    fontWeight="700"
+                    mt={{ base: "18px", lg: "28px" }}
+                    ml={{ base: "24px", lg: "36px" }}
+                  >
+                    Gym
+                  </Text>
+                </Box>
+              </Link>
             </GridItem>
           </Grid>
         </Flex>

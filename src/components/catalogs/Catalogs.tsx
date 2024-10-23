@@ -1,6 +1,6 @@
 import { Box, VStack } from "@chakra-ui/react";
 import ClothesPreview from "../common/ClothesPreview";
-// import { Divider } from "@chakra-ui/react";
+import { Divider } from "@chakra-ui/react";
 
 const Catalogs = () => {
   return (
@@ -13,14 +13,15 @@ const Catalogs = () => {
             uploadMore={4}
           />
         </Box>
-        {/* <Divider mt={{ base: "40px", lg: "64px" }} /> */}
-        {/* 
+        <Divider mt={{ base: "40px", lg: "64px" }} />
+
         <Box mt={{ base: "40px", lg: "64px" }}>
           <ClothesPreview
             title="top selling"
-            url="https://api.escuelajs.co/api/v1/products?offset=0&limit=4"
+            url="https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?page=1&color=red|navy&limit="
+            uploadMore={4}
           />
-        </Box> */}
+        </Box>
       </VStack>
     </Box>
   );
