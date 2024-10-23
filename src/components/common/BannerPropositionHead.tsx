@@ -9,6 +9,8 @@ interface BannerPropositionHeadProps {
   bg: string;
   color: string;
   toggleBanner: any;
+  borderWidth?: string;
+  borderColor?: string;
 }
 
 const BannerPropositionHead = ({

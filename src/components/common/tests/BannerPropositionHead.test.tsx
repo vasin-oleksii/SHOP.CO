@@ -81,9 +81,9 @@ describe("BannerPropositionHead", () => {
         isVisible={true}
         bg="yellow.500"
         color="black"
-        toggleBanner={mockToggleBanner}
         borderWidth="1px"
         borderColor="gray.300"
+        toggleBanner={mockToggleBanner}
       />
     );
 
