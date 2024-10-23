@@ -19,6 +19,7 @@ import CardPreviewSkelet from "../../components/common/skelets/CardPreviewSkelet
 import ErrorMessage from "./ErrorMessage";
 import HeadViewClothes from "./HeadViewClothes";
 import { ITEMS_PER_PAGE } from "../../constants/Filtes";
+import { keys } from "../../constants/ViewClothes";
 
 const ViewClothes = () => {
   const {
@@ -39,8 +40,6 @@ const ViewClothes = () => {
   const numberOfLastPage = Math.ceil(dataAll.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
-    const keys = ["color", "category", "size", "style", "title"] as const;
-
     const searchParamsValues = keys.reduce((params, key) => {
       params[key] = searchParams.get(key);
       return params;
@@ -49,7 +48,7 @@ const ViewClothes = () => {
     changeParametrsOfSearch(searchParamsValues);
   }, []);
 
-  const { color, size, style, category } = parametrsOfSearch;
+  const { color, size, style, category, price } = parametrsOfSearch;
 
   const objectOfSearch = {
     page: `${currentPage}`,
@@ -57,6 +56,7 @@ const ViewClothes = () => {
     ...(size && { size }),
     ...(style && { style }),
     ...(category && { category }),
+    ...(price && { price }),
   };
 
   useEffect(() => {

@@ -155,18 +155,29 @@ const FilterSheets = () => {
             <Divider m="24px 0px" />
 
             <GroupInputs title="Price" category="price">
-              <Box mt="20px" width="100%">
+              <Box mt="20px" width="100%" p="0px 10px">
                 <Slider
-                  defaultValue={50}
+                  defaultValue={Number(dataForSubmit.price)}
                   min={0}
-                  max={300}
-                  step={10}
+                  max={150}
+                  step={5}
                   borderRadius="20px"
+                  onChange={(price) =>
+                    handleDataForSubmit({
+                      key: "price",
+                      value: `${price}`,
+                    })
+                  }
                 >
-                  <SliderTrack bg="red.100">
+                  <SliderTrack bg="greyLight">
                     <SliderFilledTrack bg="black" />
                   </SliderTrack>
-                  <SliderThumb boxSize={6} bg="black" />
+                  <SliderThumb boxSize={6} bg="black" position="relative" />
+                  <Box position="absolute" top="70%" color="greyText" right={0}>
+                    {Number(dataForSubmit.price) === 0
+                      ? "All"
+                      : dataForSubmit.price + "$"}
+                  </Box>
                 </Slider>
               </Box>
             </GroupInputs>
