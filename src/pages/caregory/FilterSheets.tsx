@@ -21,8 +21,11 @@ import { ReactSVG } from "react-svg";
 import settings from "../../assets/icons/settings.svg";
 import ButtonFilter from "../../components/common/buttons/ButtonFilter";
 import GroupInputs from "./GroupInputs";
+import { CATEGORY } from "../../constants/Filtes";
 
 const FilterSheets = () => {
+  const { SIZE, STYLE, CATEGORYS, COLORS } = CATEGORY;
+
   const [dataForSubmit, setDataForSubmit] = useState({
     category: "",
     color: "",
@@ -87,8 +90,9 @@ const FilterSheets = () => {
         flexDirection="column"
       >
         <Flex align="center" justify="space-between" width="100%">
-          <Heading fontSize={{ base: "", lg: "lg" }}>Filters</Heading>
+          <Heading fontSize={"lg"}>Filters</Heading>
           <Box
+            onMouseEnter={() => setIsShowFilter((prevState) => !prevState)}
             onClick={() => setIsShowFilter((prevState) => !prevState)}
             cursor="pointer"
             p="4px"
@@ -108,14 +112,7 @@ const FilterSheets = () => {
         {isShowFilter ? (
           <>
             <VStack>
-              {[
-                "T-shirts",
-                "Hoodie",
-                "Shorts",
-                "Blazers",
-                "Dresses",
-                "Suits",
-              ].map((category, i) => {
+              {CATEGORYS.map((category, i) => {
                 return (
                   <Flex
                     justify="space-between"
@@ -186,16 +183,7 @@ const FilterSheets = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                {[
-                  "white",
-                  "pink",
-                  "black",
-                  "red",
-                  "navy",
-                  "green",
-                  "grey",
-                  "gray",
-                ].map((color, i) => {
+                {COLORS.map((color, i) => {
                   const isActiveElement = color === dataForSubmit.color;
 
                   return (
@@ -244,22 +232,20 @@ const FilterSheets = () => {
                 flexWrap="wrap"
                 gap="8px"
               >
-                {["Large", "Small", "Medium", "XX-Large", "One Size"].map(
-                  (size, i) => {
-                    const isActive = size.toLowerCase() === dataForSubmit.size;
+                {SIZE.map((size, i) => {
+                  const isActive = size.toLowerCase() === dataForSubmit.size;
 
-                    return (
-                      <ButtonFilter
-                        onClick={() =>
-                          handleDataForSubmit({ key: "size", value: size })
-                        }
-                        key={i}
-                        text={size}
-                        isActive={isActive}
-                      />
-                    );
-                  }
-                )}
+                  return (
+                    <ButtonFilter
+                      onClick={() =>
+                        handleDataForSubmit({ key: "size", value: size })
+                      }
+                      key={i}
+                      text={size}
+                      isActive={isActive}
+                    />
+                  );
+                })}
               </Flex>
             </GroupInputs>
 
@@ -267,7 +253,7 @@ const FilterSheets = () => {
 
             <GroupInputs title="Dress Style" category="style">
               <VStack mt="20px">
-                {["Casual", "Formal", "Party"].map((style, i) => {
+                {STYLE.map((style, i) => {
                   const isActiveElement =
                     style.toLowerCase() === dataForSubmit.style;
 
