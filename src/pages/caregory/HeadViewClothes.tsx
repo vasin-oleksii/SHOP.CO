@@ -1,6 +1,8 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Flex, Select, Text } from "@chakra-ui/react";
 import { ITEMS_PER_PAGE } from "../../constants/Filtes";
+import settingsBlack from "../../assets/icons/settingsBlack.svg";
+import { ReactSVG } from "react-svg";
+import { useFilterState } from "../../store/useFilterState";
 
 const HeadViewClothes = ({
   currentPage,
@@ -11,9 +13,11 @@ const HeadViewClothes = ({
   showError: boolean;
   dataLength: number;
 }) => {
+  const { toggleShowFilter } = useFilterState();
+
   return (
     <Flex align="center" justify="center">
-      <Text fontSize={{ base: "md", sm: "sm" }}>
+      <Text fontSize={{ base: "sm", sm: "md" }}>
         Showing {currentPage === 1 ? 1 : currentPage * ITEMS_PER_PAGE - 9}-
         {showError
           ? 0
@@ -24,10 +28,10 @@ const HeadViewClothes = ({
       </Text>
       <Flex
         ml="12px"
-        display={{ base: "none", md: "flex" }}
         fontSize={{ base: "xs", md: "sm" }}
         align="center"
         justify="center"
+        display={{ base: "none", lg: "flex" }}
       >
         Sort by:
         <Flex
@@ -47,8 +51,16 @@ const HeadViewClothes = ({
           </Select>
         </Flex>
       </Flex>
-      <Flex ml="12px" display={{ base: "flex", md: "none" }}>
-        <ArrowBackIcon />
+      <Flex
+        ml="12px"
+        display={{ base: "flex", lg: "none" }}
+        p="10px"
+        background="grey"
+        borderRadius="100%"
+        cursor="pointer"
+        onClick={() => toggleShowFilter()}
+      >
+        <ReactSVG src={settingsBlack} />
       </Flex>
     </Flex>
   );
