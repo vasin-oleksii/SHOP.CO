@@ -88,7 +88,7 @@ const Pagination = ({
         <ArrowBackIcon mr="10px" /> Prev
       </Button>
 
-      <Flex maxW="300px"> {pagination}</Flex>
+      <Flex maxW="300px">{pagination}</Flex>
 
       <Button
         onClick={handleNext}
