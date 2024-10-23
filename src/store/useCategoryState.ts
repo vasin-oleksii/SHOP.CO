@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface Product {
   id: string;
@@ -45,86 +46,88 @@ interface CategoryState {
   changeParametrsOfSearch: ({}: ParametrsOfSearchNotObligateur) => void;
 }
 
-export const useCategoryState = create<CategoryState>((set, get) => ({
-  dataPerPage: [],
-  dataAll: [],
-  isLoading: false,
-  parametrsOfSearch: {
-    category: "",
-    color: "",
-    size: "",
-    style: "",
-    title: "",
-    price: "",
-    page: "",
-  },
-  fetchDataPerPage: async (limit = 0, page = 1) => {
-    set({ isLoading: true });
+export const useCategoryState = create<CategoryState>()(
+  devtools((set, get) => ({
+    dataPerPage: [],
+    dataAll: [],
+    isLoading: false,
+    parametrsOfSearch: {
+      category: "",
+      color: "",
+      size: "",
+      style: "",
+      title: "",
+      price: "",
+      page: "",
+    },
+    fetchDataPerPage: async (limit = 0, page = 1) => {
+      set({ isLoading: true });
 
-    // ? `${categoryOfSearch}=${valueOfSearch}&`
-    const { parametrsOfSearch } = get();
+      // ? `${categoryOfSearch}=${valueOfSearch}&`
+      const { parametrsOfSearch } = get();
 
-    const urlParams = new URLSearchParams();
+      const urlParams = new URLSearchParams();
 
-    if (parametrsOfSearch.category) {
-      urlParams.append("category", parametrsOfSearch.category);
-    }
-    if (parametrsOfSearch.color) {
-      urlParams.append("color", parametrsOfSearch.color);
-    }
-    if (parametrsOfSearch.size) {
-      urlParams.append("size", parametrsOfSearch.size);
-    }
-    if (parametrsOfSearch.style) {
-      urlParams.append("style", parametrsOfSearch.style);
-    }
-    if (parametrsOfSearch.title) {
-      urlParams.append("title", parametrsOfSearch.title);
-    }
-    if (parametrsOfSearch.price) {
-      urlParams.append("price", parametrsOfSearch.price);
-    }
+      if (parametrsOfSearch.category) {
+        urlParams.append("category", parametrsOfSearch.category);
+      }
+      if (parametrsOfSearch.color) {
+        urlParams.append("color", parametrsOfSearch.color);
+      }
+      if (parametrsOfSearch.size) {
+        urlParams.append("size", parametrsOfSearch.size);
+      }
+      if (parametrsOfSearch.style) {
+        urlParams.append("style", parametrsOfSearch.style);
+      }
+      if (parametrsOfSearch.title) {
+        urlParams.append("title", parametrsOfSearch.title);
+      }
+      if (parametrsOfSearch.price) {
+        urlParams.append("price", parametrsOfSearch.price);
+      }
 
-    const baseUrl = `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?`;
-    const fullUrlSearch = `${baseUrl}${urlParams.toString() + "&"}`;
+      const baseUrl = `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?`;
+      const fullUrlSearch = `${baseUrl}${urlParams.toString() + "&"}`;
 
-    try {
-      const fetchDataPerPage = await fetch(
-        `${fullUrlSearch}page=${page}&limit=${limit}`
-      );
-      const fetchDataAll = await fetch(`${fullUrlSearch}`);
-      console.log(`${fullUrlSearch}page=${page}&limit=${limit}`);
+      try {
+        const fetchDataPerPage = await fetch(
+          `${fullUrlSearch}page=${page}&limit=${limit}`
+        );
+        const fetchDataAll = await fetch(`${fullUrlSearch}`);
+        console.log(`${fullUrlSearch}page=${page}&limit=${limit}`);
 
-      const dataAll = await fetchDataAll.json();
-      const dataPerPage = await fetchDataPerPage.json();
+        const dataAll = await fetchDataAll.json();
+        const dataPerPage = await fetchDataPerPage.json();
 
+        set({
+          dataPerPage: dataPerPage,
+          isLoading: false,
+          dataAll: dataAll,
+        });
+      } catch (e) {
+        console.error(e);
+        set({ isLoading: false });
+      }
+    },
+    changeParametrsOfSearch: ({
+      category,
+      color,
+      size,
+      style,
+      title,
+      price,
+    }: ParametrsOfSearchNotObligateur) => {
       set({
-        dataPerPage: dataPerPage,
-        isLoading: false,
-        dataAll: dataAll,
+        parametrsOfSearch: {
+          category: category || "",
+          color: color || "",
+          size: size || "",
+          style: style || "",
+          title: title || "",
+          price: price || "",
+        },
       });
-    } catch (e) {
-      console.error(e);
-      set({ isLoading: false });
-    }
-  },
-  changeParametrsOfSearch: ({
-    category,
-    color,
-    size,
-    style,
-    title,
-    price,
-  }: ParametrsOfSearchNotObligateur) => {
-    set({
-      parametrsOfSearch: {
-        category: category || "",
-        color: color || "",
-        size: size || "",
-        style: style || "",
-        title: title || "",
-        price: price || "",
-      },
-    });
-  },
-}));
+    },
+  }))
+);
