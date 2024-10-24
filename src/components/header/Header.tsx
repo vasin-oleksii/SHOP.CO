@@ -164,7 +164,9 @@ const Header = () => {
                   <RouterLink to="/category?page=1">New Arrivals</RouterLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <RouterLink to="/category?page=1">Brands</RouterLink>
+                  <Box>
+                    <RouterLink to="/category?page=1">Brands</RouterLink>
+                  </Box>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Flex>
