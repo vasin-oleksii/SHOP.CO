@@ -33,7 +33,7 @@ import SearchLitle from "../../assets/icons/SearchLitle.svg";
 import InputIconLeft from "../common/inputs/InputIconLeft";
 
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { useCategoryState } from "../../store/useCategoryState";
 
 const Header = () => {
@@ -42,6 +42,9 @@ const Header = () => {
     useState<boolean>(true);
 
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const navigate = useNavigate();
 
   const [searchValueInput, setSearchValueInput] = useState("");
   const { changeParametrsOfSearch } = useCategoryState();
@@ -181,12 +184,21 @@ const Header = () => {
               onChange={(e) => {
                 setSearchValueInput(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && isHomePage) {
+                  changeParametrsOfSearch({ title: searchValueInput });
+                  navigate("/category");
+                }
+              }}
             >
               <ReactSVG
                 src={SearchLitle}
-                onClick={() =>
-                  changeParametrsOfSearch({ title: searchValueInput })
-                }
+                onClick={() => {
+                  changeParametrsOfSearch({ title: searchValueInput });
+                  if (isHomePage) {
+                    navigate("/category");
+                  }
+                }}
               />
             </InputIconLeft>
 
@@ -209,8 +221,27 @@ const Header = () => {
                     >
                       <PopoverArrow />
 
-                      <InputIconLeft>
-                        <ReactSVG src={SearchLitle} />
+                      <InputIconLeft
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && isHomePage) {
+                            changeParametrsOfSearch({
+                              title: searchValueInput,
+                            });
+                            navigate("/category");
+                          }
+                        }}
+                      >
+                        <ReactSVG
+                          src={SearchLitle}
+                          onClick={() => {
+                            changeParametrsOfSearch({
+                              title: searchValueInput,
+                            });
+                            if (isHomePage) {
+                              navigate("/category");
+                            }
+                          }}
+                        />
                       </InputIconLeft>
                       <PopoverCloseButton size="sm" />
                     </PopoverContent>
