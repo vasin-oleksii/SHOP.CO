@@ -185,7 +185,7 @@ const Header = () => {
                 setSearchValueInput(e.target.value);
               }}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && isHomePage) {
+                if (e.key === "Enter" || isHomePage) {
                   changeParametrsOfSearch({ title: searchValueInput });
                   navigate("/category");
                 }
