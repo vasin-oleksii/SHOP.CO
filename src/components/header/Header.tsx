@@ -47,7 +47,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [searchValueInput, setSearchValueInput] = useState("");
-  const { changeParametrsOfSearch } = useCategoryState();
+  const { parametrsOfSearch, changeParametrsOfSearch } = useCategoryState();
 
   const toggleBurger = (): void => setIsCrossVisibleBurger((prev) => !prev);
   const toggleBanner = (): void => setIsBannerVisible((prev) => !prev);
@@ -186,7 +186,10 @@ const Header = () => {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || isHomePage) {
-                  changeParametrsOfSearch({ title: searchValueInput });
+                  changeParametrsOfSearch({
+                    ...parametrsOfSearch,
+                    title: searchValueInput,
+                  });
                   navigate("/category");
                 }
               }}
@@ -194,7 +197,10 @@ const Header = () => {
               <ReactSVG
                 src={SearchLitle}
                 onClick={() => {
-                  changeParametrsOfSearch({ title: searchValueInput });
+                  changeParametrsOfSearch({
+                    ...parametrsOfSearch,
+                    title: searchValueInput,
+                  });
                   if (isHomePage) {
                     navigate("/category");
                   }
