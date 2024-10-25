@@ -3,6 +3,8 @@ import { ITEMS_PER_PAGE } from "../../constants/Filtes";
 import settingsBlack from "../../assets/icons/settingsBlack.svg";
 import { ReactSVG } from "react-svg";
 import { useFilterState } from "../../store/useFilterState";
+import { useEffect, useState } from "react";
+import { useCategoryState } from "../../store/useCategoryState";
 
 const HeadViewClothes = ({
   currentPage,
@@ -13,7 +15,30 @@ const HeadViewClothes = ({
   showError: boolean;
   dataLength: number;
 }) => {
+  const [sortBy, setSortBy] = useState<string | undefined>("");
+  const { changeParametrsOfSearch } = useCategoryState();
   const { toggleShowFilter } = useFilterState();
+
+  useEffect(() => {
+    changeParametrs();
+  }, [sortBy]);
+
+  const changeParametrs = () => {
+    switch (sortBy) {
+      case "colors":
+        changeParametrsOfSearch({ color: "black|navy" });
+        break;
+      case "cheap":
+        changeParametrsOfSearch({ price: "5" });
+        break;
+      case "expensive":
+        changeParametrsOfSearch({ price: "9" });
+        break;
+      default:
+        changeParametrsOfSearch({});
+        break;
+    }
+  };
 
   return (
     <Flex align="center" justify="center">
@@ -42,12 +67,17 @@ const HeadViewClothes = ({
           ml="-10px"
         >
           <Select
-            placeholder="Most Popular"
+            placeholder="Most popular"
             fontWeight="700"
             border="none"
             fontSize="md"
+            onChange={(e) =>
+              setSortBy(e.target.value === undefined ? "" : e.target.value)
+            }
           >
-            <option value="option1">API is shit 😥</option>
+            <option value="colors"> Popular colors</option>
+            <option value="cheap">{"Most cheap $"} </option>
+            <option value="expensive">{"Expensive $$$"} </option>
           </Select>
         </Flex>
       </Flex>
