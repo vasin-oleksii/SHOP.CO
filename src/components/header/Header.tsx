@@ -231,6 +231,7 @@ const Header = () => {
                         onKeyDown={(e) => {
                           if (e.key === "Enter" && isHomePage) {
                             changeParametrsOfSearch({
+                              ...parametrsOfSearch,
                               title: searchValueInput,
                             });
                             navigate("/category");
@@ -241,6 +242,7 @@ const Header = () => {
                           src={SearchLitle}
                           onClick={() => {
                             changeParametrsOfSearch({
+                              ...parametrsOfSearch,
                               title: searchValueInput,
                             });
                             if (isHomePage) {
