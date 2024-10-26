@@ -17,6 +17,16 @@ interface ClothesPreviewProps {
   uploadMore?: number;
 }
 
+interface Product {
+  id: string;
+  title: string;
+  images: string[];
+  price: number;
+  old_price?: number;
+  rating?: number;
+  description?: string;
+}
+
 const ClothesPreview = ({
   title,
   url,
@@ -48,32 +58,20 @@ const ClothesPreview = ({
           }}
           gap="20px"
         >
-          {data.map(
-            ({ id, title, images, price, old_price, rating, description }) => {
-              return (
-                <Link
-                  to={`/product/${id}`}
-                  key={id}
-                  state={{
-                    title,
-                    images,
-                    price,
-                    old_price,
-                    rating,
-                    description,
-                  }}
-                >
-                  <CardPreview
-                    title={title}
-                    images={images}
-                    price={price}
-                    old_price={old_price}
-                    rating={rating}
-                  />
-                </Link>
-              );
-            }
-          )}
+          {data.map(({ id, title, ...rest }: Product) => {
+            return (
+              <Link
+                to={`/product/${id}`}
+                key={id}
+                state={{
+                  title,
+                  ...rest,
+                }}
+              >
+                <CardPreview title={title} {...rest} />
+              </Link>
+            );
+          })}
 
           <SkeletonOnFetch
             numOfSkeletons={

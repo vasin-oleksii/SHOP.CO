@@ -22,7 +22,7 @@ interface CardPreviewProps {
   images: string[];
   price: number;
   old_price?: number;
-  rating: number;
+  rating?: number;
 }
 
 const CardPreview = ({
@@ -30,7 +30,7 @@ const CardPreview = ({
   images,
   price,
   old_price,
-  rating,
+  rating = 0,
 }: CardPreviewProps) => {
   const swiperRef = useRef<any>(null);
 
