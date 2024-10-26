@@ -16,7 +16,7 @@ const HeadViewClothes = ({
   dataLength: number;
 }) => {
   const [sortBy, setSortBy] = useState<string | undefined>("");
-  const { changeParametrsOfSearch } = useCategoryState();
+  const { changeParametrsOfSearch, parametrsOfSearch } = useCategoryState();
   const { toggleShowFilter } = useFilterState();
 
   useEffect(() => {
@@ -26,13 +26,13 @@ const HeadViewClothes = ({
   const changeParametrs = () => {
     switch (sortBy) {
       case "colors":
-        changeParametrsOfSearch({ color: "black|navy" });
+        changeParametrsOfSearch({ ...parametrsOfSearch, color: "black|navy" });
         break;
       case "cheap":
-        changeParametrsOfSearch({ price: "5" });
+        changeParametrsOfSearch({ ...parametrsOfSearch, price: "5" });
         break;
       case "expensive":
-        changeParametrsOfSearch({ price: "9" });
+        changeParametrsOfSearch({ ...parametrsOfSearch, price: "9" });
         break;
       default:
         changeParametrsOfSearch({});

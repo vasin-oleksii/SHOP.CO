@@ -36,11 +36,9 @@ const ViewClothes = () => {
       params[key] = searchParams.get(key);
       return params;
     }, {} as Record<(typeof keys)[number], string | null>);
-    console.log(searchParamsValues);
     changeParametrsOfSearch(searchParamsValues);
   }, []);
 
-  console.log(parametrsOfSearch);
   const { color, size, style, category, price, title } = parametrsOfSearch;
   const objectOfSearch = {
     page: `${currentPage}`,
