@@ -8,46 +8,24 @@ import {
   MenuItem,
   Breadcrumb,
   BreadcrumbItem,
-  Link,
-  HStack,
   IconButton,
   Box,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Portal,
-  PopoverArrow,
-  PopoverCloseButton,
   Img,
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
-import { ReactSVG } from "react-svg";
 import BannerPropositionHead from "../common/BannerPropositionHead";
+import { Link as RouterLink } from "react-router-dom";
 
-import Cart from "../../assets/icons/Cart.svg";
-import User from "../../assets/icons/User.svg";
 import Burger from "../../assets/icons/Burger.svg";
-import Search from "../../assets/icons/Search.svg";
-import SearchLitle from "../../assets/icons/SearchLitle.svg";
-import InputIconLeft from "../common/inputs/InputIconLeft";
 
 import { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
-import { useCategoryState } from "../../store/useCategoryState";
+import Search from "./Search";
 
 const Header = () => {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
   const [isCrossVisibleBurger, setIsCrossVisibleBurger] =
     useState<boolean>(true);
-
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const navigate = useNavigate();
-
-  const [searchValueInput, setSearchValueInput] = useState("");
-  const { parametrsOfSearch, changeParametrsOfSearch } = useCategoryState();
 
   const toggleBurger = (): void => setIsCrossVisibleBurger((prev) => !prev);
   const toggleBanner = (): void => setIsBannerVisible((prev) => !prev);
@@ -173,113 +151,10 @@ const Header = () => {
                 </BreadcrumbItem>
               </Breadcrumb>
             </Flex>
-
-            <InputIconLeft
-              maxWidth="602px"
-              display={{ base: "none", lg: "block" }}
-              placeholder="Search for products..."
-              bgInput={"greyLight"}
-              colorInput={"greyText"}
-              value={searchValueInput}
-              onChange={(e) => {
-                setSearchValueInput(e.target.value);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || isHomePage) {
-                  changeParametrsOfSearch({
-                    ...parametrsOfSearch,
-                    title: searchValueInput,
-                  });
-                  navigate("/category");
-                }
-              }}
-            >
-              <ReactSVG
-                src={SearchLitle}
-                onClick={() => {
-                  changeParametrsOfSearch({
-                    ...parametrsOfSearch,
-                    title: searchValueInput,
-                  });
-                  if (isHomePage) {
-                    navigate("/category");
-                  }
-                }}
-              />
-            </InputIconLeft>
-
-            <HStack spacing="16px">
-              <Popover>
-                <PopoverTrigger>
-                  <Link
-                    display={{ base: "block", lg: "none" }}
-                    onClick={() => setIsFocus(true)}
-                  >
-                    <ReactSVG src={Search} />
-                  </Link>
-                </PopoverTrigger>
-                <Portal>
-                  <Box position="absolute" zIndex={1000}>
-                    <PopoverContent
-                      borderRadius="66px"
-                      width="100vw"
-                      zIndex={1000}
-                    >
-                      <PopoverArrow />
-
-                      <InputIconLeft
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" && isHomePage) {
-                            changeParametrsOfSearch({
-                              ...parametrsOfSearch,
-                              title: searchValueInput,
-                            });
-                            navigate("/category");
-                          }
-                        }}
-                      >
-                        <ReactSVG
-                          src={SearchLitle}
-                          onClick={() => {
-                            changeParametrsOfSearch({
-                              ...parametrsOfSearch,
-                              title: searchValueInput,
-                            });
-                            if (isHomePage) {
-                              navigate("/category");
-                            }
-                          }}
-                        />
-                      </InputIconLeft>
-                      <PopoverCloseButton size="sm" />
-                    </PopoverContent>
-                  </Box>
-                </Portal>
-              </Popover>
-
-              <Link>
-                <ReactSVG src={Cart} />
-              </Link>
-              <Link>
-                <ReactSVG src={User} />
-              </Link>
-            </HStack>
+            <Search />
           </Flex>
         </Container>
       </Box>
-      {isFocus && (
-        <Portal>
-          <Box
-            background="rgba(0,0,0, 0.2)"
-            width="100vw"
-            height="100%"
-            position="absolute"
-            top="0"
-            zIndex={100}
-            onClick={() => setIsFocus(false)}
-          ></Box>
-        </Portal>
-      )}
     </>
   );
 };

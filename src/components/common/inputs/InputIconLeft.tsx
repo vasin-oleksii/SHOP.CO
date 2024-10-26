@@ -7,12 +7,10 @@ import {
 } from "@chakra-ui/react";
 
 interface InputIconLeftProps extends InputProps {
-  maxWidth?: string;
-  display?: string | { base?: string; md?: string; lg?: string };
-  placeholder?: string;
-  children?: any;
   bgInput?: string;
   colorInput?: string;
+  valueInput: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputIconLeft = ({
@@ -22,6 +20,8 @@ const InputIconLeft = ({
   children,
   bgInput,
   colorInput,
+  valueInput,
+  onChange,
   ...props
 }: InputIconLeftProps) => {
   return (
@@ -41,6 +41,8 @@ const InputIconLeft = ({
         bg={bgInput}
         borderRadius="62px"
         color={colorInput}
+        value={valueInput}
+        onChange={onChange}
       />
     </InputGroup>
   );
