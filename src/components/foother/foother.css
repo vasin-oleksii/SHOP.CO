@@ -2,3 +2,7 @@
   transition: all 0.2s;
   fill: white;
 }
+
+html {
+  background-color: #f2f0f1;
+}

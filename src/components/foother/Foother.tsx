@@ -35,7 +35,7 @@ const Foother = () => {
       </Container>
       <Flex
         background="greyLight"
-        p={{ base: "190px 18px 75px 18px", lg: "140px 0px 90px 0px" }}
+        p={{ base: "190px 18px 55px 18px", lg: "140px 0px 40px 0px" }}
         mt={{ base: "-160px", lg: "-90px" }}
       >
         <Container maxW="container.xl">
