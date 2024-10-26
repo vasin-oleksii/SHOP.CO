@@ -74,7 +74,7 @@ export const useCategoryState = create<CategoryState>()(
         }
       });
 
-      const baseUrl = `https://67051c76031fd46a830eaefe.mockapi.io/api/v1/products?`;
+      const baseUrl = `${import.meta.env.VITE_API_URL}?`;
       const fullUrlSearch = `${baseUrl}${urlParams.toString() + "&"}`;
 
       try {
