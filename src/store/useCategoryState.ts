@@ -73,8 +73,9 @@ export const useCategoryState = create<CategoryState>()(
           urlParams.append(key, value);
         }
       });
-
+      // @ts-ignore
       const baseUrl = `${import.meta.env.VITE_API_URL}?`;
+
       const fullUrlSearch = `${baseUrl}${urlParams.toString() + "&"}`;
 
       try {

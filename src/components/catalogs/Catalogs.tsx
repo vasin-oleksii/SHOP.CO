@@ -9,6 +9,7 @@ const Catalogs = () => {
         <Box>
           <ClothesPreview
             title="NEW ARRIVALS"
+            // @ts-ignore
             url={`${import.meta.env.VITE_API_URL}?page=1&limit=`}
             uploadMore={4}
           />
@@ -18,6 +19,7 @@ const Catalogs = () => {
         <Box mt={{ base: "40px", lg: "64px" }}>
           <ClothesPreview
             title="top selling"
+            // @ts-ignore
             url={`${import.meta.env.VITE_API_URL}?page=1&color=red|navy&limit=`}
             uploadMore={4}
           />
