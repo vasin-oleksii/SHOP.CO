@@ -44,6 +44,7 @@ const FootherBanner = ({ title, ...props }: FootherBannerProps) => {
 
       const result = await response.json();
 
+      console.log(result);
       setIsLoading(false);
       reset();
     } catch (e) {
