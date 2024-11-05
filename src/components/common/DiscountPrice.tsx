@@ -17,7 +17,7 @@ const DiscountPrice = ({ priceNow, pricePrev, isBig }: DiscountPriceProps) => {
         fontWeight="bold"
         color={"greyText"}
       >
-        {pricePrev.toFixed(0)}
+        ${pricePrev.toFixed(0)}
       </Text>
 
       <Badge
