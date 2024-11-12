@@ -9,6 +9,7 @@ interface FilterState {
 export const useFilterState = create<FilterState>()(
   devtools((set) => ({
     showFilter: false,
+    
     toggleShowFilter: () => {
       set((state) => ({ showFilter: !state.showFilter }));
     },

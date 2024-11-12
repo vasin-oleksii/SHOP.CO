@@ -284,7 +284,7 @@ const FilterSheets = () => {
           <Header />
           <Divider m="24px 0px" />
 
-          {isShowFilter ? (
+          {isShowFilter && (
             <>
               {renderCategories()}
 
@@ -346,7 +346,7 @@ const FilterSheets = () => {
                 Reset
               </Text>
             </>
-          ) : null}
+          )}
         </FilterContainer>
       </MainContainer>
     </>
