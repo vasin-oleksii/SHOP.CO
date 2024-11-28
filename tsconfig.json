@@ -1,11 +1,27 @@
 {
-  "files": [],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"], // Поддержка ES-функций и DOM API
+    "jsx": "react-jsx", // Для JSX в TypeScript
+    "strict": true, // Включает строгую типизацию
+    "esModuleInterop": true, // Поддержка `import`/`require` для CommonJS модулей
+    "allowSyntheticDefaultImports": true, // Разрешает `import React from "react"`
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true, // Ускоряет компиляцию, игнорируя проверки библиотек
+    "baseUrl": ".", // Устанавливает базовый путь для модулей
+    "paths": {
+      "@components/*": ["src/components/*"], // Настройка алиасов
+      "@utils/*": ["src/utils/*"]
+    },
+    "typeRoots": ["./node_modules/@types"], // Путь к типам
+    "outDir": "./dist" // Выходная директория
+  },
+  "include": ["src"], // Какие файлы включать в проект
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"], // Исключаем тесты и библиотеки
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  }
+  ]
 }

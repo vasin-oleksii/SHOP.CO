@@ -59,7 +59,7 @@ const CardPreview = ({
 
   return (
     <VStack overflow="hidden" alignItems="start">
-      <Box maxW={{ base: "100%", md: "300px" }} h="300px" display="flex">
+      <Box maxW={{ base: "100%", md: "295px" }} h="300px" display="flex">
         <Swiper
           pagination={{ dynamicBullets: true }}
           modules={[Pagination]}
