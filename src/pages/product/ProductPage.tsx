@@ -7,6 +7,7 @@ import {
   Img,
   HStack,
   Grid,
+  VStack,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import StarRatings from "../../components/common/StarRatings";
@@ -16,6 +17,9 @@ import { useState } from "react";
 import CrumbLink from "../../components/common/CrumbLink";
 import DividerCustom from "../../components/common/divider/DividerCustom";
 import ButtonFilter from "../../components/common/buttons/ButtonFilter";
+import ColorOption from "../caregory/filterSheets/ColorOption";
+import { CATEGORY } from "../../constants/Filtes";
+import AddToCart from "./AddToCart";
 
 interface ProductState {
   title: string;
@@ -27,6 +31,8 @@ interface ProductState {
 }
 
 const ProductPage = () => {
+  const { COLORS, SIZE } = CATEGORY;
+
   const location = useLocation();
   const { title, images, price, old_price, rating, description }: ProductState =
     location.state || {};
@@ -131,9 +137,19 @@ const ProductPage = () => {
 
               <Box mt="24px">
                 <Text>Select Colors</Text>
-                <HStack mt="16px">
-                  <Box>C1</Box>
-                  <Box>C2</Box>
+                <HStack>
+                  {COLORS.map((color, i) => {
+                    const isActiveElement = color === "red";
+
+                    return (
+                      <ColorOption
+                        key={i}
+                        color={color}
+                        isSelected={isActiveElement}
+                        onClick={() => {}}
+                      />
+                    );
+                  })}
                 </HStack>
               </Box>
 
@@ -142,14 +158,20 @@ const ProductPage = () => {
               <Box mt="24px">
                 <Text>Choose Size</Text>
                 <HStack mt="16px">
-                  <ButtonFilter isBig={true} text="Small" />
-                  <ButtonFilter isBig={true} text="Medium" />
-                  <ButtonFilter isBig={true} text="Large" />
-                  <ButtonFilter isBig={true} text="X-Large" />
+                  {SIZE.map((size, i) => {
+                    const isActive = size.toLowerCase() === "large";
+
+                    return (
+                      <ButtonFilter key={i} text={size} isActive={isActive} />
+                    );
+                  })}
                 </HStack>
               </Box>
 
               <DividerCustom />
+              <Box mt="24px">
+                <AddToCart />
+              </Box>
             </Flex>
           </Grid>
         </Container>
