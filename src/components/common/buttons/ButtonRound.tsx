@@ -23,6 +23,7 @@ const ButtonRound = ({ children, colorBtn, ...proprs }: ButtonRoundProps) => {
   return (
     <Box>
       <Button
+        data-testid="ButtonRound"
         background={colorBg}
         color={colorText}
         borderRadius="62px"
