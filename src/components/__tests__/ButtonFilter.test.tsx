@@ -1,7 +1,8 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ButtonFilter from "./ButtonFilter"; // Обновите путь, если он отличается
+import ButtonFilter from "../common/buttons/ButtonFilter"; // Обновите путь, если он отличается
 
 describe("ButtonFilter", () => {
   test("render text in the Button", () => {
@@ -35,12 +36,4 @@ describe("ButtonFilter", () => {
     await userEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
-
-  // test("применяет правильные стили, если кнопка активна (isActive=true)", () => {
-  //   render(<ButtonFilter text="Active Button" isActive />);
-  //   const button = screen.getByText("Active Button");
-
-  //   expect(button).toHaveStyle("background: black");
-  //   expect(button).toHaveStyle("color: white");
-  // });
 });

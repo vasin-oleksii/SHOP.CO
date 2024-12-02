@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
+import React from "react";
+import ButtonRound from "../common/buttons/ButtonRound";
 import { render, screen } from "@testing-library/react";
-import ButtonRound from "./ButtonRound";
 
 describe("ButtonRound", () => {
   test("render text in the Button", () => {

@@ -7,7 +7,6 @@ import {
   Img,
   HStack,
   Grid,
-  VStack,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import StarRatings from "../../components/common/StarRatings";
