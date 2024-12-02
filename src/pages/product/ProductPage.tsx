@@ -18,7 +18,8 @@ import DividerCustom from "../../components/common/divider/DividerCustom";
 import ButtonFilter from "../../components/common/buttons/ButtonFilter";
 import ColorOption from "../caregory/filterSheets/ColorOption";
 import { CATEGORY } from "../../constants/Filtes";
-import AddToCart from "./AddToCart";
+import AddToCart from "./addToCart/AddToCart";
+import GroupForChoice from "./groupForChoice/groupForChoice";
 
 interface ProductState {
   title: string;
@@ -136,7 +137,7 @@ const ProductPage = () => {
 
               <Box mt="24px">
                 <Text>Select Colors</Text>
-                <HStack>
+                <HStack mt="16px">
                   {COLORS.map((color, i) => {
                     const isActiveElement = color === "red";
 
@@ -161,7 +162,12 @@ const ProductPage = () => {
                     const isActive = size.toLowerCase() === "large";
 
                     return (
-                      <ButtonFilter key={i} text={size} isActive={isActive} />
+                      <ButtonFilter
+                        key={i}
+                        text={size}
+                        isActive={isActive}
+                        isBig
+                      />
                     );
                   })}
                 </HStack>
@@ -173,6 +179,7 @@ const ProductPage = () => {
               </Box>
             </Flex>
           </Grid>
+          <GroupForChoice />
         </Container>
       </Box>
     </>

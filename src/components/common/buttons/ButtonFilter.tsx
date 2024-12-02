@@ -8,7 +8,7 @@ interface ButtonFilter extends ButtonProps {
 const ButtonFilter = ({ isBig, text, onClick, isActive }: ButtonFilter) => {
   return (
     <Button
-      p="10px 20px"
+      p={isBig ? "12px 24px" : "10px 20px"}
       background="greyLight"
       display="inline-block"
       borderRadius="62px"
