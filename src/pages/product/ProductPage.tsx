@@ -19,7 +19,7 @@ import ButtonFilter from "../../components/common/buttons/ButtonFilter";
 import ColorOption from "../caregory/filterSheets/ColorOption";
 import { CATEGORY } from "../../constants/Filtes";
 import AddToCart from "./addToCart/AddToCart";
-import GroupForChoice from "./groupForChoice/groupForChoice";
+import TabsForChoice from "./tabsForChoice/TabsForChoice";
 
 interface ProductState {
   title: string;
@@ -179,7 +179,7 @@ const ProductPage = () => {
               </Box>
             </Flex>
           </Grid>
-          <GroupForChoice />
+          <TabsForChoice />
         </Container>
       </Box>
     </>

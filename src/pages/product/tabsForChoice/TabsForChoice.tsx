@@ -1,14 +1,6 @@
-import {
-  Box,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
-const GroupForChoice = () => {
+const TabsForChoice = () => {
   const selected = {
     color: "black",
     fontWeight: 700,
@@ -29,6 +21,7 @@ const GroupForChoice = () => {
             FAQs
           </Tab>
         </TabList>
+
         <TabPanels>
           <TabPanel>1</TabPanel>
           <TabPanel>2</TabPanel>
@@ -39,4 +32,4 @@ const GroupForChoice = () => {
   );
 };
 
-export default GroupForChoice;
+export default TabsForChoice;
