@@ -3,7 +3,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ButtonRound from "../../common/buttons/ButtonRound";
 
-describe("ButtonRound", () => {
+describe("button-round", () => {
   test("render text in the Button", () => {
     render(<ButtonRound colorBtn="white">Test</ButtonRound>);
     expect(screen.getByTestId("button-round")).toBeInTheDocument();

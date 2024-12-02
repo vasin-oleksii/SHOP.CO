@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ButtonFilter from "../../common/buttons/ButtonFilter";
 
-describe("ButtonFilter", () => {
+describe("button-filter", () => {
   test("render text in the Button", () => {
     render(<ButtonFilter text="Test Button" />);
     expect(screen.getByText("Test Button")).toBeInTheDocument();
