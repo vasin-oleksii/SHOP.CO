@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "skipLibCheck": true,
     "strict": true,
-    "jsx": "react-jsx", // Обработка JSX
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "esnext",

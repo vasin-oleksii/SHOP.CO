@@ -1,12 +1,12 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import ButtonRound from "../../common/buttons/ButtonRound";
 import { render, screen, fireEvent } from "@testing-library/react";
+import ButtonRound from "../../common/buttons/ButtonRound";
 
 describe("ButtonRound", () => {
   test("render text in the Button", () => {
     render(<ButtonRound colorBtn="white">Test</ButtonRound>);
-    expect(screen.getByTestId("ButtonRound")).toBeInTheDocument();
+    expect(screen.getByTestId("button-round")).toBeInTheDocument();
     expect(screen.getByText("Test")).toBeInTheDocument();
   });
 
