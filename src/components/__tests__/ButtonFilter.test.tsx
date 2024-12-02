@@ -36,4 +36,11 @@ describe("ButtonFilter", () => {
     await userEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
+  // test("применяет правильные стили, если кнопка активна (isActive=true)", () => {
+  //   render(<ButtonFilter text="Active Button" isActive />);
+  //   const button = screen.getByText("Active Button");
+
+  //   expect(button).toHaveStyle("background: black");
+  //   expect(button).toHaveStyle("color: white");
+  // });
 });
