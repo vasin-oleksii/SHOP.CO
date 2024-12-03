@@ -7,7 +7,7 @@ import ReviewsSlider from "./ReviewsSlider";
 
 const Reviews = () => {
   const { data, isLoading } = useFetch({
-    url: "https://67051c76031fd46a830eaefe.mockapi.io/api/v1/reviews",
+    url: "https://67051c76031fd46a830eaefe.mockapi.io/api/v1/reviews?page=1&limit=8",
   });
 
   return (

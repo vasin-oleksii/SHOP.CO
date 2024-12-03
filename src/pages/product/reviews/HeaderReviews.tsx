@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Img, Select, Text } from "@chakra-ui/react";
 import { useReviewsState } from "../../../store/useReviewsState";
-import { useEffect, useState } from "react";
+import settingsBlack from "../../../assets/icons/settingsBlack.svg";
+import ButtonRound from "../../../components/common/buttons/ButtonRound";
 
 const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
   const fetchReviewsPerPage = useReviewsState(
@@ -19,9 +20,29 @@ const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
         </Text>
         <Text ml="8px" mt="6px" color="greyText">{`(${totlaReviews})`}</Text>
       </Flex>
-      <Box>
-        <Text onClick={fetchReviewsPerPage}>Right</Text>
-      </Box>
+      <HStack spacing="10px">
+        <Box
+          background="greyLight"
+          borderRadius="50%"
+          _hover={{ opacity: 0.6 }}
+        >
+          <Img src={settingsBlack} p="12px" cursor="pointer" />
+        </Box>
+        <Box>
+          <Select
+            placeholder="Latest"
+            borderRadius="62px"
+            background="greyLight"
+            border="none"
+          >
+            <option value="best">Best</option>
+            <option value="low">Low</option>
+          </Select>
+        </Box>
+        <ButtonRound colorBtn="black" p="14.5px 30px" border="1px solid black">
+          Write a Review
+        </ButtonRound>
+      </HStack>
     </Flex>
   );
 };
