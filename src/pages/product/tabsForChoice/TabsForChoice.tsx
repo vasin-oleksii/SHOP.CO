@@ -1,4 +1,5 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import Reviews from "../reviews/Reviews";
 
 const TabsForChoice = () => {
   const selected = {
@@ -9,7 +10,7 @@ const TabsForChoice = () => {
 
   return (
     <Box mt={{ base: "50px", md: "80px" }}>
-      <Tabs align="center">
+      <Tabs align="center" defaultIndex={1}>
         <TabList justifyContent="space-between">
           <Tab w="33%" _selected={selected}>
             Product Details
@@ -24,7 +25,9 @@ const TabsForChoice = () => {
 
         <TabPanels>
           <TabPanel>1</TabPanel>
-          <TabPanel>2</TabPanel>
+          <TabPanel>
+            <Reviews />
+          </TabPanel>
           <TabPanel>3</TabPanel>
         </TabPanels>
       </Tabs>
