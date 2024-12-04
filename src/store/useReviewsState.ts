@@ -8,6 +8,7 @@ interface ReviewsState {
   numbOfUpload: number;
   fetchReviewsPerPage: (page: number, limit: number) => void;
   increaseNumOfUpoad: (num: number) => void;
+  mobileNumOfUpload: () => void;
 }
 
 export const useReviewsState = create<ReviewsState>()(
@@ -42,6 +43,11 @@ export const useReviewsState = create<ReviewsState>()(
       const { numbOfUpload } = get();
       set({
         numbOfUpload: numbOfUpload + num,
+      });
+    },
+    mobileNumOfUpload: () => {
+      set({
+        numbOfUpload: 3,
       });
     },
   }))

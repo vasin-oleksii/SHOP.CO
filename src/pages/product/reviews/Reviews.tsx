@@ -7,17 +7,23 @@ import verification from "../../../assets/icons/Verification.svg";
 import SkeletonOnFetch from "../../../components/common/skelets/SkeletonOnFetch";
 import ReviewSkeleton from "../../../components/common/skelets/ReviewSkeleton";
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
+import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
 
 const Reviews = () => {
+  const WIDTHSCREEN = useScreenWidth();
+  const isMobile = WIDTHSCREEN < 786 ? true : false;
+  const UPLOAD_ITEMS = isMobile ? 3 : 6;
   const {
     allReviews,
     perPageReviews,
     isLoading,
     numbOfUpload,
+    mobileNumOfUpload,
     increaseNumOfUpoad,
     fetchReviewsPerPage,
   } = useReviewsState((state) => state);
 
+  console.log(perPageReviews);
   const notMoreDateToShow =
     allReviews.length === perPageReviews.length &&
     allReviews.length !== 0 &&
@@ -25,7 +31,7 @@ const Reviews = () => {
 
   const fetchNewReviews = () => {
     if (!notMoreDateToShow) {
-      increaseNumOfUpoad(6);
+      increaseNumOfUpoad(UPLOAD_ITEMS);
     }
   };
 
@@ -33,11 +39,15 @@ const Reviews = () => {
     fetchReviewsPerPage(1, numbOfUpload);
   }, [numbOfUpload]);
 
+  useEffect(() => {
+    if (isMobile) mobileNumOfUpload();
+  }, []);
+
   return (
     <>
       <HeaderReviews totlaReviews={allReviews.length} />
       <Grid
-        templateColumns="repeat(2, 1fr)"
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
         gap="19px"
         mt={{ base: "20px", md: "35px" }}
       >
@@ -89,15 +99,20 @@ const Reviews = () => {
           );
         })}
         {!notMoreDateToShow && isLoading && (
-          <SkeletonOnFetch numOfSkeletons={6} skeletItem={<ReviewSkeleton />} />
+          <SkeletonOnFetch
+            numOfSkeletons={UPLOAD_ITEMS}
+            skeletItem={<ReviewSkeleton />}
+          />
         )}
       </Grid>
+
       <Flex align="center" justify="center" mt={{ base: "20px", md: "35px" }}>
         <ButtonRound
           onClick={fetchNewReviews}
           isLoading={isLoading}
           colorBtn="white"
           disabled={notMoreDateToShow}
+          opacity={notMoreDateToShow ? 0.55 : 1}
           borderColor="grey"
           borderWidth="1px"
           borderStyle="solid"
