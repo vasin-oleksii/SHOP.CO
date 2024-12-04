@@ -5,14 +5,17 @@ interface ReviewsState {
   allReviews: [];
   perPageReviews: [];
   isLoading: boolean;
+  numbOfUpload: number;
   fetchReviewsPerPage: (page: number, limit: number) => void;
+  increaseNumOfUpoad: (num: number) => void;
 }
 
 export const useReviewsState = create<ReviewsState>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     allReviews: [],
     perPageReviews: [],
     isLoading: false,
+    numbOfUpload: 6,
     fetchReviewsPerPage: async (page: number, limit: number) => {
       set({ isLoading: true });
       // @ts-ignore
@@ -34,6 +37,12 @@ export const useReviewsState = create<ReviewsState>()(
         console.error(e);
         set({ isLoading: false });
       }
+    },
+    increaseNumOfUpoad: (num: number) => {
+      const { numbOfUpload } = get();
+      set({
+        numbOfUpload: numbOfUpload + num,
+      });
     },
   }))
 );
