@@ -10,8 +10,8 @@ import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
 
 const Reviews = () => {
-  const WIDTHSCREEN = useScreenWidth();
-  const isMobile = WIDTHSCREEN < 786 ? true : false;
+  const { isMobile } = useScreenWidth();
+
   const UPLOAD_ITEMS = isMobile ? 3 : 6;
   const {
     allReviews,

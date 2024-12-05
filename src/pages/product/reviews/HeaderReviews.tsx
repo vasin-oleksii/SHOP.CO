@@ -2,10 +2,15 @@ import { Box, Flex, HStack, Img, Select, Text } from "@chakra-ui/react";
 import settingsBlack from "../../../assets/icons/settingsBlack.svg";
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
+import { useState } from "react";
 
 const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
-  const SCREEN_WIDTH = useScreenWidth();
-  const isMobile = SCREEN_WIDTH < 786 ? true : false;
+  const { isMobile } = useScreenWidth();
+
+  const [showSelect, setShowSelect] = useState(!isMobile);
+  const handleShowSelect = () => {
+    setShowSelect((state) => !state);
+  };
 
   return (
     <Flex
@@ -24,10 +29,11 @@ const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
           background="greyLight"
           borderRadius="50%"
           _hover={{ opacity: 0.6 }}
+          onClick={handleShowSelect}
         >
           <Img src={settingsBlack} p="12px" cursor="pointer" />
         </Box>
-        {!isMobile && (
+        {showSelect && (
           <Box>
             <Select
               placeholder="Latest"
@@ -40,6 +46,7 @@ const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
             </Select>
           </Box>
         )}
+
         <ButtonRound
           colorBtn="black"
           p={{ base: "12px 16px", md: "14.5px 30px" }}
