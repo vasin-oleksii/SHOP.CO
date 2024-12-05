@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Grid, GridItem, Img, Text } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Img, Text } from "@chakra-ui/react";
 import HeaderReviews from "./HeaderReviews";
 import { useReviewsState } from "../../../store/useReviewsState";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import StarRatings from "../../../components/common/StarRatings";
 import verification from "../../../assets/icons/Verification.svg";
 import SkeletonOnFetch from "../../../components/common/skelets/SkeletonOnFetch";
@@ -24,7 +24,6 @@ const Reviews = () => {
     fetchReviewsPerPage,
   } = useReviewsState((state) => state);
 
-  console.log(perPageReviews);
   const notMoreDateToShow =
     allReviews.length === perPageReviews.length &&
     allReviews.length !== 0 &&

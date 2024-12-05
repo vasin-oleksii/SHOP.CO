@@ -110,7 +110,7 @@ const ViewClothes = () => {
             dataPerPage.map((state, i) => {
               const { id, ...rest } = state;
               return (
-                <Link to={`/product/${id}`} key={id} state={{ ...rest }}>
+                <Link to={`/product/${id}`} key={id}>
                   <GridItem
                     key={i}
                     justifyContent="center"
