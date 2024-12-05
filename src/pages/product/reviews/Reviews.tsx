@@ -8,6 +8,7 @@ import SkeletonOnFetch from "../../../components/common/skelets/SkeletonOnFetch"
 import ReviewSkeleton from "../../../components/common/skelets/ReviewSkeleton";
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
+import { formatDate } from "../../../components/shared/functions/formatDate";
 
 const Reviews = () => {
   const { isMobile } = useScreenWidth();
@@ -93,7 +94,7 @@ const Reviews = () => {
                 mt="24px"
                 fontWeight="700"
               >
-                {date}
+                {formatDate(date)}
               </Text>
             </GridItem>
           );
