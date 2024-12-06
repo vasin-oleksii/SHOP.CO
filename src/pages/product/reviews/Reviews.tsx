@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Img, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Img, Text } from "@chakra-ui/react";
 import HeaderReviews from "./HeaderReviews";
 import { useReviewsState } from "../../../store/useReviewsState";
 import { useEffect } from "react";
@@ -98,7 +98,7 @@ const Reviews = () => {
             </GridItem>
           );
         })}
-        {!notMoreDateToShow && isLoading && (
+        {isLoading && (
           <SkeletonOnFetch
             numOfSkeletons={UPLOAD_ITEMS}
             skeletItem={<ReviewSkeleton />}

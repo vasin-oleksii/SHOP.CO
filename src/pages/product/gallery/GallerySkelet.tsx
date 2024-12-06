@@ -21,7 +21,7 @@ const GallerySkelet = () => {
               cursor="pointer"
               borderRadius="22px"
               width={{ base: "100px", lg: "100px", xl: "130px" }}
-              height={{ base: "100px", lg: "200px" }}
+              height={{ base: "100px", lg: "210px" }}
               mt={{
                 base: "0px",
                 lg: "14px",

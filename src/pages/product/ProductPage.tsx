@@ -12,6 +12,7 @@ import Gallery from "./gallery/Gallery";
 import WrapperCard from "./wrapperCard/WrapperCard";
 import InfoCard from "./infoCard/InfoCard";
 import GallerySkelet from "./gallery/GallerySkelet";
+import InfoCardSkelet from "./infoCard/InfoCardSkelet";
 
 export interface ProductState {
   title: string;
@@ -52,7 +53,7 @@ const ProductPage = () => {
     searchId();
   }, []);
 
-  const showSkelets = isLoading && !product;
+  const showSkelets = isLoading || product === undefined;
 
   return (
     <>
@@ -62,12 +63,14 @@ const ProductPage = () => {
           <Box mt={{ base: "20px", xl: "24px" }}>
             <CrumbLink pathname={pathname} />
           </Box>
-          {showSkelets && <SpinnerCustom />}
-          {!isLoading && (
+
+          {showSkelets && (
             <WrapperCard>
               <GallerySkelet />
+              <InfoCardSkelet />
             </WrapperCard>
           )}
+
           {product && (
             <WrapperCard>
               <Gallery product={product} />
