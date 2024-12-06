@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import StarRatings from "../../../components/common/StarRatings";
 import verification from "../../../assets/icons/Verification.svg";
 import SkeletonOnFetch from "../../../components/common/skelets/SkeletonOnFetch";
-import ReviewSkeleton from "../../../components/common/skelets/ReviewSkeleton";
+
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
 import { formatDate } from "../../../components/shared/functions/formatDate";
+import ReviewSkelet from "./ReviewSkelet";
 
 const Reviews = () => {
   const { isMobile } = useScreenWidth();
@@ -101,7 +102,7 @@ const Reviews = () => {
         {isLoading && (
           <SkeletonOnFetch
             numOfSkeletons={UPLOAD_ITEMS}
-            skeletItem={<ReviewSkeleton />}
+            skeletItem={<ReviewSkelet />}
           />
         )}
       </Grid>
