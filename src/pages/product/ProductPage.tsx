@@ -7,7 +7,7 @@ import DividerCustom from "../../components/common/divider/DividerCustom";
 
 import TabsForChoice from "./tabsForChoice/TabsForChoice";
 import useFetch from "../../components/shared/hooks/useFetch";
-import SpinnerCustom from "./spinnerCustom/SpinnerCustom";
+
 import Gallery from "./gallery/Gallery";
 import WrapperCard from "./wrapperCard/WrapperCard";
 import InfoCard from "./infoCard/InfoCard";
@@ -52,7 +52,7 @@ const ProductPage = () => {
       });
     };
     searchId();
-  }, []);
+  }, [pathname]);
 
   const showSkelets = isLoading || product === undefined;
 
