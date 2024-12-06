@@ -13,6 +13,7 @@ import WrapperCard from "./wrapperCard/WrapperCard";
 import InfoCard from "./infoCard/InfoCard";
 import GallerySkelet from "./gallery/GallerySkelet";
 import InfoCardSkelet from "./infoCard/InfoCardSkelet";
+import ClothesPreview from "../../components/common/ClothesPreview";
 
 export interface ProductState {
   title: string;
@@ -78,6 +79,16 @@ const ProductPage = () => {
             </WrapperCard>
           )}
           <TabsForChoice product={product} />
+          <Box mt={{ base: "40px", lg: "64px" }}>
+            <ClothesPreview
+              title="You might also like"
+              // @ts-ignore
+              url={`${import.meta.env.VITE_API_URL}?page=1&color=${
+                product?.color
+              }&limit=`}
+              uploadMore={4}
+            />
+          </Box>
         </Container>
       </Box>
     </>
