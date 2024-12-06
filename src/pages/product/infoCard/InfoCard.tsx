@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 import StarRatings from "../../../components/common/StarRatings";
 import DiscountPrice from "../../../components/common/DiscountPrice";
@@ -36,7 +36,11 @@ const InfoCard = ({ product }: { product: ProductState }) => {
 
       <Box mt="24px">
         <Text>Select Colors</Text>
-        <HStack mt="16px">
+        <Grid
+          mt="16px"
+          gridTemplateColumns="repeat(auto-fill, minmax(37px, 1fr))"
+          gap="16px"
+        >
           {COLORS.map((color, i) => {
             const isActiveElement = color === product.color.toLowerCase();
 
@@ -49,14 +53,14 @@ const InfoCard = ({ product }: { product: ProductState }) => {
               />
             );
           })}
-        </HStack>
+        </Grid>
       </Box>
 
       <DividerCustom />
 
       <Box mt="24px">
         <Text>Choosee Size</Text>
-        <HStack mt="16px">
+        <HStack mt="16px" wrap="wrap">
           {SIZE.map((size, i) => {
             const isActive = size === product.size;
 
