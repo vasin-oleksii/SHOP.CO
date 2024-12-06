@@ -1,3 +1,5 @@
+import React from "react";
+
 interface SkeletonOnFetchProps {
   numOfSkeletons: number;
   skeletItem: React.ReactNode;
@@ -15,7 +17,7 @@ const SkeletonOnFetch = ({
     const skeletons = [];
 
     for (let i = 0; i < numOfSkeletons; i++) {
-      skeletons.push(<div key={i}>{skeletItem}</div>);
+      skeletons.push(<React.Fragment key={i}>{skeletItem}</React.Fragment>);
     }
     return skeletons;
   }

@@ -11,6 +11,7 @@ import SpinnerCustom from "./spinnerCustom/SpinnerCustom";
 import Gallery from "./gallery/Gallery";
 import WrapperCard from "./wrapperCard/WrapperCard";
 import InfoCard from "./infoCard/InfoCard";
+import GallerySkelet from "./gallery/GallerySkelet";
 
 export interface ProductState {
   title: string;
@@ -25,7 +26,6 @@ export interface ProductState {
 
 const ProductPage = () => {
   const { pathname } = useLocation();
-
   const [productId, setProductId] = useState<string>("");
   const [product, setProduct] = useState<undefined | ProductState>();
 
@@ -33,7 +33,6 @@ const ProductPage = () => {
     // @ts-ignore
     productId && { url: `${import.meta.env.VITE_API_URL}?id=${productId}` }
   );
-  console.log(data[0]);
 
   useEffect(() => {
     if (data[0]) {
@@ -53,16 +52,22 @@ const ProductPage = () => {
     searchId();
   }, []);
 
+  const showSkelets = isLoading && !product;
+
   return (
     <>
       <Box>
         <Container maxW="container.xl">
           <DividerCustom />
-
           <Box mt={{ base: "20px", xl: "24px" }}>
             <CrumbLink pathname={pathname} />
           </Box>
-          {isLoading && !product && <SpinnerCustom />}
+          {showSkelets && <SpinnerCustom />}
+          {!isLoading && (
+            <WrapperCard>
+              <GallerySkelet />
+            </WrapperCard>
+          )}
           {product && (
             <WrapperCard>
               <Gallery product={product} />
