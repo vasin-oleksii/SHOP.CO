@@ -10,9 +10,10 @@ import {
   Portal,
 } from "@chakra-ui/react";
 import Cart from "../../assets/icons/Cart.svg";
-import User from "../../assets/icons/User.svg";
+
 import { ReactSVG } from "react-svg";
 import { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import SearchLitle from "../../assets/icons/SearchLitle.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
@@ -103,12 +104,11 @@ const Search = () => {
           </Portal>
         </Popover>
 
-        <Link>
-          <ReactSVG src={Cart} />
-        </Link>
-        <Link>
-          <ReactSVG src={User} />
-        </Link>
+        <RouterLink to="/cart">
+          <Link>
+            <ReactSVG src={Cart} />
+          </Link>
+        </RouterLink>
       </HStack>
 
       {isFocus && (

@@ -23,6 +23,7 @@ const Reviews = () => {
     mobileNumOfUpload,
     increaseNumOfUpoad,
     fetchReviewsPerPage,
+    fetchReviewsAll,
   } = useReviewsState((state) => state);
 
   const notMoreDateToShow =
@@ -42,6 +43,10 @@ const Reviews = () => {
 
   useEffect(() => {
     if (isMobile) mobileNumOfUpload();
+  }, []);
+
+  useEffect(() => {
+    fetchReviewsAll();
   }, []);
 
   return (

@@ -7,6 +7,7 @@ interface ReviewsState {
   isLoading: boolean;
   numbOfUpload: number;
   fetchReviewsPerPage: (page: number, limit: number) => void;
+  fetchReviewsAll: () => void;
   increaseNumOfUpoad: (num: number) => void;
   mobileNumOfUpload: () => void;
 }
@@ -19,19 +20,32 @@ export const useReviewsState = create<ReviewsState>()(
     numbOfUpload: 6,
     fetchReviewsPerPage: async (page: number, limit: number) => {
       set({ isLoading: true });
-      // @ts-ignore
-      const fullUrlSearch = `${import.meta.env.VITE_API_REVIEWS}?`;
       try {
+        // @ts-ignore
         const fetchDataPerPage = await fetch(
-          `${fullUrlSearch}page=${page}&limit=${limit}`
+          `${import.meta.env.VITE_API_REVIEWS}?page=${page}&limit=${limit}`
         );
-        const fetchDataAll = await fetch(`${fullUrlSearch}`);
 
-        const allReviews = await fetchDataAll.json();
+        /// при загрузке вынести в другую функцию
         const perPageReviews = await fetchDataPerPage.json();
         set({
-          allReviews,
           perPageReviews,
+          isLoading: false,
+        });
+      } catch (e) {
+        console.error(e);
+        set({ isLoading: false });
+      }
+    },
+    fetchReviewsAll: async () => {
+      set({ isLoading: true });
+
+      try {
+        // @ts-ignore
+        const fetchDataAll = await fetch(`${import.meta.env.VITE_API_REVIEWS}`);
+        const allReviews = await fetchDataAll.json();
+        set({
+          allReviews,
           isLoading: false,
         });
       } catch (e) {

@@ -21,6 +21,7 @@ import Burger from "../../assets/icons/Burger.svg";
 
 import { useState } from "react";
 import Search from "./Search";
+import DividerCustom from "../common/divider/DividerCustom";
 
 const Header = () => {
   const [isBannerVisible, setIsBannerVisible] = useState<boolean>(true);
@@ -153,6 +154,7 @@ const Header = () => {
             </Flex>
             <Search />
           </Flex>
+          <DividerCustom />
         </Container>
       </Box>
     </>

@@ -1,5 +1,5 @@
 import { Box, Container } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import CrumbLink from "../../components/common/CrumbLink";
@@ -25,34 +25,28 @@ export interface ProductState {
   color: string;
   size: string;
 }
+const NUM_OF_UPPLOAD_ITEM = 4;
 
 const ProductPage = () => {
+  const urlParams = useParams();
   const { pathname } = useLocation();
+
   const [productId, setProductId] = useState<string>("");
   const [product, setProduct] = useState<undefined | ProductState>();
 
   const { data, isLoading } = useFetch(
     // @ts-ignore
-    productId && { url: `${import.meta.env.VITE_API_URL}?id=${productId}` }
+    { url: `${import.meta.env.VITE_API_URL}?id=${productId || ""}` }
   );
 
   useEffect(() => {
-    if (data[0]) {
-      setProduct(data[0]);
-    }
+    const product = data[0];
+    product && setProduct(product);
   }, [data]);
 
   useEffect(() => {
-    const searchId = () => {
-      pathname.split("/").filter((url) => {
-        const lengthId = 20;
-        if (url.length > lengthId) {
-          setProductId(url);
-        }
-      });
-    };
-    searchId();
-  }, [pathname]);
+    setProductId(urlParams.id || "");
+  }, [urlParams]);
 
   const showSkelets = isLoading || product === undefined;
 
@@ -60,7 +54,6 @@ const ProductPage = () => {
     <>
       <Box>
         <Container maxW="container.xl">
-          <DividerCustom />
           <Box mt={{ base: "20px", xl: "24px" }}>
             <CrumbLink pathname={pathname} />
           </Box>
@@ -86,7 +79,7 @@ const ProductPage = () => {
               url={`${import.meta.env.VITE_API_URL}?page=1&color=${
                 product?.color
               }&limit=`}
-              uploadMore={4}
+              uploadMore={NUM_OF_UPPLOAD_ITEM}
             />
           </Box>
         </Container>

@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 
 const Promo = () => {
   return (
-    <Box backgroundColor="grey" mt="24px">
+    <Box backgroundColor="grey">
       <Container maxW="container.xl">
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}

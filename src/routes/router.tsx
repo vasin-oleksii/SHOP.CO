@@ -7,6 +7,8 @@ import Header from "../components/header/Header";
 import Footer from "../components/foother/Foother";
 import { useEffect } from "react";
 
+import CartPage from "../pages/cart/CartPage";
+
 const Layout = (): React.ReactElement => {
   return (
     <>
@@ -51,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <ProductPage />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
     ],
   },
