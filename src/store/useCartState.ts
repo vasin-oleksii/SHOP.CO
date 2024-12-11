@@ -3,14 +3,16 @@ import { devtools } from "zustand/middleware";
 import { Product, ProductCart } from "./types";
 
 interface cartState {
-  produitsInCart: ProductCart[];
+  produitsInCart: ProductCart[] | [];
   addPrduitToCart: (produits: any, countProduit: number) => void;
   removeProduitFromCart: (produits: ProductCart) => void;
 }
+//@ts-ignore
+const initialValue = JSON.parse(localStorage.getItem("cartProduits"));
 
 export const useCartState = create<cartState>()(
   devtools((set, get) => ({
-    produitsInCart: JSON.parse(localStorage.getItem("cartProduits") || ""),
+    produitsInCart: initialValue === null ? [] : initialValue,
     addPrduitToCart: (produit, countProduit) => {
       const { produitsInCart } = get();
 
