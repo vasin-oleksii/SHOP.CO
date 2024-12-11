@@ -1,24 +1,15 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
-import CrumbLink from "../../components/common/CrumbLink";
-import { useLocation } from "react-router-dom";
+import { Box, Container, Flex, Heading } from "@chakra-ui/react";
+
+import HeadingCart from "./HeadingCart";
+import ContentCart from "./ContentCart";
 
 const CartPage = () => {
-  const { pathname } = useLocation();
   return (
     <Box>
       <Container maxW="container.xl">
-        <Box>
-          <Box mt={{ base: "20px", md: "24px" }}>
-            <CrumbLink pathname={pathname} />
-          </Box>
-          <Heading
-            fontSize={{ base: "32px", lg: "40px" }}
-            mt={{ base: "11px", lg: "28px" }}
-          >
-            Your cart
-          </Heading>
-        </Box>
-        
+        <HeadingCart />
+
+        <ContentCart />
       </Container>
     </Box>
   );

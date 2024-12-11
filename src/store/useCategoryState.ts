@@ -1,17 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { keys } from "../constants/useCategoryState";
-
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  old_price?: number;
-  rating: number;
-  images: string[];
-  category_id: string;
-}
+import { Product } from "./types";
 
 export interface ParametrsOfSearch {
   category: string;

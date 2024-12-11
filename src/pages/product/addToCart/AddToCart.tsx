@@ -1,8 +1,11 @@
 import { Box, Button, Flex, HStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCartState } from "../../../store/useCartState";
+import { ProductState } from "../ProductPage";
 
-const AddToCart = () => {
+const AddToCart = (product: { product: ProductState }) => {
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
+  const { addPrduitToCart } = useCartState();
 
   const increaseValue = () => {
     setNumberOfGoodsForBuy((prevNum) => (prevNum === 1 ? 1 : prevNum - 1));
@@ -13,7 +16,7 @@ const AddToCart = () => {
   };
 
   const addInCart = () => {
-    alert("is added: " + numberOfGoodsForBuy);
+    addPrduitToCart(product.product, numberOfGoodsForBuy);
   };
 
   return (

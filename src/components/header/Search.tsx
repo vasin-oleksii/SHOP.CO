@@ -64,7 +64,7 @@ const Search = () => {
   return (
     <>
       <InputIconLeft
-        maxWidth="602px"
+        maxWidth="652px"
         display={{ base: "none", lg: "block" }}
         placeholder="Search for products..."
         bgInput={"greyLight"}

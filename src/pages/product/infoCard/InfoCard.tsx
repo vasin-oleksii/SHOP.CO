@@ -73,7 +73,7 @@ const InfoCard = ({ product }: { product: ProductState }) => {
 
       <DividerCustom />
       <Box mt="24px">
-        <AddToCart />
+        <AddToCart product={product} />
       </Box>
     </Flex>
   );

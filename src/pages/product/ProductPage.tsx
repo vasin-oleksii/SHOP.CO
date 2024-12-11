@@ -29,24 +29,20 @@ const NUM_OF_UPPLOAD_ITEM = 4;
 
 const ProductPage = () => {
   const urlParams = useParams();
+
   const { pathname } = useLocation();
 
-  const [productId, setProductId] = useState<string>("");
   const [product, setProduct] = useState<undefined | ProductState>();
 
   const { data, isLoading } = useFetch(
     // @ts-ignore
-    { url: `${import.meta.env.VITE_API_URL}?id=${productId || ""}` }
+    { url: `${import.meta.env.VITE_API_URL}?id=${urlParams.id}` }
   );
 
   useEffect(() => {
     const product = data[0];
     product && setProduct(product);
   }, [data]);
-
-  useEffect(() => {
-    setProductId(urlParams.id || "");
-  }, [urlParams]);
 
   const showSkelets = isLoading || product === undefined;
 
