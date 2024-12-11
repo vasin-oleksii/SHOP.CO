@@ -1,11 +1,13 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 
 import ProductToShow from "./productToShow/ProductToShow";
 
-const ContentCart = () => {
-  const productsToShow = JSON.parse(localStorage.getItem("cartProduits") || "");
+import { useCartState } from "../../store/useCartState";
 
-  console.log(productsToShow);
+const ContentCart = () => {
+  const { produitsInCart } = useCartState();
+  console.log(produitsInCart);
+
   return (
     <Flex mt={{ base: "20px", md: "24px" }} width="100%">
       <Box
@@ -16,20 +18,24 @@ const ContentCart = () => {
         p="24px"
         borderRadius="20px"
       >
-        {productsToShow &&
-          productsToShow.map((el: any, i: any) => {
-            const isFirstElement = i === 0;
-            const isLastElement = i + 1 === productsToShow.length;
+        {produitsInCart.map((el: any, i: any) => {
+          const isFirstElement = i === 0;
+          const isLastElement = i + 1 === produitsInCart.length;
 
-            return (
-              <ProductToShow
-                key={i}
-                product={el}
-                isFirstElement={isFirstElement}
-                isLastElement={isLastElement}
-              />
-            );
-          })}
+          return (
+            <ProductToShow
+              key={i}
+              product={el}
+              isFirstElement={isFirstElement}
+              isLastElement={isLastElement}
+            />
+          );
+        })}
+        {produitsInCart.length === 0 ? (
+          <Heading fontSize="24px" fontWeight="500">
+            The cart is empty... 😢
+          </Heading>
+        ) : null}
       </Box>
 
       {/* <Heading>{el.countProduit}</Heading> */}

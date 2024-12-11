@@ -10,7 +10,7 @@ interface cartState {
 
 export const useCartState = create<cartState>()(
   devtools((set, get) => ({
-    produitsInCart: [],
+    produitsInCart: JSON.parse(localStorage.getItem("cartProduits") || ""),
     addPrduitToCart: (produit, countProduit) => {
       const { produitsInCart } = get();
 

@@ -1,7 +1,5 @@
 import { Box, Flex, Heading, Img, VStack, Text } from "@chakra-ui/react";
 import DividerCustom from "../../../components/common/divider/DividerCustom";
-import { DeleteIcon } from "@chakra-ui/icons";
-import AddToCart from "../../product/addToCart/AddToCart";
 import UpdateCountProduit from "./UpdateCountProduit";
 
 const ProductToShow = ({
@@ -44,7 +42,7 @@ const ProductToShow = ({
               </VStack>
             </Box>
             <Text fontSize="24px" fontWeight="700">
-              ${product.price}
+              ${product.price * product.countProduit}
             </Text>
           </Flex>
         </Flex>

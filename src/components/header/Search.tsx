@@ -10,6 +10,7 @@ import {
   Portal,
 } from "@chakra-ui/react";
 import Cart from "../../assets/icons/Cart.svg";
+import CartWithItem from "../../assets/icons/CartWithItem.svg";
 
 import { ReactSVG } from "react-svg";
 import { useEffect, useState } from "react";
@@ -21,8 +22,11 @@ import InputIconLeft from "../common/inputs/InputIconLeft";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCategoryState } from "../../store/useCategoryState";
+import { useCartState } from "../../store/useCartState";
 
 const Search = () => {
+  const { produitsInCart } = useCartState();
+
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   const { parametrsOfSearch, changeParametrsOfSearch } = useCategoryState();
@@ -103,10 +107,13 @@ const Search = () => {
             </Box>
           </Portal>
         </Popover>
-
         <RouterLink to="/cart">
           <Link>
-            <ReactSVG src={Cart} />
+            {produitsInCart.length > 0 ? (
+              <ReactSVG src={CartWithItem} />
+            ) : (
+              <ReactSVG src={Cart} />
+            )}
           </Link>
         </RouterLink>
       </HStack>

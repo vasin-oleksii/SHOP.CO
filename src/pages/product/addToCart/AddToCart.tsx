@@ -1,9 +1,11 @@
-import { Box, Button, Flex, HStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Portal, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useCartState } from "../../../store/useCartState";
 import { ProductState } from "../ProductPage";
 
 const AddToCart = (product: { product: ProductState }) => {
+  const toast = useToast();
+
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
   const { addPrduitToCart } = useCartState();
 
@@ -58,7 +60,15 @@ const AddToCart = (product: { product: ProductState }) => {
             borderColor: "black",
             borderWidth: "1px",
           }}
-          onClick={addInCart}
+          onClick={() => {
+            addInCart();
+            toast({
+              title: `It was added in yout cart ${numberOfGoodsForBuy} items 🥰✨🎩`,
+              status: "success",
+              position: "bottom-right",
+              isClosable: true,
+            });
+          }}
         >
           Add to Cart
         </Button>
