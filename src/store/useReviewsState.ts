@@ -12,6 +12,8 @@ interface ReviewsState {
   mobileNumOfUpload: () => void;
 }
 
+// @ts-ignore
+const API = import.meta.env.VITE_API_REVIEWS;
 export const useReviewsState = create<ReviewsState>()(
   devtools((set, get) => ({
     allReviews: [],
@@ -21,12 +23,9 @@ export const useReviewsState = create<ReviewsState>()(
     fetchReviewsPerPage: async (page: number, limit: number) => {
       set({ isLoading: true });
       try {
-        // @ts-ignore
         const fetchDataPerPage = await fetch(
-          `${import.meta.env.VITE_API_REVIEWS}?page=${page}&limit=${limit}`
+          `${API}?page=${page}&limit=${limit}`
         );
-
-        /// при загрузке вынести в другую функцию
         const perPageReviews = await fetchDataPerPage.json();
         set({
           perPageReviews,
@@ -41,8 +40,7 @@ export const useReviewsState = create<ReviewsState>()(
       set({ isLoading: true });
 
       try {
-        // @ts-ignore
-        const fetchDataAll = await fetch(`${import.meta.env.VITE_API_REVIEWS}`);
+        const fetchDataAll = await fetch(API);
         const allReviews = await fetchDataAll.json();
         set({
           allReviews,
