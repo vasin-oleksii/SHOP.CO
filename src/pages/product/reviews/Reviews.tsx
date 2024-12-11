@@ -1,4 +1,12 @@
-import { Box, Flex, Grid, GridItem, Img, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Img,
+  Text,
+} from "@chakra-ui/react";
 import HeaderReviews from "./HeaderReviews";
 import { useReviewsState } from "../../../store/useReviewsState";
 import { useEffect } from "react";
@@ -74,9 +82,13 @@ const Reviews = () => {
                 alignItems="center"
                 justifyContent="flex-start"
               >
-                <Text fontSize={{ base: "md", lg: "lg" }} fontWeight={700}>
+                <Heading
+                  as="h5"
+                  fontSize={{ base: "md", lg: "lg" }}
+                  fontWeight={700}
+                >
                   {name}
-                </Text>
+                </Heading>
                 <Img
                   src={verification}
                   boxSize={{ base: "15px", lg: "20px" }}
@@ -98,6 +110,7 @@ const Reviews = () => {
                 color="greyText"
                 mt="24px"
                 fontWeight="700"
+                fontSize={{ base: "14px", md: "16px" }}
               >
                 {formatDate(date)}
               </Text>

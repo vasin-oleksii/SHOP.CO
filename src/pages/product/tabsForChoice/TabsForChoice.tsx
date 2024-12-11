@@ -23,13 +23,25 @@ const TabsForChoice = ({ product }: { product: ProductState | undefined }) => {
     <Box mt={{ base: "50px", md: "80px" }}>
       <Tabs align="center" defaultIndex={1}>
         <TabList justifyContent="space-between">
-          <Tab w="33%" _selected={selected}>
+          <Tab
+            w="33%"
+            _selected={selected}
+            fontSize={{ base: "16px", md: "20px" }}
+          >
             Product Details
           </Tab>
-          <Tab w="33%" _selected={selected}>
+          <Tab
+            w="33%"
+            _selected={selected}
+            fontSize={{ base: "16px", md: "20px" }}
+          >
             Rating & Reviews
           </Tab>
-          <Tab w="33%" _selected={selected}>
+          <Tab
+            w="33%"
+            _selected={selected}
+            fontSize={{ base: "16px", md: "20px" }}
+          >
             FAQs
           </Tab>
         </TabList>

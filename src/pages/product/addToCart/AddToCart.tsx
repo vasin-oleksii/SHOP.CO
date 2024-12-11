@@ -25,8 +25,8 @@ const AddToCart = (product: { product: ProductState }) => {
     <Flex>
       <HStack
         bgColor="greyLight"
-        p="8px 17px"
-        spacing="26px"
+        p={{ base: "4px 6px", md: "4px 13px", lg: "8px 17px" }}
+        spacing={{ base: "0px", md: "26px" }}
         borderRadius="62px"
       >
         <Button

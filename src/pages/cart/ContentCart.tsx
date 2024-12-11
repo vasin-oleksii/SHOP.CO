@@ -6,7 +6,6 @@ import { useCartState } from "../../store/useCartState";
 
 const ContentCart = () => {
   const { produitsInCart } = useCartState();
-  console.log(produitsInCart);
 
   return (
     <Flex mt={{ base: "20px", md: "24px" }} width="100%">

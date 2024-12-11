@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { Product, ProductCart } from "./types";
+import { ProductCart } from "./types";
 
 interface cartState {
   produitsInCart: ProductCart[] | [];

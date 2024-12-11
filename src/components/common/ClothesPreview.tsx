@@ -91,42 +91,13 @@ const ClothesPreview = ({
           overflow="hidden"
         >
           <Swiper slidesPerView={1.5}>
-            {data.map(
-              ({
-                id,
-                title,
-                images,
-                price,
-                old_price,
-                rating,
-                description,
-              }) => {
-                return (
-                  <SwiperSlide key={id}>
-                    <Link
-                      to={`/product/${id}`}
-                      key={id}
-                      state={{
-                        title,
-                        images,
-                        price,
-                        old_price,
-                        rating,
-                        description,
-                      }}
-                    >
-                      <CardPreview
-                        title={title}
-                        images={images}
-                        price={price}
-                        old_price={old_price}
-                        rating={rating}
-                      />
-                    </Link>
-                  </SwiperSlide>
-                );
-              }
-            )}
+            {data.map(({ id, ...rest }: Product) => (
+              <SwiperSlide key={id}>
+                <Link to={`/product/${id}`} state={rest}>
+                  <CardPreview {...rest} />
+                </Link>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Flex>
 

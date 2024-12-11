@@ -58,7 +58,7 @@ const CardPreview = ({
   };
 
   return (
-    <VStack overflow="hidden" alignItems="start">
+    <VStack overflow="hidden" alignItems="start" pr="10px">
       <Box maxW={{ base: "100%", md: "295px" }} h="300px" display="flex">
         <Swiper
           pagination={{ dynamicBullets: true }}
