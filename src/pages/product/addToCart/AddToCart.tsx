@@ -2,23 +2,32 @@ import { Box, Button, Flex, HStack, Portal, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useCartState } from "../../../store/useCartState";
 import { ProductState } from "../ProductPage";
+import NumberFlow from "@number-flow/react";
 
 const AddToCart = (product: { product: ProductState }) => {
+  const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
+  const [buttonDisable, setButtonDisable] = useState(false);
+  const { addPrduitToCart } = useCartState();
   const toast = useToast();
 
-  const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
-  const { addPrduitToCart } = useCartState();
+  const titleForToast =
+    numberOfGoodsForBuy === 1
+      ? `It was added in yout cart ${numberOfGoodsForBuy} item 🥰😱😎`
+      : `It was added in yout cart ${numberOfGoodsForBuy} items 🥰💙🌈`;
 
   const increaseValue = () => {
     setNumberOfGoodsForBuy((prevNum) => (prevNum === 1 ? 1 : prevNum - 1));
+    setButtonDisable(false);
   };
 
   const addValue = () => {
     setNumberOfGoodsForBuy((prevNum) => prevNum + 1);
+    setButtonDisable(false);
   };
 
   const addInCart = () => {
     addPrduitToCart(product.product, numberOfGoodsForBuy);
+    setButtonDisable(true);
   };
 
   return (
@@ -37,7 +46,14 @@ const AddToCart = (product: { product: ProductState }) => {
         >
           -
         </Button>
-        <Box fontSize="18px"> {numberOfGoodsForBuy}</Box>
+        <NumberFlow
+          value={numberOfGoodsForBuy}
+          format={{
+            trailingZeroDisplay: "stripIfInteger",
+          }}
+          style={{ fontSize: "18px" }}
+        />
+
         <Button
           onClick={addValue}
           fontSize="24px"
@@ -62,13 +78,16 @@ const AddToCart = (product: { product: ProductState }) => {
           }}
           onClick={() => {
             addInCart();
-            toast({
-              title: `It was added in yout cart ${numberOfGoodsForBuy} items 🥰✨🎩`,
-              status: "success",
-              position: "bottom-right",
-              isClosable: true,
-            });
+            if (!buttonDisable) {
+              toast({
+                title: titleForToast,
+                status: "success",
+                position: "bottom-right",
+                isClosable: true,
+              });
+            }
           }}
+          opacity={buttonDisable ? "0.65" : "1"}
         >
           Add to Cart
         </Button>

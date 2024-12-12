@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, Heading, HStack, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import StarRatings from "../../../components/common/StarRatings";
 import DiscountPrice from "../../../components/common/DiscountPrice";
 import DividerCustom from "../../../components/common/divider/DividerCustom";
@@ -11,6 +11,8 @@ import { ProductState } from "../ProductPage";
 
 const InfoCard = ({ product }: { product: ProductState }) => {
   const { COLORS, SIZE } = CATEGORY;
+  const [sectedColor, setSelectedColor] = useState(product.color);
+  const [sectedSize, setSelectedSize] = useState(product.size);
 
   return (
     <Flex flexDirection="column" ml={{ base: "0", md: "29px", lg: "39px" }}>
@@ -42,7 +44,7 @@ const InfoCard = ({ product }: { product: ProductState }) => {
           gap="16px"
         >
           {COLORS.map((color, i) => {
-            const isActiveElement = color === product.color.toLowerCase();
+            const isActiveElement = color === sectedColor.toLowerCase();
 
             return (
               <ColorOption
@@ -62,7 +64,7 @@ const InfoCard = ({ product }: { product: ProductState }) => {
         <Text>Choosee Size</Text>
         <HStack mt="16px" wrap="wrap">
           {SIZE.map((size, i) => {
-            const isActive = size === product.size;
+            const isActive = size === sectedSize;
 
             return (
               <ButtonFilter key={i} text={size} isActive={isActive} isBig />

@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Img, VStack, Text } from "@chakra-ui/react";
 import DividerCustom from "../../../components/common/divider/DividerCustom";
 import UpdateCountProduit from "./UpdateCountProduit";
+import NumberFlow from "@number-flow/react";
 
 const ProductToShow = ({
   product,
@@ -41,9 +42,16 @@ const ProductToShow = ({
                 </Flex>
               </VStack>
             </Box>
-            <Text fontSize="24px" fontWeight="700">
-              ${product.price * product.countProduit}
-            </Text>
+
+            <NumberFlow
+              value={product.price * product.countProduit}
+              format={{
+                style: "currency",
+                currency: "USD",
+                trailingZeroDisplay: "stripIfInteger",
+              }}
+              style={{ fontSize: "24px", fontWeight: "500" }}
+            />
           </Flex>
         </Flex>
         <Flex justify="space-between" alignItems="flex-end" flexDir="column">

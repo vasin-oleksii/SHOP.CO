@@ -1,7 +1,8 @@
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
 import { useCartState } from "../../../store/useCartState";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
+import NumberFlow from "@number-flow/react";
 
 const UpdateCountProduit = ({ product }: { product: any }) => {
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState<number>(
@@ -41,7 +42,14 @@ const UpdateCountProduit = ({ product }: { product: any }) => {
         >
           -
         </Button>
-        <Box fontSize="18px"> {numberOfGoodsForBuy}</Box>
+
+        <NumberFlow
+          value={numberOfGoodsForBuy}
+          format={{
+            trailingZeroDisplay: "stripIfInteger",
+          }}
+          style={{ fontSize: "18px" }}
+        />
         <Button
           onClick={addValue}
           fontSize="20px"

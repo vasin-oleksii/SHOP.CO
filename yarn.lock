@@ -1868,6 +1868,14 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@number-flow/react@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@number-flow/react/-/react-0.4.2.tgz#54033fa45b1523e41bf5324522f9b89a9e1b1928"
+  integrity sha512-lCAkLuK/3+Nlhb/oy1tpRnadp1vvfc/cWTtWUL9hMksHsJOGh+1T5Y/dyeQhyCD0heaWTjNYWX2ndBKLJwuC0A==
+  dependencies:
+    esm-env "^1.1.4"
+    number-flow "0.4.1"
+
 "@popperjs/core@^2.9.3":
   version "2.11.8"
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
@@ -3034,6 +3042,11 @@ eslint@^9.9.0:
     optionator "^0.9.3"
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
+
+esm-env@^1.1.4:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/esm-env/-/esm-env-1.2.1.tgz#34c2a0ba60582948afbe7bd779bc66f9d3aece7e"
+  integrity sha512-U9JedYYjCnadUlXk7e1Kr+aENQhtUaoaV9+gZm1T8LC/YBAPJx3NSPIAurFOC0U5vrdSevnUJS2/wUVxGwPhng==
 
 espree@^10.0.1, espree@^10.1.0:
   version "10.1.0"
@@ -4216,6 +4229,13 @@ npm-run-path@^4.0.1:
   integrity sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==
   dependencies:
     path-key "^3.0.0"
+
+number-flow@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/number-flow/-/number-flow-0.4.1.tgz#592b74100538dc38bf05b9ee7132c00a369e0003"
+  integrity sha512-d39o1tWL7mMMBLuOfHswtQ8r0fj9eUcatb4G1Spdv0ZO/I30kg9DBdSzSPjNG6hrj1slQ6KA3TQXk1RmOq4qOA==
+  dependencies:
+    esm-env "^1.1.4"
 
 nwsapi@^2.2.2:
   version "2.2.13"
