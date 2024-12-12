@@ -10,6 +10,8 @@ export interface Product {
 }
 
 export interface ProductCart {
+  color: string;
+  size: string;
   id: string;
   title: string;
   description: string;

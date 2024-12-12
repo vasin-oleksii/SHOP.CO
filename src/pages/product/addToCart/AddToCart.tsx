@@ -1,10 +1,18 @@
-import { Box, Button, Flex, HStack, Portal, useToast } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Button, Flex, HStack, useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import { useCartState } from "../../../store/useCartState";
 import { ProductState } from "../ProductPage";
 import NumberFlow from "@number-flow/react";
 
-const AddToCart = (product: { product: ProductState }) => {
+const AddToCart = ({
+  product,
+  isButtonClicked,
+  resetButtonIsClicked,
+}: {
+  product: ProductState;
+  isButtonClicked: boolean;
+  resetButtonIsClicked: () => void;
+}) => {
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
   const [buttonDisable, setButtonDisable] = useState(false);
   const { addPrduitToCart } = useCartState();
@@ -26,8 +34,9 @@ const AddToCart = (product: { product: ProductState }) => {
   };
 
   const addInCart = () => {
-    addPrduitToCart(product.product, numberOfGoodsForBuy);
+    addPrduitToCart(product, numberOfGoodsForBuy);
     setButtonDisable(true);
+    resetButtonIsClicked();
   };
 
   return (
@@ -78,7 +87,7 @@ const AddToCart = (product: { product: ProductState }) => {
           }}
           onClick={() => {
             addInCart();
-            if (!buttonDisable) {
+            if (!buttonDisable || isButtonClicked) {
               toast({
                 title: titleForToast,
                 status: "success",
@@ -87,7 +96,7 @@ const AddToCart = (product: { product: ProductState }) => {
               });
             }
           }}
-          opacity={buttonDisable ? "0.65" : "1"}
+          opacity={!isButtonClicked && buttonDisable ? "0.5" : "1"}
         >
           Add to Cart
         </Button>

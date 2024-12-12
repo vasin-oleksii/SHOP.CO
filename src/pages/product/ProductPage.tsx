@@ -16,6 +16,7 @@ import InfoCardSkelet from "./infoCard/InfoCardSkelet";
 import ClothesPreview from "../../components/common/ClothesPreview";
 
 export interface ProductState {
+  id: string;
   title: string;
   images: string[];
   price: number;

@@ -22,9 +22,11 @@ export const useCartState = create<cartState>()(
           : false;
 
       if (isProductInCart) {
-        const updatedProducts = produitsInCart.map((el) =>
-          el.id === produit.id ? { ...produit, countProduit } : el
-        );
+        const updatedProducts = produitsInCart.map((el) => {
+          const isTheSameProduct = el.id === produit.id;
+
+          return isTheSameProduct ? { ...produit, countProduit } : el;
+        });
 
         set({
           produitsInCart: updatedProducts,

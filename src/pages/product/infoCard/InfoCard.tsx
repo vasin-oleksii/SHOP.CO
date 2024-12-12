@@ -12,7 +12,29 @@ import { ProductState } from "../ProductPage";
 const InfoCard = ({ product }: { product: ProductState }) => {
   const { COLORS, SIZE } = CATEGORY;
   const [sectedColor, setSelectedColor] = useState(product.color);
-  const [sectedSize, setSelectedSize] = useState(product.size);
+  const [selectedSize, setSelectedSize] = useState(product.size);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [newProduct, setNewProduct] = useState(product);
+
+  const handleChangeProduct = ({
+    color = sectedColor,
+    size = selectedSize,
+  }: {
+    color?: string;
+    size?: string;
+  }) => {
+    setIsButtonClicked(true);
+    setNewProduct((state) => ({
+      ...state,
+      color,
+      size,
+      id: `${product.id}-${Date.now()}`,
+    }));
+  };
+
+  const resetButtonIsClicked = () => {
+    setIsButtonClicked(false);
+  };
 
   return (
     <Flex flexDirection="column" ml={{ base: "0", md: "29px", lg: "39px" }}>
@@ -51,7 +73,10 @@ const InfoCard = ({ product }: { product: ProductState }) => {
                 key={i}
                 color={color}
                 isSelected={isActiveElement}
-                onClick={() => {}}
+                onClick={() => {
+                  setSelectedColor(color);
+                  handleChangeProduct({ color: color });
+                }}
               />
             );
           })}
@@ -64,10 +89,19 @@ const InfoCard = ({ product }: { product: ProductState }) => {
         <Text>Choosee Size</Text>
         <HStack mt="16px" wrap="wrap">
           {SIZE.map((size, i) => {
-            const isActive = size === sectedSize;
+            const isActive = size === selectedSize;
 
             return (
-              <ButtonFilter key={i} text={size} isActive={isActive} isBig />
+              <ButtonFilter
+                key={i}
+                text={size}
+                isActive={isActive}
+                isBig
+                onClick={() => {
+                  setSelectedSize(size);
+                  handleChangeProduct({ size: size });
+                }}
+              />
             );
           })}
         </HStack>
@@ -75,7 +109,11 @@ const InfoCard = ({ product }: { product: ProductState }) => {
 
       <DividerCustom />
       <Box mt="24px">
-        <AddToCart product={product} />
+        <AddToCart
+          product={newProduct}
+          isButtonClicked={isButtonClicked}
+          resetButtonIsClicked={resetButtonIsClicked}
+        />
       </Box>
     </Flex>
   );
