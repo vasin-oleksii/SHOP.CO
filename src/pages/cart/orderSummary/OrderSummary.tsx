@@ -2,6 +2,7 @@ import { Box, Flex, Heading, VStack, Text, Divider } from "@chakra-ui/react";
 import NumberFlow from "@number-flow/react";
 import OrederLine from "./OrederLine";
 import FormCheckout from "../formCheckout/FormCheckout";
+import { useState } from "react";
 
 interface ProductState {
   id: string;
@@ -21,12 +22,17 @@ const OrderSummary = ({
 }: {
   produitsInCart: ProductState[];
 }) => {
+  const [discoundCode, setDiscoundCode] = useState("");
+  const [isSubmit, setIsSumbit] = useState(false);
+
   const totalPrice = produitsInCart.reduce(
     (acc, current) => current.price * current.countProduit + acc,
     0
   );
-  const priceWithDiscount = totalPrice * 0.2;
-  const priceDilivery = 15;
+  const isFree = discoundCode.toLowerCase() === "free" && isSubmit;
+  const priceWithDiscount = isFree ? totalPrice : totalPrice * 0.2;
+  const priceDilivery = isFree ? 0 : 15;
+
   return (
     <Flex
       borderWidth="1px"
@@ -53,11 +59,16 @@ const OrderSummary = ({
         <OrederLine
           color="black"
           title="Total"
-          value={totalPrice - priceWithDiscount + priceDilivery}
+          value={isFree ? 0 : totalPrice - priceWithDiscount + priceDilivery}
           accentText
         />
       </VStack>
-      <FormCheckout />
+      <FormCheckout
+        discoundCode={discoundCode}
+        isSubmit={isSubmit}
+        setDiscoundCode={setDiscoundCode}
+        setIsSumbit={setIsSumbit}
+      />
     </Flex>
   );
 };

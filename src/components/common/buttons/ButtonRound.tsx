@@ -21,7 +21,7 @@ const ButtonRound = ({ children, colorBtn, ...proprs }: ButtonRoundProps) => {
   }
 
   return (
-    <Box>
+    <>
       <Button
         data-testid="button-round"
         background={colorBg}
@@ -38,7 +38,7 @@ const ButtonRound = ({ children, colorBtn, ...proprs }: ButtonRoundProps) => {
       >
         {children}
       </Button>
-    </Box>
+    </>
   );
 };
 
