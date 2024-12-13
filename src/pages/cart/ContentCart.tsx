@@ -1,16 +1,22 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 
 import ProductToShow from "./productToShow/ProductToShow";
 
 import { useCartState } from "../../store/useCartState";
+import OrderSummary from "./orderSummary/OrderSummary";
 
 const ContentCart = () => {
   const { produitsInCart } = useCartState();
 
   return (
-    <Flex mt={{ base: "20px", md: "24px" }} width="100%">
+    <Flex
+      mt={{ base: "20px", md: "24px" }}
+      width="100%"
+      gap="20px"
+      flexDir={{ base: "column", md: "row" }}
+    >
       <Box
-        width="60%"
+        width={{ base: "100%", md: "65%", lg: "55%" }}
         borderWidth="1px"
         borderStyle="solid"
         borderColor="greyLight"
@@ -37,7 +43,9 @@ const ContentCart = () => {
         ) : null}
       </Box>
 
-      {/* <Heading>{el.countProduit}</Heading> */}
+      <Box width={{ base: "100%", md: "35%", lg: "45%" }}>
+        <OrderSummary produitsInCart={produitsInCart} />
+      </Box>
     </Flex>
   );
 };

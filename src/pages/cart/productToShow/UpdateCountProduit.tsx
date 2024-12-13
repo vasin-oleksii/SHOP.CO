@@ -31,14 +31,16 @@ const UpdateCountProduit = ({ product }: { product: any }) => {
         cursor="pointer"
         fontSize="20px"
         onClick={() => removeProduitFromCart(product)}
+        _hover={{ color: "greyText" }}
       />
 
-      <HStack bgColor="greyLight" p="5px 11px" borderRadius="62px">
+      <HStack bgColor="greyLight" p="2px 8px" borderRadius="62px">
         <Button
           onClick={increaseValue}
           fontSize="20px"
           fontWeight={500}
           bgColor="greyLight"
+          p="0px"
         >
           -
         </Button>
@@ -48,13 +50,14 @@ const UpdateCountProduit = ({ product }: { product: any }) => {
           format={{
             trailingZeroDisplay: "stripIfInteger",
           }}
-          style={{ fontSize: "18px" }}
+          style={{ fontSize: "14px" }}
         />
         <Button
           onClick={addValue}
           fontSize="20px"
           fontWeight={500}
           bgColor="greyLight"
+          p="0px"
         >
           +
         </Button>
