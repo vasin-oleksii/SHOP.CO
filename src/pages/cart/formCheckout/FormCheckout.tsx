@@ -19,9 +19,9 @@ const FormCheckout = ({
   setDiscoundCode: (value: string) => void;
   setIsSumbit: (value: boolean) => void;
 }) => {
-  const [showPayment, setShowPayment] = useState<boolean>(false);
+  const [showPaymentPage, setShowPaymentPage] = useState<boolean>(false);
 
-  if (showPayment && totalProductsLength) {
+  if (showPaymentPage && totalProductsLength) {
     return <FormPayment />;
   }
 
@@ -61,7 +61,7 @@ const FormCheckout = ({
           colorBtn="black"
           w="100%"
           p="20.5px 0px"
-          onClick={() => setShowPayment((state) => !state)}
+          onClick={() => setShowPaymentPage((state) => !state)}
           opacity={totalProductsLength === 0 ? "0.65" : "1"}
           cursor={totalProductsLength === 0 ? "not-allowed" : "pointer"}
         >

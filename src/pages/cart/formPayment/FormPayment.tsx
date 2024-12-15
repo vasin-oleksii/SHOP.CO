@@ -11,6 +11,7 @@ import {
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import ShowSuccessful from "./ShowSuccessful";
 
 type Inputs = {
   name: string;
@@ -26,6 +27,7 @@ const FormPayment = () => {
     formState: { errors },
     reset,
   } = useForm<Inputs>();
+  const [showSuccessful, setShowSuccessful] = useState(false);
 
   const onSumbit = async (data: Inputs) => {
     try {
@@ -45,6 +47,9 @@ const FormPayment = () => {
         duration: 9000,
         isClosable: true,
       });
+      if (post.ok) {
+        setShowSuccessful(true);
+      }
       reset();
     } catch (e) {
       console.log(e);
@@ -106,6 +111,8 @@ const FormPayment = () => {
           </ButtonRound>
         </Flex>
       </form>
+
+      {showSuccessful && <ShowSuccessful />}
     </>
   );
 };
