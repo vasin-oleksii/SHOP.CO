@@ -1,8 +1,9 @@
 import { Button, Flex, HStack, useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCartState } from "../../../store/useCartState";
 import { ProductState } from "../ProductPage";
 import NumberFlow from "@number-flow/react";
+import { useLocation } from "react-router-dom";
 
 const AddToCart = ({
   product,
@@ -13,6 +14,8 @@ const AddToCart = ({
   isButtonClicked: boolean;
   resetButtonIsClicked: () => void;
 }) => {
+  const { pathname } = useLocation();
+
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
   const [buttonDisable, setButtonDisable] = useState(false);
   const { addPrduitToCart } = useCartState();
@@ -38,6 +41,10 @@ const AddToCart = ({
     setButtonDisable(true);
     resetButtonIsClicked();
   };
+
+  useEffect(() => {
+    setButtonDisable(false);
+  }, [pathname]);
 
   return (
     <Flex>
@@ -91,12 +98,13 @@ const AddToCart = ({
               toast({
                 title: titleForToast,
                 status: "success",
-                position: "bottom-right",
+                position: "bottom",
                 isClosable: true,
               });
             }
           }}
           opacity={!isButtonClicked && buttonDisable ? "0.5" : "1"}
+          cursor={!isButtonClicked && buttonDisable ? "not-allowed" : "pointer"}
         >
           Add to Cart
         </Button>

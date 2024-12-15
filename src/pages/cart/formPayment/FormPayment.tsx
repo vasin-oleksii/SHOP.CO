@@ -37,7 +37,7 @@ const FormPayment = () => {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      console.log(post);
+
       setIsLoading(false);
       toast({
         title: "Bill was sended",

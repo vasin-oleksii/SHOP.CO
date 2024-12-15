@@ -62,6 +62,8 @@ const FormCheckout = ({
           w="100%"
           p="20.5px 0px"
           onClick={() => setShowPayment((state) => !state)}
+          opacity={totalProductsLength === 0 ? "0.65" : "1"}
+          cursor={totalProductsLength === 0 ? "not-allowed" : "pointer"}
         >
           Go to Checkout
           <ArrowForwardIcon ml="12px" />

@@ -73,7 +73,6 @@ export const useCategoryState = create<CategoryState>()(
           `${fullUrlSearch}page=${page}&limit=${limit}`
         );
         const fetchDataAll = await fetch(`${fullUrlSearch}`);
-        console.log(`${fullUrlSearch}page=${page}&limit=${limit}`);
 
         const dataAll = await fetchDataAll.json();
         const dataPerPage = await fetchDataPerPage.json();
