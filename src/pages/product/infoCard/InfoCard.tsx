@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, Heading, HStack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarRatings from "../../../components/common/StarRatings";
 import DiscountPrice from "../../../components/common/DiscountPrice";
 import DividerCustom from "../../../components/common/divider/DividerCustom";
@@ -15,6 +15,10 @@ const InfoCard = ({ product }: { product: ProductState }) => {
   const [selectedSize, setSelectedSize] = useState(product.size);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [newProduct, setNewProduct] = useState(product);
+
+  useEffect(() => {
+    setNewProduct(product);
+  }, [product]);
 
   const handleChangeProduct = ({
     color = sectedColor,
