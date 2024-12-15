@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, VStack, Text, Divider } from "@chakra-ui/react";
-import NumberFlow from "@number-flow/react";
+import { Flex, Heading, VStack, Divider } from "@chakra-ui/react";
+
 import OrederLine from "./OrederLine";
 import FormCheckout from "../formCheckout/FormCheckout";
 import { useState } from "react";
@@ -64,6 +64,7 @@ const OrderSummary = ({
         />
       </VStack>
       <FormCheckout
+        totalProductsLength={produitsInCart.length}
         discoundCode={discoundCode}
         isSubmit={isSubmit}
         setDiscoundCode={setDiscoundCode}
