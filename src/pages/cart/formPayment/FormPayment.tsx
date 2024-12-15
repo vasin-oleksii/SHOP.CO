@@ -12,13 +12,14 @@ import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ShowSuccessful from "./ShowSuccessful";
+import NumberFlow from "@number-flow/react";
 
 type Inputs = {
   name: string;
   email: string;
 };
 
-const FormPayment = () => {
+const FormPayment = ({ totalForPay }: { totalForPay: number }) => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const {
@@ -34,7 +35,7 @@ const FormPayment = () => {
       setIsLoading(true);
       const post = await fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, totalForPay }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -107,7 +108,14 @@ const FormPayment = () => {
             type="submit"
             isLoading={isLoading}
           >
-            Create Invoice
+            <Flex align="center" gap="10px">
+              <Text>Create Invoice</Text>
+
+              <NumberFlow
+                value={totalForPay}
+                format={{ currency: "USD", style: "currency" }}
+              />
+            </Flex>
           </ButtonRound>
         </Flex>
       </form>

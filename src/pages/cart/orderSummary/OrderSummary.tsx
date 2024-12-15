@@ -32,6 +32,9 @@ const OrderSummary = ({
   const isFree = discoundCode.toLowerCase() === "free" && isSubmit;
   const priceWithDiscount = isFree ? totalPrice : totalPrice * 0.2;
   const priceDilivery = isFree ? 0 : 15;
+  const totalForPay = isFree
+    ? 0
+    : totalPrice - priceWithDiscount + priceDilivery;
 
   return (
     <Flex
@@ -59,7 +62,7 @@ const OrderSummary = ({
         <OrederLine
           color="black"
           title="Total"
-          value={isFree ? 0 : totalPrice - priceWithDiscount + priceDilivery}
+          value={totalForPay}
           accentText
         />
       </VStack>
@@ -69,6 +72,7 @@ const OrderSummary = ({
         isSubmit={isSubmit}
         setDiscoundCode={setDiscoundCode}
         setIsSumbit={setIsSumbit}
+        totalForPay={totalForPay}
       />
     </Flex>
   );

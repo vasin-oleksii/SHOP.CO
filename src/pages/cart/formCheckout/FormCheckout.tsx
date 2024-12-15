@@ -11,9 +11,11 @@ const FormCheckout = ({
   isSubmit,
   setDiscoundCode,
   setIsSumbit,
+  totalForPay,
   totalProductsLength,
 }: {
   discoundCode: string;
+  totalForPay: number;
   totalProductsLength: number;
   isSubmit: boolean;
   setDiscoundCode: (value: string) => void;
@@ -22,7 +24,7 @@ const FormCheckout = ({
   const [showPaymentPage, setShowPaymentPage] = useState<boolean>(false);
 
   if (showPaymentPage && totalProductsLength) {
-    return <FormPayment />;
+    return <FormPayment totalForPay={totalForPay} />;
   }
 
   return (
