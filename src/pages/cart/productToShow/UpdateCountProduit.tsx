@@ -1,27 +1,21 @@
 import { Button, HStack } from "@chakra-ui/react";
 import { useCartState } from "../../../store/useCartState";
-import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import NumberFlow from "@number-flow/react";
+import { ProductCart } from "../../../store/types";
 
-const UpdateCountProduit = ({ product }: { product: any }) => {
-  const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState<number>(
-    product.countProduit
-  );
-
+const UpdateCountProduit = ({ product }: { product: ProductCart }) => {
   const { addPrduitToCart, removeProduitFromCart } = useCartState();
 
   const increaseValue = () => {
-    setNumberOfGoodsForBuy((prevNum) => (prevNum === 1 ? 1 : prevNum - 1));
     addPrduitToCart(
       product,
-      numberOfGoodsForBuy === 1 ? 1 : numberOfGoodsForBuy - 1
+      product.countProduit === 1 ? 1 : product.countProduit - 1
     );
   };
 
   const addValue = () => {
-    setNumberOfGoodsForBuy((prevNum) => prevNum + 1);
-    addPrduitToCart(product, numberOfGoodsForBuy + 1);
+    addPrduitToCart(product, product.countProduit + 1);
   };
 
   return (
@@ -46,7 +40,7 @@ const UpdateCountProduit = ({ product }: { product: any }) => {
         </Button>
 
         <NumberFlow
-          value={numberOfGoodsForBuy}
+          value={product.countProduit}
           format={{
             trailingZeroDisplay: "stripIfInteger",
           }}

@@ -15,24 +15,13 @@ const AddToCart = ({
   resetButtonIsClicked: () => void;
 }) => {
   const { pathname } = useLocation();
-
   const [numberOfGoodsForBuy, setNumberOfGoodsForBuy] = useState(1);
   const [buttonDisable, setButtonDisable] = useState(false);
   const { addPrduitToCart } = useCartState();
   const toast = useToast();
 
-  const titleForToast =
-    numberOfGoodsForBuy === 1
-      ? `It was added in yout cart ${numberOfGoodsForBuy} item 🥰😱😎`
-      : `It was added in yout cart ${numberOfGoodsForBuy} items 🥰💙🌈`;
-
-  const increaseValue = () => {
-    setNumberOfGoodsForBuy((prevNum) => (prevNum === 1 ? 1 : prevNum - 1));
-    setButtonDisable(false);
-  };
-
-  const addValue = () => {
-    setNumberOfGoodsForBuy((prevNum) => prevNum + 1);
+  const updateNumberOfGoodsForBuy = (num: number) => {
+    setNumberOfGoodsForBuy((prevState) => Math.max(1, prevState + num));
     setButtonDisable(false);
   };
 
@@ -55,7 +44,7 @@ const AddToCart = ({
         borderRadius="62px"
       >
         <Button
-          onClick={increaseValue}
+          onClick={() => updateNumberOfGoodsForBuy(-1)}
           fontSize="24px"
           fontWeight={500}
           bgColor="greyLight"
@@ -71,7 +60,7 @@ const AddToCart = ({
         />
 
         <Button
-          onClick={addValue}
+          onClick={() => updateNumberOfGoodsForBuy(1)}
           fontSize="24px"
           fontWeight={500}
           bgColor="greyLight"
@@ -96,7 +85,9 @@ const AddToCart = ({
             addInCart();
             if (!buttonDisable || isButtonClicked) {
               toast({
-                title: titleForToast,
+                title: `It was added in yout cart ${numberOfGoodsForBuy} item${
+                  numberOfGoodsForBuy === 1 ? " 🥰💙🌈" : "s 😍💖👻"
+                } `,
                 status: "success",
                 position: "bottom",
                 isClosable: true,

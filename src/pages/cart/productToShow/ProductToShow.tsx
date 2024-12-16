@@ -14,6 +14,7 @@ interface ProductState {
   color: string;
   size: string;
   countProduit: number;
+  category_id: string;
 }
 
 const ProductToShow = ({
