@@ -6,52 +6,48 @@ interface cartState {
   produitsInCart: ProductCart[] | [];
   addPrduitToCart: (produits: any, countProduit: number) => void;
   removeProduitFromCart: (produits: ProductCart) => void;
+  updateLocalStorage: (cartProduits: ProductCart[]) => void;
 }
+
 //@ts-ignore
 const initialValue = JSON.parse(localStorage.getItem("cartProduits"));
 
 export const useCartState = create<cartState>()(
   devtools((set, get) => ({
     produitsInCart: initialValue === null ? [] : initialValue,
+
     addPrduitToCart: (produit, countProduit) => {
-      const { produitsInCart } = get();
+      const { produitsInCart, updateLocalStorage } = get();
 
       const isProductInCart =
-        produitsInCart.findIndex((el) => el.id === produit.id) !== -1
-          ? true
-          : false;
+        produitsInCart.findIndex((el) => el.id === produit.id) !== -1;
+
+      let updatedProducts;
 
       if (isProductInCart) {
-        const updatedProducts = produitsInCart.map((el) => {
+        updatedProducts = produitsInCart.map((el) => {
           const isTheSameProduct = el.id === produit.id;
 
           return isTheSameProduct ? { ...produit, countProduit } : el;
         });
-
-        set({
-          produitsInCart: updatedProducts,
-        });
-        localStorage.setItem("cartProduits", JSON.stringify(updatedProducts));
       } else {
-        const updatedProducts = [
-          ...produitsInCart,
-          { ...produit, countProduit },
-        ];
-        set({
-          produitsInCart: updatedProducts,
-        });
-        localStorage.setItem("cartProduits", JSON.stringify(updatedProducts));
+        updatedProducts = [...produitsInCart, { ...produit, countProduit }];
       }
+      updateLocalStorage(updatedProducts);
     },
+
     removeProduitFromCart: (produit) => {
-      const { produitsInCart } = get();
+      const { produitsInCart, updateLocalStorage } = get();
       const newProductsInCart = produitsInCart.filter(
         (el) => el.id !== produit.id
       );
+      updateLocalStorage(newProductsInCart);
+    },
 
-      localStorage.setItem("cartProduits", JSON.stringify(newProductsInCart));
+    updateLocalStorage: (cartProduits: ProductCart[]) => {
+      localStorage.setItem("cartProduits", JSON.stringify(cartProduits));
       set({
-        produitsInCart: newProductsInCart,
+        produitsInCart: cartProduits,
       });
     },
   }))
