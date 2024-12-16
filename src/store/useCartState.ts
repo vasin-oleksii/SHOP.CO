@@ -7,6 +7,7 @@ interface cartState {
   addPrduitToCart: (produits: any, countProduit: number) => void;
   removeProduitFromCart: (produits: ProductCart) => void;
   updateLocalStorage: (cartProduits: ProductCart[]) => void;
+  removeAllProduits: () => void;
 }
 
 //@ts-ignore
@@ -49,6 +50,11 @@ export const useCartState = create<cartState>()(
       set({
         produitsInCart: cartProduits,
       });
+    },
+
+    removeAllProduits: () => {
+      const { updateLocalStorage } = get();
+      updateLocalStorage([]);
     },
   }))
 );

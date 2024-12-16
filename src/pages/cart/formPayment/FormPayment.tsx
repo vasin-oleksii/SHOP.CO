@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ShowSuccessful from "./ShowSuccessful";
 import NumberFlow from "@number-flow/react";
+import { useCartState } from "../../../store/useCartState";
 
 type Inputs = {
   name: string;
@@ -29,6 +30,7 @@ const FormPayment = ({ totalForPay }: { totalForPay: number }) => {
     reset,
   } = useForm<Inputs>();
   const [showSuccessful, setShowSuccessful] = useState(false);
+  const { removeAllProduits } = useCartState();
 
   const onSumbit = async (data: Inputs) => {
     try {
@@ -50,6 +52,7 @@ const FormPayment = ({ totalForPay }: { totalForPay: number }) => {
       });
       if (post.ok) {
         setShowSuccessful(true);
+        removeAllProduits();
       }
       reset();
     } catch (e) {
