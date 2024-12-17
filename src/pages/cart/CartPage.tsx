@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 import HeadingCart from "./HeadingCart";
 import ContentCart from "./ContentCart";

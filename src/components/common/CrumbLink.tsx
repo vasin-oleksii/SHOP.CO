@@ -10,25 +10,34 @@ const CrumbLink = ({ pathname }: { pathname: string }) => {
 
   return (
     <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
-      {arrWithWordsToUpperCase.map((link, i) => {
-        switch (link) {
+      {arrWithWordsToUpperCase.map((linkName, i) => {
+        if (linkName.length > 20) return null;
+
+        let link;
+        switch (linkName.toLowerCase()) {
           case "product":
-            link = "Category";
+            link = "/category";
             break;
+          case "category":
+            link = "?page=1";
+            break;
+          case "cart":
+            link = "/cart";
+            break;
+          case "":
+            link = "/";
+            break;
+          default:
+            link = `/${linkName.toLowerCase()}`;
         }
 
-        if (link.length > 10) {
-          return;
-        }
-
+        const isHome = linkName === "";
         return (
           <BreadcrumbItem key={i}>
-            <Link to={"/" + link}>{link === "" ? "Home" : link}</Link>
+            <Link to={link}>{isHome ? "Home" : linkName}</Link>
           </BreadcrumbItem>
         );
       })}
-
-      {/* isCurrentPage */}
     </Breadcrumb>
   );
 };
