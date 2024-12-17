@@ -1,10 +1,21 @@
-import { Box, Flex, HStack, Img, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Img,
+  Select,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import settingsBlack from "../../../assets/icons/settingsBlack.svg";
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import useScreenWidth from "../../../components/shared/hooks/useScreenWidth";
 import { useState } from "react";
+import CustomModal from "./CustomModal";
 
 const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   const { isMobile } = useScreenWidth();
   const [showSelect, setShowSelect] = useState(!isMobile);
   const handleShowSelect = () => {
@@ -77,11 +88,14 @@ const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
             p={{ base: "12px 16px", md: "14.5px 30px" }}
             fontSize={{ base: "12px", sm: "16px" }}
             border="1px solid black"
+            onClick={onOpen}
           >
             Write a Review
           </ButtonRound>
         )}
       </HStack>
+
+      <CustomModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };

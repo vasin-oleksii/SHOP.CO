@@ -71,7 +71,12 @@ const FormPayment = ({ totalForPay }: { totalForPay: number }) => {
 
       <form onSubmit={handleSubmit(onSumbit)}>
         <FormControl id="payer-name">
-          <FormLabel htmlFor="payer-name">Your name</FormLabel>
+          <FormLabel
+            htmlFor="payer-name"
+            color={errors.name !== undefined ? "red" : "black"}
+          >
+            Your name
+          </FormLabel>
           <Input
             id="payer-name"
             placeholder="name.."
@@ -86,7 +91,12 @@ const FormPayment = ({ totalForPay }: { totalForPay: number }) => {
           <Text color="red">{errors.name?.message}</Text>
         </FormControl>
         <FormControl id="payer-mail" mt="12px">
-          <FormLabel htmlFor="payer-mail">Your email</FormLabel>
+          <FormLabel
+            htmlFor="payer-mail"
+            color={errors.email !== undefined ? "red" : "black"}
+          >
+            Your email
+          </FormLabel>
           <Input
             id="payer-mail"
             placeholder="name@gmail.com"
