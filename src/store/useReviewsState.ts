@@ -1,15 +1,22 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+export type ItemReview = {
+  name: string;
+  review: string;
+  rating: number;
+  date: string;
+};
 interface ReviewsState {
-  allReviews: [];
-  perPageReviews: [];
+  allReviews: [] | ItemReview[];
+  perPageReviews: [] | ItemReview[];
   isLoading: boolean;
   numbOfUpload: number;
   fetchReviewsPerPage: (page: number, limit: number) => void;
   fetchReviewsAll: () => void;
   increaseNumOfUpoad: (num: number) => void;
   mobileNumOfUpload: () => void;
+  addNewReview: (newItem: ItemReview) => void;
 }
 
 // @ts-ignore
@@ -62,6 +69,10 @@ export const useReviewsState = create<ReviewsState>()(
       set({
         numbOfUpload: 3,
       });
+    },
+    addNewReview: (newItem) => {
+      const { allReviews } = get();
+      set({ allReviews: [...allReviews, newItem] });
     },
   }))
 );

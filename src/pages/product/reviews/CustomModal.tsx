@@ -10,15 +10,19 @@ import {
   ModalHeader,
   ModalOverlay,
   Textarea,
+  Heading,
 } from "@chakra-ui/react";
-import React from "react";
+
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
 import ChoicedRating from "../../../components/choicedRating/ChoicedRating";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { format } from "date-fns";
+import { useReviewsState } from "../../../store/useReviewsState";
 
 type Inputs = {
   name: string;
-  reviev: string;
+  review: string;
   rating: number;
 };
 
@@ -29,6 +33,11 @@ const CustomModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  const [numSelectedStar, setNumSelectedStar] = useState<number>(3);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const { addNewReview } = useReviewsState();
+
   const {
     register,
     handleSubmit,
@@ -36,15 +45,39 @@ const CustomModal = ({
     reset,
   } = useForm<Inputs>();
 
-  const handlePostData = (data: Inputs) => {
-    console.log(data);
+  const handlePostData = async (data: Inputs) => {
+    try {
+      setIsLoading(true);
+      const dateNow = format(new Date(), "yyyy-MM-dd");
+      const newItemReview = {
+        ...data,
+        rating: numSelectedStar + 1,
+        date: dateNow,
+      };
+      // @ts-ignore
+      const post = await fetch(`${import.meta.env.VITE_API_REVIEWS}`, {
+        method: "POST",
+        body: JSON.stringify(newItemReview),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setIsLoading(false);
+      if (post.ok) {
+        setIsSuccessful(true);
+        addNewReview(newItemReview);
+      }
+    } catch (e) {
+      console.log(e);
+    }
     reset();
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent p="10px 0 35px 0">
         <ModalHeader>Write the review</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -70,15 +103,15 @@ const CustomModal = ({
               <Text color="red">{errors.name?.message}</Text>
             </FormControl>
             <FormControl mt="12px">
-              <FormLabel color={errors.reviev !== undefined ? "red" : "black"}>
-                Reviev
+              <FormLabel color={errors.review !== undefined ? "red" : "black"}>
+                Review
               </FormLabel>
               <Textarea
                 placeholder="Your things..."
                 resize="none"
-                isInvalid={errors.reviev !== undefined}
+                isInvalid={errors.review !== undefined}
                 errorBorderColor="red"
-                {...register("reviev", {
+                {...register("review", {
                   required: { value: true, message: "Is required" },
                   minLength: {
                     value: 15,
@@ -90,17 +123,31 @@ const CustomModal = ({
                   },
                 })}
               />
-              <Text color="red">{errors.reviev?.message}</Text>
+              <Text color="red">{errors.review?.message}</Text>
             </FormControl>
             <FormControl mt="12px">
               <FormLabel>Rating</FormLabel>
-              <ChoicedRating />
+              <ChoicedRating
+                numSelectedStar={numSelectedStar}
+                setNumSelectedStar={setNumSelectedStar}
+              />
             </FormControl>
 
-            <ButtonRound colorBtn="black" w="100%" mt="24px" type="submit">
+            <ButtonRound
+              colorBtn="black"
+              w="100%"
+              mt="24px"
+              type="submit"
+              isLoading={isLoading}
+            >
               Submit
             </ButtonRound>
           </form>
+          {isSuccessful && (
+            <Heading fontSize="20px" mt="16px">
+              ☺️ Your data was sent!
+            </Heading>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
