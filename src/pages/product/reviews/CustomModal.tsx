@@ -1,5 +1,5 @@
 import {
-  Flex,
+  Text,
   FormControl,
   FormLabel,
   Input,
@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 
 type Inputs = {
   name: string;
-  comment: string;
+  reviev: string;
   rating: number;
 };
 
@@ -33,7 +33,13 @@ const CustomModal = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Inputs>();
+
+  const handlePostData = (data: Inputs) => {
+    console.log(data);
+    reset();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -42,11 +48,15 @@ const CustomModal = ({
         <ModalHeader>Write the review</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form onSubmit={handleSubmit((e: Inputs) => console.log(e))}>
+          <form onSubmit={handleSubmit(handlePostData)}>
             <FormControl>
-              <FormLabel>Name</FormLabel>
+              <FormLabel color={errors.name !== undefined ? "red" : "black"}>
+                Name
+              </FormLabel>
               <Input
                 placeholder="My name..."
+                isInvalid={errors.name !== undefined}
+                errorBorderColor="red"
                 {...register("name", {
                   required: { value: true, message: "Is required" },
                   minLength: { value: 3, message: "Need more than 3 symbols" },
@@ -56,11 +66,31 @@ const CustomModal = ({
                   },
                 })}
               />
-              {errors.name?.message}
+
+              <Text color="red">{errors.name?.message}</Text>
             </FormControl>
             <FormControl mt="12px">
-              <FormLabel>Comment</FormLabel>
-              <Textarea placeholder="Your things..." resize="none" />
+              <FormLabel color={errors.reviev !== undefined ? "red" : "black"}>
+                Reviev
+              </FormLabel>
+              <Textarea
+                placeholder="Your things..."
+                resize="none"
+                isInvalid={errors.reviev !== undefined}
+                errorBorderColor="red"
+                {...register("reviev", {
+                  required: { value: true, message: "Is required" },
+                  minLength: {
+                    value: 15,
+                    message: "Need more than 15 symbols",
+                  },
+                  maxLength: {
+                    value: 150,
+                    message: "Need less than 150 symbols",
+                  },
+                })}
+              />
+              <Text color="red">{errors.reviev?.message}</Text>
             </FormControl>
             <FormControl mt="12px">
               <FormLabel>Rating</FormLabel>
