@@ -23,6 +23,7 @@ const Reviews = () => {
   const { isMobile } = useScreenWidth();
 
   const UPLOAD_ITEMS = isMobile ? 3 : 6;
+
   const {
     allReviews,
     perPageReviews,

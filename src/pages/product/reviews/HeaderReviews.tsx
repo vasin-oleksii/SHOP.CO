@@ -62,10 +62,7 @@ const HeaderReviews = ({ totlaReviews }: { totlaReviews: number }) => {
               borderRadius="62px"
               background="greyLight"
               border="none"
-            >
-              <option value="best">Best</option>
-              <option value="low">Low</option>
-            </Select>
+            ></Select>
           </Box>
         )}
 

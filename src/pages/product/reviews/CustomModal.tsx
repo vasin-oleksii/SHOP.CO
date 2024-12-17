@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Textarea,
-  Heading,
+  useToast,
 } from "@chakra-ui/react";
 
 import ButtonRound from "../../../components/common/buttons/ButtonRound";
@@ -35,7 +35,7 @@ const CustomModal = ({
 }) => {
   const [numSelectedStar, setNumSelectedStar] = useState<number>(3);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccessful, setIsSuccessful] = useState(false);
+  const toast = useToast();
   const { addNewReview } = useReviewsState();
 
   const {
@@ -65,7 +65,14 @@ const CustomModal = ({
 
       setIsLoading(false);
       if (post.ok) {
-        setIsSuccessful(true);
+        toast({
+          title: "☺️ Your data was sent!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        onClose();
+
         addNewReview(newItemReview);
       }
     } catch (e) {
@@ -143,11 +150,6 @@ const CustomModal = ({
               Submit
             </ButtonRound>
           </form>
-          {isSuccessful && (
-            <Heading fontSize="20px" mt="16px">
-              ☺️ Your data was sent!
-            </Heading>
-          )}
         </ModalBody>
       </ModalContent>
     </Modal>
