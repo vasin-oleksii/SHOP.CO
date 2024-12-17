@@ -1,6 +1,8 @@
 import { Box, CloseButton, Container, Flex, Text } from "@chakra-ui/react";
 
 import LinkWithoutBorder from "./links/LinkWithoutBorder";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface BannerPropositionHeadProps {
   title: string;
@@ -20,7 +22,8 @@ const BannerPropositionHead = ({
   toggleBanner,
   ...props
 }: BannerPropositionHeadProps) => {
-  if (!isVisible) return null;
+  const [isClicked, setIsClicked] = useState(false);
+  if (!isVisible || isClicked) return null;
 
   return (
     <Box padding="10px 0px" {...props} position="relative">
@@ -31,7 +34,9 @@ const BannerPropositionHead = ({
           fontSize={{ base: "xs", sm: "sm" }}
         >
           <Text>{title}</Text>
-          <LinkWithoutBorder marginLeft="5px">{buttonText}</LinkWithoutBorder>
+          <Link to="/cart" onClick={() => setIsClicked(true)}>
+            <LinkWithoutBorder marginLeft="5px">{buttonText}</LinkWithoutBorder>
+          </Link>
           <CloseButton
             size="md"
             position="absolute"

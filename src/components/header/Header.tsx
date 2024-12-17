@@ -133,9 +133,24 @@ const Header = () => {
                     </MenuButton>
 
                     <MenuList>
-                      <MenuItem>NEW ARRIVALS</MenuItem>
-                      <MenuItem>Top selling</MenuItem>
-                      <MenuItem>Styles</MenuItem>
+                      <MenuItem>
+                        <RouterLink to="/category?page=1">Shop</RouterLink>
+                      </MenuItem>
+                      <MenuItem>
+                        <RouterLink to="/category?page=1&color=red">
+                          On Sale
+                        </RouterLink>
+                      </MenuItem>
+                      <MenuItem>
+                        <RouterLink to="/category?page=1&color=red|navy">
+                          New Arrivals
+                        </RouterLink>
+                      </MenuItem>
+                      <MenuItem>
+                        <RouterLink to="/category?page=1&category=t-shirts">
+                          Brands
+                        </RouterLink>
+                      </MenuItem>
                     </MenuList>
                   </Menu>
                 </BreadcrumbItem>
