@@ -14,6 +14,7 @@ import InfoCard from "./infoCard/InfoCard";
 import GallerySkelet from "./gallery/GallerySkelet";
 import InfoCardSkelet from "./infoCard/InfoCardSkelet";
 import ClothesPreview from "../../components/common/ClothesPreview";
+import { Helmet } from "react-helmet";
 
 export interface ProductState {
   id: string;
@@ -49,6 +50,14 @@ const ProductPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{product?.title || "Product"} | E-commerce</title>
+        <meta
+          name="description"
+          content={product?.description || "Product description"}
+        />
+      </Helmet>
+
       <Box>
         <Container maxW="container.xl">
           <Box mt={{ base: "20px", xl: "24px" }}>

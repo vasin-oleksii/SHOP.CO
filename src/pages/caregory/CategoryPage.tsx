@@ -5,12 +5,17 @@ import ViewClothes from "./ViewClothes";
 
 import CrumbLink from "../../components/common/CrumbLink";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const CategoryPage = () => {
   const { pathname } = useLocation();
 
   return (
     <>
+      <Helmet>
+        <title>Category | Shop.co</title>
+        <meta name="description" content="Category | Shop.co" />
+      </Helmet>
       <Box>
         <Container maxW="container.xl">
           <Box mt={{ base: "20px", sm: "24px" }}>
